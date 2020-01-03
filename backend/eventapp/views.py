@@ -3,7 +3,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .models import Task, Event, Forumentry, Tag, User
-from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, EventListSerializer, EventFormSerializer
+from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer,\
+    EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer
 
 
 @api_view(['GET'])
@@ -199,5 +200,61 @@ def event_delete(request, pk):
     except Event.DoesNotExist:
         return Response({'error': 'Event does not exist'}, status=404)
     event.delete()
+    return Response(status=204)
+
+
+'''@swagger_auto_schema(method='GET', responses={200: ForumentryListSerializer(many=True)})'''
+@api_view(['GET'])
+def forumentry_list(request):
+    forumentries = Forumentry.objects.all()
+    serializer = ForumentryListSerializer(forumentries, many=True)
+    return Response(serializer.data)
+
+
+'''@swagger_auto_schema(method='GET', responses={200: ForumentryFormSerializer()})'''
+def forumentry_form_get(request, pk):
+    try:
+        forumentry = Forumentry.objects.get(pk=pk)
+    except Forumentry.DoesNotExist:
+        return Response({'error': 'Forumentry does not exist.'}, status=404)
+
+    serializer = ForumentryFormSerializer(forumentry)
+    return Response(serializer.data)
+
+
+'''@swagger_auto_schema(method='POST', request_body=ForumentryFormSerializer, responses={200: ForumentryFormSerializer()})'''
+@api_view(['POST'])
+def forumentry_form_create(request):
+    """data = JSONParser().parse(request)"""
+    serializer = ForumentryFormSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
+
+'''@swagger_auto_schema(method='PUT', request_body=ForumentryFormSerializer, responses={200: ForumentryFormSerializer()})'''
+@api_view(['PUT'])
+def forumentry_form_update(request, pk):
+    try:
+        forumentry = Forumentry.objects.get(pk=pk)
+    except Forumentry.DoesNotExist:
+        return Response({'error': 'Forum entry does not exist.'}, status=404)
+
+    """data = JSONParser().parse(request)"""
+    serializer = ForumentryFormSerializer(forumentry, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
+
+
+@api_view(['DELETE'])
+def forumentry_delete(request, pk):
+    try:
+        forumentry = Forumentry.objects.get(pk=pk)
+    except Forumentry.DoesNotExist:
+        return Response({'error': 'Forum entry does not exist.'}, status=404)
+    forumentry.delete()
     return Response(status=204)
 

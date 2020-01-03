@@ -39,10 +39,26 @@ class TagFormSerializer(serializers.ModelSerializer):
 class EventListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['name', 'datetime', 'description', 'location']
+        fields = ['id', 'name', 'datetime', 'description', 'location']
 
 class EventFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = '__all__'
 
+class ForumentryListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Forumentry
+        fields = ['id', 'title', 'content', 'datetime', 'user', 'event']
+
+    @staticmethod
+    def get_event_name(obj):
+        return obj.event.name if obj.event else ''
+
+
+class ForumentryFormSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Forumentry
+        fields = '__all__'
