@@ -13,6 +13,8 @@ class User(models.Model):
     active = models.BooleanField()
     #test luki
 
+    #test luki
+
     def __str__(self): return self.username
 
 
