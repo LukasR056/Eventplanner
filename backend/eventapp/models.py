@@ -61,6 +61,6 @@ class Task(models.Model):
 class Tag(models.Model):
     name = models.TextField()
     events = models.ManyToManyField(Event)
-    #TEST1
+
 
     def __str__(self): return self.name
