@@ -45,9 +45,7 @@ def task_form_update(request, pk):
         task = Task.objects.get(pk=pk)
     except Task.DoesNotExist:
         return Response({'error': 'Task does not exist.'}, status=404)
-
-    data = JSONParser().parse(request)
-    serializer = TaskFormSerializer(task, data=data)
+    serializer = TaskFormSerializer(task, data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
