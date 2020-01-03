@@ -1,9 +1,14 @@
+import datetime
+
 from django.db import models
 
 
 # Create your models here.
 class User(models.Model):
-    username = models.TextField(unique=True)
+    first_name = models.TextField()
+    last_name = models.TextField()
+    username = models.TextField(unique=True, null=False)
+    birthday = models.DateField(default=datetime.date.today)
     email = models.TextField()
     active = models.BooleanField()
 
