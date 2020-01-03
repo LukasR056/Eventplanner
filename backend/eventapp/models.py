@@ -11,9 +11,6 @@ class User(models.Model):
     birthday = models.DateField(default=datetime.date.today)
     email = models.TextField()
     active = models.BooleanField()
-    #test luki
-
-    #test luki
 
     def __str__(self): return self.username
 
@@ -55,7 +52,7 @@ class Task(models.Model):
     status = models.CharField(max_length=1, choices=STATUS)
     deadline = models.DateTimeField()
     responsible = models.ForeignKey(User, on_delete=models.CASCADE,related_name='responsible')
-    supporters = models.ManyToManyField(User, related_name='supporters')
+    supporters = models.ManyToManyField(User, related_name='supporters', null=True, blank=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
     def __str__(self): return self.title
