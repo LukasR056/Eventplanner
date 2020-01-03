@@ -1,17 +1,18 @@
 from rest_framework import serializers
 
-from eventapp.models import User
+from .models import *
 
 
 class UserList(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name','last_name','username','birthday','email','active','planner','invited','responsible','supporters']
+        fields = ['id', 'first_name','last_name','username','birthday','email','active','planner','invited','responsible','supporters']
 
 
 class UserForm (serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = '__all__'
 
 class TaskListSerializer(serializers.ModelSerializer):
     """event_name = serializers.SerializerMethodField()"""

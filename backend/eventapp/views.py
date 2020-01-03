@@ -1,17 +1,10 @@
 from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from django.http import HttpResponse
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import api_view
-from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 
 from .models import Task, Event, Forumentry, Tag, User
-from .serializers import TaskListSerializer, TaskFormSerializer
-from eventapp.models import User
-from eventapp.serializers import UserList, UserForm
-
+from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm
 
 @api_view(['GET'])
 def user_list(request):
@@ -31,6 +24,11 @@ def user_form(request,pk):
 @api_view(['POST'])
 def user_form_create(request):
     serializer = UserForm(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
 
 
 @swagger_auto_schema(method='GET', responses={200: TaskListSerializer(many=True)})
@@ -69,6 +67,11 @@ def user_form_update(request,pk):
     except User.DoesNotExist:
         return Response({'error': 'User does not exist.'}, status=404)
     serializer = UserForm(user, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
+
 
 @swagger_auto_schema(method='PUT', request_body=TaskFormSerializer, responses={200: TaskFormSerializer()})
 @api_view(['PUT'])
