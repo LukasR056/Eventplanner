@@ -1,5 +1,4 @@
 from rest_framework import status
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -46,7 +45,7 @@ def tag_form_create(request):
     return Response(serializer.errors, status=400)
 
 
-@swagger_auto_schema(method='GET', responses={200: TaskListSerializer(many=True)})
+# @swagger_auto_schema(method='GET', responses={200: TaskListSerializer(many=True)})
 @api_view(['GET'])
 def tasks_list(request):
     events = Task.objects.all()
@@ -54,7 +53,7 @@ def tasks_list(request):
     return Response(serializer.data)
 
 
-@swagger_auto_schema(method='GET', responses={200: TaskFormSerializer()})
+# @swagger_auto_schema(method='GET', responses={200: TaskFormSerializer()})
 @api_view(['GET'])
 def task_form_get(request, pk):
     try:
@@ -66,7 +65,7 @@ def task_form_get(request, pk):
     return Response(serializer.data)
 
 
-@swagger_auto_schema(method='POST', request_body=TaskFormSerializer, responses={200: TaskFormSerializer()})
+# @swagger_auto_schema(method='POST', request_body=TaskFormSerializer, responses={200: TaskFormSerializer()})
 @api_view(['POST'])
 def task_form_create(request):
     serializer = TaskFormSerializer(data=request.data)
@@ -88,7 +87,7 @@ def user_form_update(request,pk):
     return Response(serializer.errors, status=400)
 
 
-@swagger_auto_schema(method='PUT', request_body=TaskFormSerializer, responses={200: TaskFormSerializer()})
+# @swagger_auto_schema(method='PUT', request_body=TaskFormSerializer, responses={200: TaskFormSerializer()})
 @api_view(['PUT'])
 def task_form_update(request, pk):
     try:
