@@ -1,11 +1,19 @@
+import datetime
+
 from django.db import models
 
 
 # Create your models here.
 class User(models.Model):
-    username = models.TextField(unique=True)
+    first_name = models.TextField()
+    last_name = models.TextField()
+    username = models.TextField(unique=True, null=False)
+    birthday = models.DateField(default=datetime.date.today)
     email = models.TextField()
     active = models.BooleanField()
+    #test luki
+
+    #test luki
 
     def __str__(self): return self.username
 
@@ -56,6 +64,7 @@ class Task(models.Model):
 class Tag(models.Model):
     name = models.TextField()
     events = models.ManyToManyField(Event)
+
 
     def __str__(self): return self.name
 
