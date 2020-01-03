@@ -31,8 +31,7 @@ def task_form_get(request, pk):
 @swagger_auto_schema(method='POST', request_body=TaskFormSerializer, responses={200: TaskFormSerializer()})
 @api_view(['POST'])
 def task_form_create(request):
-    data = JSONParser().parse(request)
-    serializer = TaskFormSerializer(data=data)
+    serializer = TaskFormSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
