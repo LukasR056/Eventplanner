@@ -1,14 +1,15 @@
 from rest_framework import serializers
-from .models import *
+
+from eventapp.models import User
 
 
-class ForumentryListSerializer(serializers.ModelSerializer):
-    forumentry_title = serializers.SerializerMethodField()
-
+class UserList(serializers.ModelSerializer):
     class Meta:
-        model = Forumentry
-        fields = ['id', 'title', 'content', 'datetime', 'user', 'event']
+        model = User
+        fields = ['first_name','last_name','username','birthday','email','active','planner','invited','responsible','supporters']
 
-    def get_forumentry_title(self, obj):
-        return obj.forumentry.title if obj.forumentry else ''
 
+class UserForm (serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
