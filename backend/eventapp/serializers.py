@@ -30,3 +30,19 @@ class TaskFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = '__all__'
+
+class TagFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = '__all__'
+
+class EventListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['name', 'datetime', 'description', 'location']
+
+class EventFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = '__all__'
+

@@ -1,10 +1,10 @@
 from rest_framework import status
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .models import Task, Event, Forumentry, Tag, User
-from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm
+from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, EventListSerializer, EventFormSerializer
+
 
 @api_view(['GET'])
 def user_list(request):
@@ -29,9 +29,23 @@ def user_form_create(request):
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
 
+''' TAG SERIALIZERS '''
+@api_view(['GET'])
+def tag_form_list(request):
+    tags = Tag.objects.all()
+    serializer = TagFormSerializer(tags, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def tag_form_create(request):
+    serializer = TagFormSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
 
 
-@swagger_auto_schema(method='GET', responses={200: TaskListSerializer(many=True)})
+# @swagger_auto_schema(method='GET', responses={200: TaskListSerializer(many=True)})
 @api_view(['GET'])
 def tasks_list(request):
     events = Task.objects.all()
@@ -39,7 +53,7 @@ def tasks_list(request):
     return Response(serializer.data)
 
 
-@swagger_auto_schema(method='GET', responses={200: TaskFormSerializer()})
+# @swagger_auto_schema(method='GET', responses={200: TaskFormSerializer()})
 @api_view(['GET'])
 def task_form_get(request, pk):
     try:
@@ -51,7 +65,7 @@ def task_form_get(request, pk):
     return Response(serializer.data)
 
 
-@swagger_auto_schema(method='POST', request_body=TaskFormSerializer, responses={200: TaskFormSerializer()})
+# @swagger_auto_schema(method='POST', request_body=TaskFormSerializer, responses={200: TaskFormSerializer()})
 @api_view(['POST'])
 def task_form_create(request):
     serializer = TaskFormSerializer(data=request.data)
@@ -73,7 +87,7 @@ def user_form_update(request,pk):
     return Response(serializer.errors, status=400)
 
 
-@swagger_auto_schema(method='PUT', request_body=TaskFormSerializer, responses={200: TaskFormSerializer()})
+# @swagger_auto_schema(method='PUT', request_body=TaskFormSerializer, responses={200: TaskFormSerializer()})
 @api_view(['PUT'])
 def task_form_update(request, pk):
     try:
@@ -81,6 +95,74 @@ def task_form_update(request, pk):
     except Task.DoesNotExist:
         return Response({'error': 'Task does not exist.'}, status=404)
     serializer = TaskFormSerializer(task, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
+
+@api_view(['GET'])
+def tag_form_get(request, pk):
+    try:
+        tag = Tag.objects.get(pk=pk)
+    except Tag.DoesNotExist:
+        return Response({'error': 'Tag does not exist'}, status=404)
+
+    serializer = TagFormSerializer(tag)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+def tag_form_update(request, pk):
+    try:
+        tag = Tag.objects.get(pk=pk)
+    except Tag.DoesNotExist:
+        return Response({'error': 'Tag does not exist'}, status=404)
+    serializer = TagFormSerializer(tag, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
+
+@api_view(['DELETE'])
+def tag_delete(request, pk):
+    try:
+        tag = Tag.objects.get(pk=pk)
+    except Tag.DoesNotExist:
+        return Response({'error': 'Tag does not exist'}, status=404)
+    tag.delete()
+    return Response(status=204)
+
+
+''' EVENT SERIALIZERS '''
+@api_view(['GET'])
+def event_list(request):
+    events = Event.objects.all()
+    serializers = EventListSerializer(events, many=True)
+    return Response(serializers.data)
+
+@api_view(['POST'])
+def event_form_create(request):
+    serializer = EventFormSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response (serializer.errors, status=400)
+
+@api_view(['GET'])
+def event_form_get(request, pk):
+    try:
+        event = Event.objects.get(pk=pk)
+    except Event.DoesNotExist:
+        return Response({'error': 'Event does not exist'}, status=404)
+    serializer = EventFormSerializer(event)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def event_form_update(request, pk):
+    try:
+        event = Event.objects.get(pk=pk)
+    except Event.DoesNotExist:
+        return Response({'error', 'Event does not exist'}, status=404)
+    serializer = EventFormSerializer(event, data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
@@ -109,3 +191,13 @@ def task_delete(request, pk):
         return Response({'error': 'Task does not exist.'}, status=404)
     task.delete()
     return Response(status=204)
+
+@api_view(['DELETE'])
+def event_delete(request, pk):
+    try:
+        event = Event.objects.get(pk=pk)
+    except Event.DoesNotExist:
+        return Response({'error': 'Event does not exist'}, status=404)
+    event.delete()
+    return Response(status=204)
+

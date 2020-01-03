@@ -17,10 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url
 from django.urls import path
+from django.contrib import admin
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
-from rest_framework_jwt.views import obtain_jwt_token
-from django.contrib import admin
 
 
 from eventapp import views
@@ -39,6 +38,17 @@ urlpatterns = [
     path('task/<int:pk>/update', views.task_form_update),
     path('task/<int:pk>/delete', views.task_delete),
 
+    path('tag/list', views.tag_form_list),
+    path('tag/create', views.tag_form_create),
+    path('tag/<int:pk>/get', views.tag_form_get),
+    path('tag/<int:pk>/update', views.tag_form_update),
+    path('tag/<int:pk>/delete', views.tag_delete),
+
+    path('event/list', views.event_list),
+    path('event/create', views.event_form_create),
+    path('event/<int:pk>/get', views.event_form_get),
+    path('event/<int:pk>/update', views.event_form_update),
+    path('event/<int:pk>/delete', views.event_delete),
 ]
 
 schema_view = get_schema_view(

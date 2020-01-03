@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5df3ac13-d73d-4c58-a9a0-216f2fdfa99f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Eventplanner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Eventplanner.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/config/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/eventapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/eventapp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/eventapp/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/eventapp/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/eventapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/eventapp/views.py" afterDir="false" />
     </list>
@@ -94,6 +95,7 @@
       <updated>1578040284704</updated>
       <workItem from="1578040286163" duration="17625000" />
       <workItem from="1578062827924" duration="873000" />
+      <workItem from="1578067285756" duration="250000" />
     </task>
     <servers />
   </component>

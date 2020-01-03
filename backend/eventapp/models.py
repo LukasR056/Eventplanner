@@ -12,7 +12,8 @@ class User(models.Model):
     email = models.TextField()
     active = models.BooleanField()
 
-    def __str__(self): return self.username
+    def __str__(self):
+        return self.username
 
 
 class Event(models.Model):
@@ -22,11 +23,12 @@ class Event(models.Model):
     location = models.TextField()
     public = models.BooleanField()
     eventplanner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='planner')
-    invited = models.ManyToManyField(User, related_name='invited')
+    invited = models.ManyToManyField(User, related_name='invited', blank=True)
 
     # https://stackoverflow.com/questions/13918968/multiple-many-to-many-relations-to-the-same-model-in-django
 
-    def __str__(self): return self.name
+    def __str__(self):
+        return self.name
 
 
 class Forumentry(models.Model):
@@ -36,7 +38,8 @@ class Forumentry(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
-    def __str__(self): return self.title
+    def __str__(self):
+        return self.title
 
 
 class Task(models.Model):
@@ -55,15 +58,14 @@ class Task(models.Model):
     supporters = models.ManyToManyField(User, related_name='supporters', null=True, blank=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
-    def __str__(self): return self.title
+    def __str__(self):
+        return self.title
 
 
 class Tag(models.Model):
     name = models.TextField()
-    events = models.ManyToManyField(Event)
+    events = models.ManyToManyField(Event, blank=True)
+    # wird beidseitig benötigt und muss noch gelöst werden
 
-
-    def __str__(self): return self.name
-
-
-'''test'''
+    def __str__(self):
+        return self.name
