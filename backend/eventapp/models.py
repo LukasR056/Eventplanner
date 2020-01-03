@@ -58,3 +58,6 @@ class Tag(models.Model):
     events = models.ManyToManyField(Event)
 
     def __str__(self): return self.name
+
+
+'''test'''
