@@ -11,6 +11,7 @@ class User(models.Model):
     birthday = models.DateField(default=datetime.date.today)
     email = models.TextField()
     active = models.BooleanField()
+    #test luki
 
     def __str__(self): return self.username
 
