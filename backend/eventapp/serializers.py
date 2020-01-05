@@ -39,7 +39,7 @@ class TagFormSerializer(serializers.ModelSerializer):
 class EventListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['id', 'name', 'datetime', 'description', 'location']
+        fields = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner']
 
 class EventFormSerializer(serializers.ModelSerializer):
     class Meta:

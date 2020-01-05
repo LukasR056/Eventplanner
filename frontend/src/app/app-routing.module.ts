@@ -9,6 +9,7 @@ import {ForumentryFormComponent} from './forumentry-form/forumentry-form.compone
 import {EventFormComponent} from './event-form/event-form.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {UserFormComponent} from './user-form/user-form.component';
+import {EventListComponent} from './event-list/event-list.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,7 @@ const routes: Routes = [
   { path: 'tag-form', component: TagFormComponent },
   { path: 'forumentry-list', component: ForumentryListComponent },
   { path: 'forumentry-form', component: ForumentryFormComponent },
-  { path: 'event-list', component: EventFormComponent },
+  { path: 'event-list', component: EventListComponent },
   { path: 'event-form', component: EventFormComponent },
   { path: 'user-list', component: UserListComponent },
   { path: 'user-form', component: UserFormComponent },

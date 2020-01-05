@@ -1,1 +1,52 @@
-<p>event-form works!</p>
+
+<form [formGroup]="eventFormGroup" class="event-form">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Name" formControlName="name">
+    <mat-hint align="end">The name of the event</mat-hint>
+  </mat-form-field>
+
+ <!-- <app-date placeholder="Datetime" formControlName="datetime" hint="Datetime des Penis"
+            [required]="true"></app-date> -->
+
+  <mat-form-field>
+    <input matInput type="datetime-local" placeholder="start date">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Description" formControlName="description">
+    <mat-hint align="end">The description of the event</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Location" formControlName="location">
+    <mat-hint align="end">The location of the event</mat-hint>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="public">public</mat-checkbox>
+
+  <mat-form-field>
+    <mat-select placeholder="Eventplanner"
+                formControlName="eventplanner" multiple>
+      <mat-option [value]="null">Unknown</mat-option>
+      <mat-option [value]="userOption.id" *ngFor="let userOption of userOptions">{{userOption.username}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">The Author of the book</mat-hint>
+  </mat-form-field>
+<br>
+
+  <mat-form-field>
+    <mat-select placeholder="Invited"
+                formControlName="invited" multiple>
+      <mat-option [value]="null">Unknown</mat-option>
+      <mat-option [value]="userOption.id" *ngFor="let userOption of userOptions">{{userOption.username}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">The Author of the book</mat-hint>
+  </mat-form-field>
+
+  <mat-card-actions align="center">
+    <button mat-raised-button color="primary" [disabled]="!eventFormGroup.valid" (click)="createEvent()">
+      <span *ngIf="!eventFormGroup.controls.id.value">Create</span>
+      <span *ngIf="eventFormGroup.controls.id.value">Update</span>
+    </button>
+  </mat-card-actions>
+</form>

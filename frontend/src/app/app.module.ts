@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {DateComponent} from './date/date.component';
 import {HttpClientModule} from '@angular/common/http';
 import {ReactiveFormsModule} from '@angular/forms';
 import { TaskListComponent } from './task-list/task-list.component';
@@ -15,6 +16,17 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { TagListComponent } from './tag-list/tag-list.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatMenuModule, MatNativeDateModule,
+  MatSelectModule,
+  MatTableModule,
+  MatToolbarModule
+} from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -28,13 +40,26 @@ import { TagFormComponent } from './tag-form/tag-form.component';
     UserListComponent,
     UserFormComponent,
     TagListComponent,
-    TagFormComponent
+    TagFormComponent,
+    DateComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
