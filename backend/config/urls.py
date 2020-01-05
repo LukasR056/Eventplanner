@@ -26,7 +26,7 @@ from eventapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', views.user_list),
+    path('user/list/', views.user_list),
     path('user/<int:pk>/get', views.user_form),
     path('user/create', views.user_form_create),
     path('user/<int:pk>/update', views.user_form_update),

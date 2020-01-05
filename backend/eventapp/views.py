@@ -3,24 +3,26 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from .models import Task, Event, Forumentry, Tag, User
-from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer,\
+from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, \
     EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer
 
 
 @api_view(['GET'])
 def user_list(request):
     users = User.objects.all()
-    serializers = UserList(users,many=True)
+    serializers = UserList(users, many=True)
     return Response(serializers.data)
 
+
 @api_view(['GET'])
-def user_form(request,pk):
+def user_form(request, pk):
     try:
         user = User.objects.get(pk=pk)
     except User.DoesNotExist:
         return Response({'error': 'User does not exist.'}, status=404)
     serializer = UserForm(user)
-    return Response (serializer.data)
+    return Response(serializer.data)
+
 
 @api_view(['POST'])
 def user_form_create(request):
@@ -30,12 +32,16 @@ def user_form_create(request):
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
 
+
 ''' TAG SERIALIZERS '''
+
+
 @api_view(['GET'])
 def tag_form_list(request):
     tags = Tag.objects.all()
     serializer = TagFormSerializer(tags, many=True)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def tag_form_create(request):
@@ -75,8 +81,9 @@ def task_form_create(request):
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
 
+
 @api_view(['PUT'])
-def user_form_update(request,pk):
+def user_form_update(request, pk):
     try:
         user = User.objects.get(pk=pk)
     except User.DoesNotExist:
@@ -101,6 +108,7 @@ def task_form_update(request, pk):
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
 
+
 @api_view(['GET'])
 def tag_form_get(request, pk):
     try:
@@ -110,6 +118,7 @@ def tag_form_get(request, pk):
 
     serializer = TagFormSerializer(tag)
     return Response(serializer.data)
+
 
 @api_view(['PUT'])
 def tag_form_update(request, pk):
@@ -123,6 +132,7 @@ def tag_form_update(request, pk):
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
 
+
 @api_view(['DELETE'])
 def tag_delete(request, pk):
     try:
@@ -134,11 +144,14 @@ def tag_delete(request, pk):
 
 
 ''' EVENT SERIALIZERS '''
+
+
 @api_view(['GET'])
 def event_list(request):
     events = Event.objects.all()
     serializers = EventListSerializer(events, many=True)
     return Response(serializers.data)
+
 
 @api_view(['POST'])
 def event_form_create(request):
@@ -146,7 +159,8 @@ def event_form_create(request):
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
-    return Response (serializer.errors, status=400)
+    return Response(serializer.errors, status=400)
+
 
 @api_view(['GET'])
 def event_form_get(request, pk):
@@ -156,6 +170,7 @@ def event_form_get(request, pk):
         return Response({'error': 'Event does not exist'}, status=404)
     serializer = EventFormSerializer(event)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def event_form_update(request, pk):
@@ -169,8 +184,9 @@ def event_form_update(request, pk):
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
 
-@api_view(['GET','DELETE'])
-def user_delete(request,pk):
+
+@api_view(['GET', 'DELETE'])
+def user_delete(request, pk):
     try:
         user = User.objects.get(pk=pk)
     except User.DoesNotExist:
@@ -184,6 +200,7 @@ def user_delete(request,pk):
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 @api_view(['DELETE'])
 def task_delete(request, pk):
     try:
@@ -192,6 +209,7 @@ def task_delete(request, pk):
         return Response({'error': 'Task does not exist.'}, status=404)
     task.delete()
     return Response(status=204)
+
 
 @api_view(['DELETE'])
 def event_delete(request, pk):
@@ -204,6 +222,8 @@ def event_delete(request, pk):
 
 
 '''@swagger_auto_schema(method='GET', responses={200: ForumentryListSerializer(many=True)})'''
+
+
 @api_view(['GET'])
 def forumentry_list(request):
     forumentries = Forumentry.objects.all()
@@ -212,6 +232,8 @@ def forumentry_list(request):
 
 
 '''@swagger_auto_schema(method='GET', responses={200: ForumentryFormSerializer()})'''
+
+
 def forumentry_form_get(request, pk):
     try:
         forumentry = Forumentry.objects.get(pk=pk)
@@ -223,6 +245,8 @@ def forumentry_form_get(request, pk):
 
 
 '''@swagger_auto_schema(method='POST', request_body=ForumentryFormSerializer, responses={200: ForumentryFormSerializer()})'''
+
+
 @api_view(['POST'])
 def forumentry_form_create(request):
     """data = JSONParser().parse(request)"""
@@ -234,6 +258,8 @@ def forumentry_form_create(request):
 
 
 '''@swagger_auto_schema(method='PUT', request_body=ForumentryFormSerializer, responses={200: ForumentryFormSerializer()})'''
+
+
 @api_view(['PUT'])
 def forumentry_form_update(request, pk):
     try:
@@ -257,4 +283,3 @@ def forumentry_delete(request, pk):
         return Response({'error': 'Forum entry does not exist.'}, status=404)
     forumentry.delete()
     return Response(status=204)
-
