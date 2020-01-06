@@ -10,7 +10,8 @@ import {EventService} from '../service/event.service';
 export class EventListComponent implements OnInit {
 
   events: any[];
-  displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ]; //
+  displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
+
 
   constructor(private http: HttpClient, private eventService: EventService) { }
 

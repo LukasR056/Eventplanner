@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EventService} from '../service/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
@@ -22,7 +22,7 @@ export class EventFormComponent implements OnInit {
   ngOnInit() {
     this.eventFormGroup = this.fb.group({
       'id': [null],
-      'name' : [null],
+      'name': [null],
       'datetime': [null],
       'description': [null],
       'location': [null],
@@ -51,10 +51,10 @@ export class EventFormComponent implements OnInit {
         .subscribe(() => {
           alert('updated successfully');
         });
-    } else{
+    } else {
       this.eventService.createEvent(event)
         .subscribe((response: any) => {
-          this.router.navigate(['event-form/' + response.id]);
+          this.router.navigate(['/event-list']);
         });
     }
   }

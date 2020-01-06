@@ -1,60 +1,30 @@
 <div class="event-list">
 
-<table mat-table [dataSource]="events">
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let event">{{event.name}}</td>
-  </ng-container>
+  <mat-card class="event-card" *ngFor="let event of events" >
+    <mat-card-header>
+      <mat-card-title >{{event.name}}</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <p>
+        Description: {{event.description}}
+      </p>
+      <p>
+        Location: {{event.location}}
+      </p>
+      <p>
+        When: {{event.datetime}}
+      </p>
+      <p>
+        Is it public {{event.public}}?
+      </p>
+      <p>
+        Responsible: {{event.eventplanner}}
+      </p>
+      <p>
+        Who else: {{event.invited}}
+      </p>
+    </mat-card-content>
+  </mat-card>
 
-
-<ng-container matColumnDef="datetime">
-    <th mat-header-cell *matHeaderCellDef>Datetime</th>
-    <td mat-cell *matCellDef="let event">{{event.dateTime}}</td>
-  </ng-container>
-
-
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef>description</th>
-      <td mat-cell *matCellDef="let event">{{event.description}}</td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="location">
-      <th mat-header-cell *matHeaderCellDef>location</th>
-      <td mat-cell *matCellDef="let event">{{event.location}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="public">
-      <th mat-header-cell *matHeaderCellDef>public</th>
-      <td mat-cell *matCellDef="let event">{{event.public}}</td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="eventplanner">
-      <th mat-header-cell *matHeaderCellDef>eventplanner</th>
-      <td mat-cell *matCellDef="let event">{{event.eventplanner}}</td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="invited">
-      <th mat-header-cell *matHeaderCellDef>invited</th>
-      <td mat-cell *matCellDef="let event">{{event.invited}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let event">
-        <button mat-button [routerLink]="'/event-form/' + event.id">Edit</button>
-        <button mat-button (click)="deleteEvent(event)">Delete</button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <br>
-
-
-
-  </div>
+</div>

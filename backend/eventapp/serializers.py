@@ -6,7 +6,7 @@ from .models import *
 class UserList(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'first_name','last_name','username','birthday','email','active','planner','invited','responsible','supporters']
+        fields = ['id', 'first_name','last_name','username','birthday','email','active','eventplanner','invited','responsible','supporters']
 
         def get_user_username(self, obj):
             return obj.user.username if obj.user else ''
@@ -49,14 +49,14 @@ class EventListSerializer(serializers.ModelSerializer):
     invited = serializers.SerializerMethodField()
     class Meta:
         model = Event
-        fields = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner','invited']
+        fields = ['id', 'name', 'date','time', 'description', 'location', 'public', 'eventplanner','invited']
 
     def get_eventplanner(self, obj):
         return obj.eventplanner.username if obj.eventplanner else ''
 
     def get_invited(self, obj):
         if obj:
-            return {x.username for x in obj.invited.all()}
+            return {' ' + x.username for x in obj.invited.all()}
 
 class EventFormSerializer(serializers.ModelSerializer):
     class Meta:

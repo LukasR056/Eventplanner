@@ -24,7 +24,7 @@ import {
   MatMenuModule, MatNativeDateModule,
   MatSelectModule,
   MatTableModule,
-  MatToolbarModule
+  MatToolbarModule,
 } from '@angular/material';
 
 
