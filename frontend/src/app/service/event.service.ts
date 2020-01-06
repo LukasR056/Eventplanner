@@ -17,6 +17,10 @@ export class EventService {
     return this.http.post('/api/event/create', event);
   }
 
+  getEventWithId(id: any) {
+    return this.http.get('/api/event/' + id + '/get', id);
+  }
+
   updateEvent(event: any) {
     return this.http.put('/api/event/' + event.id + '/update', event);
   }

@@ -46,7 +46,7 @@ class Forumentry(models.Model):
 class Task(models.Model):
     STATUS = (
         ('o', 'Open'),
-        ('p', 'Process'),
+        ('i', 'In Progress'),
         ('d', 'Done')
     )
     title = models.TextField()
@@ -57,7 +57,7 @@ class Task(models.Model):
     deadline = models.DateTimeField()
     responsible = models.ForeignKey(User, on_delete=models.CASCADE,related_name='responsible')
     supporters = models.ManyToManyField(User, related_name='supporters', blank=True)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, related_name='tasks', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

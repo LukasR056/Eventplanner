@@ -1,30 +1,52 @@
-<div class="event-detail">
+<mat-card class="event-card">
+  <mat-card-header>
+    <mat-card-title >{{event.name}}</mat-card-title>
+  </mat-card-header>
+  <hr>
+  <mat-card-content>
+    <p>
+      Description: {{event.description}}
+    </p>
+    <p>
+      Location: {{event.location}}
+    </p>
+    <p>
+      When: {{event.datetime}}
+    </p>
+    <p>
+      Is it public: {{event.public}}
+    </p>
+    <p>
+      Responsible: {{event.eventplanner}}
+    </p>
+    <p>
+      Invited: {{event.invited}}
+    </p>
+  </mat-card-content>
+</mat-card>
 
-  <mat-card class="event-card" *ngFor="let event of events" >
-    <mat-card-header>
-      <mat-card-title >{{event.name}}</mat-card-title>
-    </mat-card-header>
-    <hr>
-    <mat-card-content>
-      <p>
-        Description: {{event.description}}
-      </p>
-      <p>
-        Location: {{event.location}}
-      </p>
-      <p>
-        When: {{event.datetime}}
-      </p>
-      <p>
-        Is it public {{event.public}}?
-      </p>
-      <p>
-        Responsible: {{event.eventplanner}}
-      </p>
-      <p>
-        Who else: {{event.invited}}
-      </p>
-    </mat-card-content>
-  </mat-card>
-
+<div>
+  <div class="task-status">
+    To Do
+    <div *ngFor="let task of tasksOpen"> <!--*ngIf="task.status=='o'"-->
+      Title: {{task.title}}
+      Status: {{task.status}}
+    </div>
+  </div>
+  <div class="task-status">
+    In Progress
+    <div *ngFor="let task of tasksInProgress">
+      Title: {{task.title}}
+      Status: {{task.status}}
+    </div>
+  </div>
+  <div class="task-status">
+    Done
+    <div *ngFor="let task of tasksDone">
+      Title: {{task.title}}
+      Status: {{task.status}}
+    </div>
+  </div>
+  <!--<div class="task-status">Reihe2</div>
+  ##<div class="task-status">Reihe3</div> -->
 </div>
