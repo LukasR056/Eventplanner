@@ -5,3 +5,6 @@ backend/venv/
 /.idea/
 *.pyc
 backend/config/__pycache__/urls.cpython-38.pyc
+backend/eventapp/__pycache__/
+backend/config/__pycache__/
+backend/eventapp/migrations/
