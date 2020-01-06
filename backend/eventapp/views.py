@@ -140,6 +140,13 @@ def event_list(request):
     serializers = EventListSerializer(events, many=True)
     return Response(serializers.data)
 
+
+@api_view(['GET'])
+def event_list_firstrow(request):
+    events = Event.objects.order_by('date').all()[:4]
+    serializers = EventListSerializer(events, many=True)
+    return Response(serializers.data)
+
 @api_view(['POST'])
 def event_form_create(request):
     serializer = EventFormSerializer(data=request.data)

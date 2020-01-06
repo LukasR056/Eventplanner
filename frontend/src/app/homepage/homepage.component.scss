@@ -1,0 +1,28 @@
+.event-list {
+  flex-direction: column;
+  width: 90%;
+  margin: 2rem auto;
+}
+
+.event-card {
+  max-width: 17%;
+  margin: 10px;
+  display: inline-block;
+}
+
+.mat-button {
+  display: block;
+  background-color: antiquewhite;
+  margin: 2%;
+
+}
+
+.buttons {
+  float: right;
+  margin: 5%;
+  align-items: center;
+}
+
+.task-list {
+  padding: 3%;
+}

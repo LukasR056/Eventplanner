@@ -52,6 +52,7 @@ urlpatterns = [
     path('forumentry/<int:pk>/delete', views.forumentry_delete),
 
     path('event/list', views.event_list),
+    path('event/list/firstrow', views.event_list_firstrow),
     path('event/options', views.event_list),
     path('event/create', views.event_form_create),
     path('event/<int:pk>/get', views.event_form_get),

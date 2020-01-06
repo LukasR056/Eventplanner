@@ -18,7 +18,7 @@ import { TagListComponent } from './tag-list/tag-list.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDividerModule, MatExpansionModule,
   MatFormFieldModule,
   MatInputModule,
   MatMenuModule, MatNativeDateModule,
@@ -26,6 +26,8 @@ import {
   MatTableModule,
   MatToolbarModule,
 } from '@angular/material';
+import { HomepageComponent } from './homepage/homepage.component';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 
 @NgModule({
@@ -42,6 +44,7 @@ import {
     TagListComponent,
     TagFormComponent,
     DateComponent,
+    HomepageComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +63,9 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    FlexLayoutModule,
+    MatDividerModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
