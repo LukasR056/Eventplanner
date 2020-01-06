@@ -2,3 +2,6 @@
 # Default ignored files
 /workspace.xml
 venv/
+/.idea/
+*.pyc
+backend/config/__pycache__/urls.cpython-38.pyc
