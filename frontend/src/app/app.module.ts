@@ -26,6 +26,7 @@ import {
   MatTableModule,
   MatToolbarModule,
 } from '@angular/material';
+import { EventDetailComponent } from './event-detail/event-detail.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import {
     TagListComponent,
     TagFormComponent,
     DateComponent,
+    EventDetailComponent,
   ],
   imports: [
     BrowserModule,
