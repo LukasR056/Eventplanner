@@ -19,13 +19,15 @@ import { TagFormComponent } from './tag-form/tag-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule,
-  MatFormFieldModule,
+  MatFormFieldModule, MatIconModule,
   MatInputModule,
   MatMenuModule, MatNativeDateModule,
   MatSelectModule,
   MatTableModule,
   MatToolbarModule,
 } from '@angular/material';
+import { FriendsFormComponent } from './friends-form/friends-form.component';
+import { FriendsListComponent } from './friends-list/friends-list.component';
 
 
 @NgModule({
@@ -42,6 +44,8 @@ import {
     TagListComponent,
     TagFormComponent,
     DateComponent,
+    FriendsFormComponent,
+    FriendsListComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +64,7 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

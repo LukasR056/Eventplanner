@@ -1,1 +1,43 @@
-<p>user-form works!</p>
+<form [formGroup]="userFormGroup" class="user-form">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Firstname" formControlName="first_name" required>
+    <mat-hint align="end">The firstname of the user</mat-hint>
+    <mat-error *ngIf="userFormGroup.controls.first_name.hasError('required')">Firstname is required</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Lastname" formControlName="last_name">
+    <mat-hint align="end">The lastname of the user</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Username" formControlName="username">
+    <mat-hint align="end">The username of the User</mat-hint>
+    <mat-error *ngIf="userFormGroup.controls.username.hasError('required')">Username is required</mat-error>
+  </mat-form-field>
+
+
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Email" formControlName="email">
+    <mat-hint align="end">The email of the user</mat-hint>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="active">Active</mat-checkbox>
+
+  <app-date placeholder="Birth" formControlName="birthday" hint="The birth of the User"
+            [required]="true"></app-date>
+
+
+  <mat-form-field>
+    <mat-select placeholder="Friends"
+                formControlName="friends" multiple >
+      <mat-option [value]="friendOptions.id" *ngFor="let
+      friendOptions of friendOptions">{{friendOptions.username}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">The friends of the user</mat-hint>
+  </mat-form-field>
+
+
+  <br/>
+</form>

@@ -4,7 +4,13 @@
   margin: 2rem auto;
 }
 .event-card{
-  max-width: 35%;
+  width: 25%;
   margin: 10px;
   display: inline-block;
+}
+.new-event-card
+{
+  width: 25%;
+  display: inline-block;
+  align-self: flex-end;
 }

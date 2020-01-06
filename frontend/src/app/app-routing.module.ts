@@ -10,6 +10,7 @@ import {EventFormComponent} from './event-form/event-form.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {UserFormComponent} from './user-form/user-form.component';
 import {EventListComponent} from './event-list/event-list.component';
+import {FriendsListComponent} from './friends-list/friends-list.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'event-form', component: EventFormComponent },
   { path: 'user-list', component: UserListComponent },
   { path: 'user-form', component: UserFormComponent },
+  { path: 'friends-list', component: FriendsListComponent }
   ];
 
 @NgModule({

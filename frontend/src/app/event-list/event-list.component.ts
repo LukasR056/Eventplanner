@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {EventService} from '../service/event.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-event-list',
@@ -10,10 +11,8 @@ import {EventService} from '../service/event.service';
 export class EventListComponent implements OnInit {
 
   events: any[];
-  displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
-
-  constructor(private http: HttpClient, private eventService: EventService) { }
+  constructor(private http: HttpClient, private eventService: EventService, private router: Router) { }
 
   ngOnInit() {
     this.eventService.getEvents()
@@ -27,5 +26,17 @@ export class EventListComponent implements OnInit {
       .subscribe(() => {
         this.ngOnInit();
       });
+  }
+
+  createNewEvent() {
+    this.router.navigate(['/event-form']);
+  }
+
+  moveToEventDetail(id: any) {
+    this.router.navigate(['/event-detail/' + id]);
+  }
+
+  cancelEvent() {
+    this.router.navigate(['/user-list']);
   }
 }

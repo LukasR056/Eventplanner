@@ -1,30 +1,38 @@
 <div class="event-list">
 
-  <mat-card class="event-card" *ngFor="let event of events" >
+  <mat-card class="event-card" *ngFor="let event of events" (click)="moveToEventDetail(event.id)" >
     <mat-card-header>
       <mat-card-title >{{event.name}}</mat-card-title>
     </mat-card-header>
     <hr>
     <mat-card-content>
       <p>
-        Description: {{event.description}}
-      </p>
-      <p>
         Location: {{event.location}}
       </p>
       <p>
-        When: {{event.datetime}}
+        When: {{event.date}} at {{event.time}}
       </p>
       <p>
-        Is it public {{event.public}}?
+        Is it public: {{event.public}}
       </p>
-      <p>
-        Responsible: {{event.eventplanner}}
-      </p>
-      <p>
-        Who else: {{event.invited}}
-      </p>
+
     </mat-card-content>
+    <mat-card-actions style="float: right">
+      <button mat-raised-button color="warn" mat-button (click)="cancelEvent()">CANCEL</button>
+    </mat-card-actions>
+  </mat-card>
+
+
+  <mat-card class="new-event-card" valign ="bottom">
+    <mat-card-header>
+      <mat-card-title>Create a new event!</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+    </mat-card-content>
+    <mat-card-actions >
+      <button  style="width: 100%; background-color: green; color: white" mat-button (click)="createNewEvent()" >CREATE</button>
+    </mat-card-actions>
   </mat-card>
 
 </div>
+
