@@ -18,7 +18,8 @@ class User(models.Model):
 
 class Event(models.Model):
     name = models.TextField()
-    datetime = models.DateTimeField()
+    date = models.DateField()
+    time = models.TimeField()
     description = models.TextField()
     location = models.TextField()
     public = models.BooleanField()

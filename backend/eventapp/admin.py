@@ -15,7 +15,7 @@ class ForumentryAdmin(admin.ModelAdmin):
 admin.site.register(Forumentry,ForumentryAdmin)
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ['name','datetime','description','location','public']
+    list_display = ['name','date','time','description','location','public']
     pass
 admin.site.register(Event,EventAdmin)
 

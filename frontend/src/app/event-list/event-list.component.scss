@@ -1,6 +1,10 @@
 .event-list {
-  display: flex;
   flex-direction: column;
   width: 50rem;
-  margin: 3rem auto;
+  margin: 2rem auto;
+}
+.event-card{
+  max-width: 35%;
+  margin: 10px;
+  display: inline-block;
 }
