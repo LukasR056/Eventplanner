@@ -57,6 +57,8 @@ urlpatterns = [
     path('event/<int:pk>/get', views.event_form_get),
     path('event/<int:pk>/update', views.event_form_update),
     path('event/<int:pk>/delete', views.event_delete),
+
+
 ]
 
 schema_view = get_schema_view(

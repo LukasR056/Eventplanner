@@ -22,7 +22,7 @@ class Event(models.Model):
     description = models.TextField()
     location = models.TextField()
     public = models.BooleanField()
-    eventplanner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='planner')
+    eventplanner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='eventplanner')
     invited = models.ManyToManyField(User, related_name='invited', blank=True)
 
     # https://stackoverflow.com/questions/13918968/multiple-many-to-many-relations-to-the-same-model-in-django
@@ -55,7 +55,7 @@ class Task(models.Model):
     status = models.CharField(max_length=1, choices=STATUS)
     deadline = models.DateTimeField()
     responsible = models.ForeignKey(User, on_delete=models.CASCADE,related_name='responsible')
-    supporters = models.ManyToManyField(User, related_name='supporters', null=True, blank=True)
+    supporters = models.ManyToManyField(User, related_name='supporters', blank=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
     def __str__(self):

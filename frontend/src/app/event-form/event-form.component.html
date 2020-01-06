@@ -9,7 +9,7 @@
             [required]="true"></app-date> -->
 
   <mat-form-field>
-    <input matInput type="datetime-local" placeholder="start date">
+    <input matInput type="datetime-local" placeholder="start date" formControlName="datetime">
   </mat-form-field>
 
   <mat-form-field>
@@ -26,7 +26,7 @@
 
   <mat-form-field>
     <mat-select placeholder="Eventplanner"
-                formControlName="eventplanner" multiple>
+                formControlName="eventplanner">
       <mat-option [value]="null">Unknown</mat-option>
       <mat-option [value]="userOption.id" *ngFor="let userOption of userOptions">{{userOption.username}}</mat-option>
     </mat-select>

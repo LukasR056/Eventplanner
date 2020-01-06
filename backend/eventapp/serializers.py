@@ -8,11 +8,19 @@ class UserList(serializers.ModelSerializer):
         model = User
         fields = ['id', 'first_name','last_name','username','birthday','email','active','planner','invited','responsible','supporters']
 
+        def get_user_username(self, obj):
+            return obj.user.username if obj.user else ''
+
 
 class UserForm (serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+        def get_user_username(self, obj):
+            return obj.user.username if obj.user else ''
+
+
 
 class TaskListSerializer(serializers.ModelSerializer):
     """event_name = serializers.SerializerMethodField()"""
@@ -37,9 +45,18 @@ class TagFormSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class EventListSerializer(serializers.ModelSerializer):
+    eventplanner = serializers.SerializerMethodField()
+    invited = serializers.SerializerMethodField()
     class Meta:
         model = Event
-        fields = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner']
+        fields = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner','invited']
+
+    def get_eventplanner(self, obj):
+        return obj.eventplanner.username if obj.eventplanner else ''
+
+    def get_invited(self, obj):
+        if obj:
+            return {x.username for x in obj.invited.all()}
 
 class EventFormSerializer(serializers.ModelSerializer):
     class Meta:
