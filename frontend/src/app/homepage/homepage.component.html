@@ -1,0 +1,86 @@
+<div class="event-list">
+
+  <h3>My Events</h3>
+
+  <mat-card class="event-card" *ngFor="let event of events">
+    <mat-card-header>
+      <mat-card-title>{{event.name}}</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <p>
+        Description: {{event.description}}
+      </p>
+      <p>
+        Location: {{event.location}}
+      </p>
+      <p>
+        When: {{event.datetime}}
+      </p>
+      <p>
+        Is it public {{event.public}}?
+      </p>
+      <p>
+        Responsible: {{event.eventplanner}}
+      </p>
+      <p>
+        Who else: {{event.invited}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+
+  <div class="buttons">
+    <button mat-button routerLink="../event-list">Show all events</button>
+    <button mat-button routerLink="homepage">Looking for other events?</button>
+    <button mat-button routerLink="../event-form">Create your own event!</button>
+  </div>
+
+</div>
+
+<mat-divider></mat-divider>
+
+
+
+<!-- --------------------------------------------------------------------------------------------------------- -->
+
+
+
+<div class="task-list">
+
+  <h3>My Tasks</h3>
+
+<mat-accordion class="task-expansion">
+  <mat-expansion-panel *ngFor="let task of tasks">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <strong>{{task.title}}</strong> <br>
+        event: {{task.event_name}}
+      </mat-panel-title>
+      <mat-panel-description>
+        responsible: {{task.responsible}} <br>
+        deadline: {{task.deadline}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <p>
+      Description: {{task.description}}
+    </p>
+    <p>
+      status: {{taskService.status[task.status]}}
+    </p>
+    <p>
+      deadline: {{task.deadline}}
+    </p>
+    <p>
+      responsible: {{task.responsible}}
+    </p>
+    <p>
+      supporters: {{task.supporters}}
+    </p>
+    <p>
+      event: {{task.event_name}}
+    </p>
+  </mat-expansion-panel>
+</mat-accordion>
+</div>

@@ -1,1 +1,68 @@
-<p>task-list works!</p>
+<!--<div class="task-list">
+
+  <mat-card class="task-card" *ngFor="let task of tasks" >
+    <mat-card-header>
+      <mat-card-title >{{task.title}}</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <p>
+        Description: {{task.description}}
+      </p>
+      <p>
+        status: {{taskService.status[task.status]}}
+      </p>
+      <p>
+        deadline: {{task.deadline}}
+      </p>
+      <p>
+        responsible: {{task.responsible}}
+      </p>
+      <p>
+        supporters: {{task.supporters}}
+      </p>
+      <p>
+        event: {{task.event_name}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+</div>-->
+
+<div class="task-list">
+
+  <mat-accordion class="task-expansion">
+    <mat-expansion-panel *ngFor="let task of tasks">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <strong>{{task.title}}</strong> <br>
+          event: {{task.event_name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          responsible: {{task.responsible}} <br>
+          deadline: {{task.deadline}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <p>
+        Description: {{task.description}}
+      </p>
+      <p>
+        status: {{taskService.status[task.status]}}
+      </p>
+      <p>
+        deadline: {{task.deadline}}
+      </p>
+      <p>
+        responsible: {{task.responsible}}
+      </p>
+      <p>
+        supporters: {{task.supporters}}
+      </p>
+      <p>
+        event: {{task.event_name}}
+      </p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+

@@ -1,0 +1,11 @@
+.task-list {
+  flex-direction: column;
+  width: 90%;
+  margin: 2rem auto;
+}
+
+.task-card {
+  max-width: 35%;
+  margin: 10px;
+  display: inline-block;
+}

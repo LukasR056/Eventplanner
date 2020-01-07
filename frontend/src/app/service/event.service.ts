@@ -29,5 +29,8 @@ export class EventService {
     return this.http.delete('/api/event/' + event.id + '/delete');
   }
 
+  getFirstRow() {
+    return this.http.get('/api/event/list/firstrow');
+  }
 }
 
