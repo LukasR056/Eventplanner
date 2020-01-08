@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {EventService} from '../service/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
+
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
@@ -11,8 +12,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class EventListComponent implements OnInit {
 
   events: any[];
-  displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
-
 
   constructor(private http: HttpClient, private eventService: EventService, private router: Router) { }
 
@@ -30,7 +29,14 @@ export class EventListComponent implements OnInit {
       });
   }
 
+  createNewEvent() {
+    this.router.navigate(['/event-form']);
+  }
+
   moveToEventDetail(id: any) {
     this.router.navigate(['/event-detail/' + id]);
+  }
+  cancelEvent() {
+    this.router.navigate(['/user-list']);
   }
 }

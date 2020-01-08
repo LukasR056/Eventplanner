@@ -10,12 +10,12 @@ export class UserService {
 
 
 retrieveUserOptions() {
-  return this.http.get <any[]>('/api/user/options');
+  return this.http.get <any[]>('/api/user/list/');
 }
 
 
 getUsers() {
-  return this.http.get('/api/user/list');
+  return this.http.get('/api/user/list/');
 }
 
 createUser(user: any) {

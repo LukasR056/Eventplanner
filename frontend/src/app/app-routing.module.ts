@@ -11,6 +11,7 @@ import {UserListComponent} from './user-list/user-list.component';
 import {UserFormComponent} from './user-form/user-form.component';
 import {EventListComponent} from './event-list/event-list.component';
 import {EventDetailComponent} from './event-detail/event-detail.component';
+import {FriendsListComponent} from './friends-list/friends-list.component';
 import {HomepageComponent} from './homepage/homepage.component';
 
 
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'user-list', component: UserListComponent },
   { path: 'user-form', component: UserFormComponent },
   { path: 'event-detail/:id', component: EventDetailComponent },
+  { path: 'friends-list', component: FriendsListComponent },
   { path: 'homepage', component: HomepageComponent },
 ];
 

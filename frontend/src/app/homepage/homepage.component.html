@@ -29,7 +29,6 @@
     </mat-card-content>
   </mat-card>
 
-
   <div class="buttons">
     <button mat-button routerLink="../event-list">Show all events</button>
     <button mat-button routerLink="homepage">Looking for other events?</button>
@@ -52,10 +51,11 @@
 
 <mat-accordion>
   <mat-expansion-panel *ngFor="let task of tasks">
+
     <mat-expansion-panel-header>
       <mat-panel-title>
         <strong>{{task.title}}</strong> <br>
-        event: {{task.event_name}}
+        event: {{task.event}}
       </mat-panel-title>
       <mat-panel-description>
         responsible: {{task.responsible}} <br>
@@ -66,9 +66,15 @@
     <p>
       Description: {{task.description}}
     </p>
-    <p>
-      status: {{taskService.status[task.status]}}
-    </p>
+
+      The status of this task: {{taskService.statusName[task.status]}} <br><br>
+    <mat-form-field>
+      <mat-select [(ngModel)]="task.status" >
+        <mat-option [value]="status.key" *ngFor="let status of taskService.statusName | keyvalue"
+                    (click)="updateStatus(task, status.key)">{{status.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <p>
       deadline: {{task.deadline}}
     </p>
@@ -78,9 +84,16 @@
     <p>
       supporters: {{task.supporters}}
     </p>
-    <p>
-      event: {{task.event_name}}
-    </p>
+
+    <div class="buttons">
+      <div class="button-save" >
+        <button mat-button (click)="saveTask(task, task.value)">Edit Task</button>
+      </div>
+      <div class="button-delete" >
+        <button mat-button (click)="deleteEvent(task)">Delete Task</button>
+      </div>
+    </div>
+
   </mat-expansion-panel>
 </mat-accordion>
 </div>

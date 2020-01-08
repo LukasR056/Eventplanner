@@ -1,4 +1,25 @@
 <mat-toolbar>
+  ULTIMATE EVENT
+  <div class="user-settings">
+    <button style="float: right" mat-icon-button [matMenuTriggerFor]="menu" >
+  <mat-icon>account_circle</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+  <button routerLink="user-form" mat-menu-item>
+    <mat-icon>build</mat-icon>
+    <span>Settings</span>
+  </button>
+  <button routerLink="friends-list" mat-menu-item >
+    <mat-icon>favorite</mat-icon>
+    <span>Friends</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>power_settings_new</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
+  </div>
+
   <button mat-button routerLink="event-list">Home</button>
   <button mat-button routerLink="homepage">Homepage</button>
 </mat-toolbar>

@@ -1,17 +1,18 @@
 import datetime
 
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.timezone import now
 
 
+
 # Create your models here.
-class User(models.Model):
+class User(AbstractUser):
     first_name = models.TextField()
     last_name = models.TextField()
-    username = models.TextField(unique=True, null=False)
     birthday = models.DateField(default=datetime.date.today)
-    email = models.TextField()
-    active = models.BooleanField()
+    active = models.BooleanField(default=True)
+    friends = models.ManyToManyField('self',blank=True)
 
     def __str__(self):
         return self.username

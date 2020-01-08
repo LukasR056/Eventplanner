@@ -55,8 +55,8 @@ def tag_form_create(request):
 
 @api_view(['GET'])
 def tasks_list(request):
-    events = Task.objects.all()
-    serializer = TaskListSerializer(events, many=True)
+    tasks = Task.objects.all()
+    serializer = TaskListSerializer(tasks, many=True)
     return Response(serializer.data)
 
 
@@ -93,7 +93,7 @@ def user_form_update(request, pk):
     return Response(serializer.errors, status=400)
 
 
-@api_view(['PUT'])
+@api_view(['GET', 'PUT'])
 def task_form_update(request, pk):
     try:
         task = Task.objects.get(pk=pk)
@@ -104,6 +104,17 @@ def task_form_update(request, pk):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
+
+
+@api_view(['GET', 'PUT'])
+def task_form_update_status(request, pk, status):
+    try:
+        task = Task.objects.get(pk=pk)
+        task.status = status
+        task.save()
+    except Task.DoesNotExist:
+        return Response({'error': 'Task does not exist.'}, status=404)
+    return Response(status=200)
 
 
 @api_view(['GET'])
@@ -288,3 +299,17 @@ def forumentry_delete(request, pk):
         return Response({'error': 'Forum entry does not exist.'}, status=404)
     forumentry.delete()
     return Response(status=204)
+
+
+@api_view(['GET'])
+def tasks_list_options(request,pk):
+    tasks = Task.objects.get(pk=pk)
+    serializer = TaskFormSerializer(tasks, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def event_option_list(request):
+    event = Event.objects.all()
+    serializer = EventListSerializer(event, many=True)
+    return Response(serializer.data)

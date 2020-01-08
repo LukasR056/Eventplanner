@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -6,9 +6,10 @@ import {HttpClient} from '@angular/common/http';
 })
 export class TaskService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  status = {
+  statusName = {
     o: 'Open',
     p: 'In Progress',
     d: 'Done'
@@ -18,12 +19,20 @@ export class TaskService {
     return this.http.get('/api/task/list');
   }
 
+  getTask(task: any) {
+    return this.http.get('/api/task/' + task.id + '/get', task);
+  }
+
   createTask(task: any) {
     return this.http.post('/api/task/create', task);
   }
 
   updateTask(task: any) {
     return this.http.put('/api/task/' + task.id + '/update', task);
+  }
+
+  updateTaskStatus(task: any, newStatus: any) {
+    return this.http.put('/api/task/' + task.id + '/update/status/' + newStatus, {});
   }
 
   deleteTask(task: any) {

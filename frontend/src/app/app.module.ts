@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {DateComponent} from './date/date.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { ForumentryListComponent } from './forumentry-list/forumentry-list.component';
@@ -19,13 +19,15 @@ import { TagFormComponent } from './tag-form/tag-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDividerModule, MatExpansionModule,
-  MatFormFieldModule,
-  MatInputModule,
+  MatFormFieldModule,  MatIconModule,
+  MatInputModule, MatListModule,
   MatMenuModule, MatNativeDateModule,
   MatSelectModule,
   MatTableModule,
   MatToolbarModule,
 } from '@angular/material';
+import { FriendsFormComponent } from './friends-form/friends-form.component';
+import { FriendsListComponent } from './friends-list/friends-list.component';
 import { EventDetailComponent } from './event-detail/event-detail.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
@@ -45,6 +47,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     TagListComponent,
     TagFormComponent,
     DateComponent,
+    FriendsFormComponent,
+    FriendsListComponent,
     EventDetailComponent,
     HomepageComponent,
   ],
@@ -65,9 +69,13 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatIconModule,
+    FlexLayoutModule,
     MatDividerModule,
     MatExpansionModule,
-    DragDropModule
+    MatListModule,
+    FormsModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

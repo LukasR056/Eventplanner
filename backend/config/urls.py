@@ -38,6 +38,8 @@ urlpatterns = [
     path('task/<int:pk>/get', views.task_form_get),
     path('task/<int:pk>/update', views.task_form_update),
     path('task/<int:pk>/delete', views.task_delete),
+    path('task/<int:pk>/update/status/<str:status>', views.task_form_update_status),
+    #path('task/<int:pk>/details', views.tasks_list_options),
 
     path('tag/list', views.tag_form_list),
     path('tag/create', views.tag_form_create),
