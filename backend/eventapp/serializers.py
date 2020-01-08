@@ -23,16 +23,16 @@ class UserForm (serializers.ModelSerializer):
 
 
 class TaskListSerializer(serializers.ModelSerializer):
-    event_name = serializers.SerializerMethodField()
+    event = serializers.SerializerMethodField()
     responsible = serializers.SerializerMethodField()
     supporters = serializers.SerializerMethodField()
 
     class Meta:
         model = Task
         fields = ['id', 'title', 'description', 'verified_by_planner', 'verified_by_participant',
-                  'status', 'deadline', 'responsible', 'supporters', 'event_name']
+                  'status', 'deadline', 'responsible', 'supporters', 'event']
 
-    def get_event_name(self, obj):
+    def get_event(self, obj):
         return obj.event.name if obj.event else ''
 
     def get_responsible(self, obj):
@@ -60,7 +60,7 @@ class EventListSerializer(serializers.ModelSerializer):
     invited = serializers.SerializerMethodField()
     class Meta:
         model = Event
-        fields = ['id', 'name', 'date','time', 'description', 'location', 'public', 'eventplanner','invited']
+        fields = ['id', 'name', 'date','time', 'description', 'location', 'public', 'eventplanner', 'invited']
 
     def get_eventplanner(self, obj):
         return obj.eventplanner.username if obj.eventplanner else ''

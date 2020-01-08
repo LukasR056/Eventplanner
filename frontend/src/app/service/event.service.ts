@@ -13,6 +13,10 @@ export class EventService {
     return this.http.get('/api/event/list');
   }
 
+  retrieveEvents() {
+    return this.http.get<any[]>('/api/event/list');
+  }
+
   createEvent(event: any) {
     return this.http.post('/api/event/create', event);
   }
