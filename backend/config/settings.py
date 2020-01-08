@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     'config',
 ]
 
+##costum user
+
+AUTH_USER_MODEL = 'eventapp.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -129,3 +133,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     )
 }
+
+

@@ -4,8 +4,10 @@ from django.contrib import admin
 from eventapp.models import User, Forumentry, Event, Tag, Task
 
 
+
+
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['username','email','active']
+    list_display = ['username','email','active','first_name','last_name','birthday']
     pass
 admin.site.register(User,UserAdmin)
 
