@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {DateComponent} from './date/date.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TaskListComponent } from './task-list/task-list.component';
 import { TaskFormComponent } from './task-form/task-form.component';
 import { ForumentryListComponent } from './forumentry-list/forumentry-list.component';
@@ -18,9 +18,9 @@ import { TagListComponent } from './tag-list/tag-list.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule,
-  MatFormFieldModule, MatIconModule,
-  MatInputModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDividerModule, MatExpansionModule,
+  MatFormFieldModule,  MatIconModule,
+  MatInputModule, MatListModule,
   MatMenuModule, MatNativeDateModule,
   MatSelectModule,
   MatTableModule,
@@ -28,6 +28,8 @@ import {
 } from '@angular/material';
 import { FriendsFormComponent } from './friends-form/friends-form.component';
 import { FriendsListComponent } from './friends-list/friends-list.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 
 @NgModule({
@@ -46,6 +48,7 @@ import { FriendsListComponent } from './friends-list/friends-list.component';
     DateComponent,
     FriendsFormComponent,
     FriendsListComponent,
+    HomepageComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +68,11 @@ import { FriendsListComponent } from './friends-list/friends-list.component';
     MatNativeDateModule,
     MatCheckboxModule,
     MatIconModule,
+    FlexLayoutModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatListModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
