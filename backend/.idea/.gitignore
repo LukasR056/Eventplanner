@@ -5,3 +5,4 @@ venv/
 /.idea/
 *.pyc
 backend/config/__pycache__/urls.cpython-38.pyc
+__pycache__/
