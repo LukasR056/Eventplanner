@@ -44,10 +44,23 @@ class TaskListSerializer(serializers.ModelSerializer):
 
 
 class TaskFormSerializer(serializers.ModelSerializer):
+    event_name = serializers.SerializerMethodField()
+    responsible = serializers.SerializerMethodField()
+    supporters = serializers.SerializerMethodField()
+
     class Meta:
         model = Task
         fields = '__all__'
 
+    def get_event_name(self, obj):
+        return obj.event.name if obj.event else ''
+
+    def get_responsible(self, obj):
+        return obj.responsible.username if obj.responsible else ''
+
+    def get_supporters(self, obj):
+        if obj:
+            return {' ' + x.username for x in obj.supporters.all()}
 
 class TagFormSerializer(serializers.ModelSerializer):
     class Meta:
