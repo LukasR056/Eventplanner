@@ -35,7 +35,6 @@ export class EventListComponent implements OnInit {
   moveToEventDetail(id: any) {
     this.router.navigate(['/event-detail/' + id]);
   }
-
   cancelEvent() {
     this.router.navigate(['/user-list']);
   }
