@@ -19,17 +19,17 @@ export class EventFormComponent implements OnInit {
               private router: Router, private eventService: EventService, private userService: UserService) {
   }
 
-  ngOnInit() {
-    this.eventFormGroup = this.fb.group({
-      'id': [null],
-      'name': [null],
-      'datetime': [null],
-      'description': [null],
-      'location': [null],
-      'public': [null],
-      'eventplanner': [null],
-      'invited': [null],
-    });
+  ngOnInit() {    this.eventFormGroup = this.fb.group({
+    'id': [null],
+    'name': [null],
+    'datetime': [null],
+    'description': [null],
+    'location': [null],
+    'public': [null],
+    'eventplanner': [null],
+    'invited': [null],
+  });
+
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {

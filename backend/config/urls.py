@@ -46,6 +46,8 @@ urlpatterns = [
     path('tag/<int:pk>/delete', views.tag_delete),
 
     path('forumentry/list', views.forumentry_list),
+    path('forumentry/list/event/<int:event>', views.forumentry_list_event),
+    path('forumentry/list/event/<int:event>/get', views.forumentry_list_event),
     path('forumentry/create', views.forumentry_form_create),
     path('forumentry/<int:pk>/get', views.forumentry_form_get),
     path('forumentry/<int:pk>/update', views.forumentry_form_update),

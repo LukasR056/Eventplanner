@@ -60,7 +60,7 @@ class EventListSerializer(serializers.ModelSerializer):
     invited = serializers.SerializerMethodField()
     class Meta:
         model = Event
-        fields = ['id', 'name', 'date','time', 'description', 'location', 'public', 'eventplanner', 'invited', 'tasks']
+        fields = ['id', 'name', 'date','time', 'description', 'location', 'public', 'eventplanner', 'invited', 'tasks', 'message']
 
     def get_eventplanner(self, obj):
         return obj.eventplanner.username if obj.eventplanner else ''
@@ -83,13 +83,13 @@ class EventFormSerializer(serializers.ModelSerializer):
 
 
 class ForumentryListSerializer(serializers.ModelSerializer):
+    event = serializers.SerializerMethodField()
 
     class Meta:
         model = Forumentry
-        fields = ['id', 'title', 'content', 'datetime', 'user', 'event']
+        fields = ['id', 'content', 'datetime', 'user', 'event']
 
-    @staticmethod
-    def get_event_name(obj):
+    def get_event(self, obj):
         return obj.event.name if obj.event else ''
 
 

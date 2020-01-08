@@ -28,7 +28,7 @@ import {
 } from '@angular/material';
 import { EventDetailComponent } from './event-detail/event-detail.component';
 import { HomepageComponent } from './homepage/homepage.component';
-import { FlexLayoutModule } from "@angular/flex-layout";
+
 
 
 @NgModule({
@@ -65,7 +65,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    FlexLayoutModule,
     MatDividerModule,
     MatExpansionModule
   ],

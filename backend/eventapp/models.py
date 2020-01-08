@@ -1,6 +1,7 @@
 import datetime
 
 from django.db import models
+from django.utils.timezone import now
 
 
 # Create your models here.
@@ -33,14 +34,13 @@ class Event(models.Model):
 
 
 class Forumentry(models.Model):
-    title = models.TextField()
     content = models.TextField()
-    datetime = models.DateTimeField()
+    datetime = models.DateTimeField(default=now)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, related_name='message', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.title
+        return self.content
 
 
 class Task(models.Model):
@@ -55,7 +55,7 @@ class Task(models.Model):
     verified_by_participant = models.BooleanField()
     status = models.CharField(max_length=1, choices=STATUS)
     deadline = models.DateTimeField()
-    responsible = models.ForeignKey(User, on_delete=models.CASCADE,related_name='responsible')
+    responsible = models.ForeignKey(User, on_delete=models.CASCADE, related_name='responsible')
     supporters = models.ManyToManyField(User, related_name='supporters', blank=True)
     event = models.ForeignKey(Event, related_name='tasks', on_delete=models.CASCADE)
 
@@ -66,8 +66,9 @@ class Task(models.Model):
 class Tag(models.Model):
     name = models.TextField()
     events = models.ManyToManyField(Event, blank=True)
+
     # wird beidseitig benötigt und muss noch gelöst werden
 
     def __str__(self):
         return self.name
-#test
+# test

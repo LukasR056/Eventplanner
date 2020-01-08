@@ -10,7 +10,7 @@ class UserAdmin(admin.ModelAdmin):
 admin.site.register(User,UserAdmin)
 
 class ForumentryAdmin(admin.ModelAdmin):
-    list_display = ['title','content','datetime']
+    list_display = ['content','datetime']
     pass
 admin.site.register(Forumentry,ForumentryAdmin)
 

@@ -1,4 +1,9 @@
+
+<div>
+  <div class="asdfdiv">
+
 <mat-card class="event-card">
+
   <mat-card-header>
     <mat-card-title >{{event.name}}</mat-card-title>
   </mat-card-header>
@@ -24,6 +29,65 @@
     </p>
   </mat-card-content>
 </mat-card>
+</div>
+
+  <mat-divider></mat-divider>
+  <!--Anzeigen aller Messages -->
+  <div>
+    <div class="messengerstatus">
+      Messenger
+      <div>
+        <div class="messengerbox">
+      <mat-card class="messenger" *ngFor="let forumentry of forumentries" >
+        <mat-card-content>
+
+          <p>
+            Username: {{forumentry.user}}
+          </p>
+          <p>
+            Content: {{forumentry.content}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+        </div>
+      <!--Neue Message -->
+
+      <form [formGroup]="forumentryFormGroup" class="forumentry-form">
+
+
+        <mat-form-field>
+          <input matInput type="text" placeholder="Content" formControlName="content">
+        </mat-form-field>
+
+
+
+        <mat-form-field>
+          <input matInput type="text" placeholder="User" formControlName="user">
+        </mat-form-field>
+        <br>
+
+
+        <mat-form-field>
+          <mat-select placeholder="Event"
+                      formControlName="event">
+            <mat-option [value]="event.id" *ngFor="let event of events">{{event.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <br>
+
+
+
+
+      </form>
+
+      <button mat-button (click)="createForumentry()">
+        Create
+      </button>
+    </div>
+  </div>
+
+  <!--All Tasks -->
 
 <div>
   <div class="task-status">
@@ -50,3 +114,9 @@
   <!--<div class="task-status">Reihe2</div>
   ##<div class="task-status">Reihe3</div> -->
 </div>
+
+
+</div>
+
+
+

@@ -7,11 +7,13 @@ from .models import Task, Event, Forumentry, Tag, User
 from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, \
     EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer
 
+
 @api_view(['GET'])
 def user_list(request):
     users = User.objects.all()
     serializers = UserList(users, many=True)
     return Response(serializers.data)
+
 
 @api_view(['GET'])
 def user_form(request, pk):
@@ -21,6 +23,7 @@ def user_form(request, pk):
         return Response({'error': 'User does not exist.'}, status=404)
     serializer = UserForm(user)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def user_form_create(request):
@@ -33,11 +36,13 @@ def user_form_create(request):
 
 ''' TAG SERIALIZERS '''
 
+
 @api_view(['GET'])
 def tag_form_list(request):
     tags = Tag.objects.all()
     serializer = TagFormSerializer(tags, many=True)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def tag_form_create(request):
@@ -74,6 +79,7 @@ def task_form_create(request):
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
 
+
 @api_view(['PUT'])
 def user_form_update(request, pk):
     try:
@@ -99,6 +105,7 @@ def task_form_update(request, pk):
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
 
+
 @api_view(['GET'])
 def tag_form_get(request, pk):
     try:
@@ -108,6 +115,7 @@ def tag_form_get(request, pk):
 
     serializer = TagFormSerializer(tag)
     return Response(serializer.data)
+
 
 @api_view(['PUT'])
 def tag_form_update(request, pk):
@@ -134,6 +142,7 @@ def tag_delete(request, pk):
 
 ''' EVENT SERIALIZERS '''
 
+
 @api_view(['GET'])
 def event_list(request):
     events = Event.objects.all()
@@ -147,6 +156,7 @@ def event_list_firstrow(request):
     serializers = EventListSerializer(events, many=True)
     return Response(serializers.data)
 
+
 @api_view(['POST'])
 def event_form_create(request):
     serializer = EventFormSerializer(data=request.data)
@@ -154,6 +164,7 @@ def event_form_create(request):
         serializer.save()
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
+
 
 @api_view(['GET'])
 def event_form_get(request, pk):
@@ -163,6 +174,7 @@ def event_form_get(request, pk):
         return Response({'error': 'Event does not exist'}, status=404)
     serializer = EventFormSerializer(event)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def event_form_update(request, pk):
@@ -215,6 +227,7 @@ def event_delete(request, pk):
 
 '''@swagger_auto_schema(method='GET', responses={200: ForumentryListSerializer(many=True)})'''
 
+
 @api_view(['GET'])
 def forumentry_list(request):
     forumentries = Forumentry.objects.all()
@@ -223,6 +236,13 @@ def forumentry_list(request):
 
 
 '''@swagger_auto_schema(method='GET', responses={200: ForumentryFormSerializer()})'''
+
+
+@api_view(['GET'])
+def forumentry_list_event(request, event):
+    forumentrieswithevent = Forumentry.objects.filter(event=event)
+    serializer = ForumentryListSerializer(forumentrieswithevent, many=True)
+    return Response(serializer.data)
 
 
 def forumentry_form_get(request, pk):
