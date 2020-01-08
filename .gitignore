@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 # Default ignored files
 **/.idea/workspace.xml
 backend/venv/
@@ -6,3 +7,8 @@ backend/venv/
 *.pyc
 backend/config/__pycache__/urls.cpython-38.pyc
 **/__pycache__/**
+=======
+backend/db.sqlite3
+backend/venv/Lib/site-packages/asgiref/__pycache__/__init__.cpython-38.pyc
+backend/config/__pycache__/settings.cpython-38.pyc
+>>>>>>> master

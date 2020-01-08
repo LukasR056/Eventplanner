@@ -1,7 +1,11 @@
 
 # Default ignored files
 /workspace.xml
+<<<<<<< HEAD
 venv/
 /.idea/
 *.pyc
 backend/config/__pycache__/urls.cpython-38.pyc
+=======
+/venv/
+>>>>>>> master
