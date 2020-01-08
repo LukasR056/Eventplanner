@@ -84,11 +84,6 @@
     <p>
       supporters: {{task.supporters}}
     </p>
-    <mat-list *ngFor="let eventOption of eventsOptions" >
-      <mat-list-item  *ngIf=" eventOption.name == task.event"> Event: {{eventOption.name}}
-
-      </mat-list-item>
-    </mat-list>
 
     <div class="buttons">
       <div class="button-save" >
