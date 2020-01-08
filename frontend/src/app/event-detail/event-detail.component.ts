@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {EventService} from '../service/event.service';
 import {ForumentryService} from '../service/forumentry.service';
@@ -6,6 +6,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {forEachComment} from 'tslint';
 import {UserService} from '../service/user.service';
 import {FormBuilder} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {forEachComment} from 'tslint';
+import {TaskService} from '../service/task.service';
 
 @Component({
   selector: 'app-event-detail',
@@ -19,16 +23,16 @@ export class EventDetailComponent implements OnInit {
   tasksOpen: Array<any>;
   tasksInProgress: Array<any>;
   tasksDone: Array<any>;
+  test
   userOptions;
-  test: any;
   forumentries: any[];
   forumentryFormGroup;
-  displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
+  // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
 
   // tslint:disable-next-line:max-line-length
   constructor(private fb: FormBuilder, private http: HttpClient, private eventService: EventService, private route: ActivatedRoute,
-              private userService: UserService,  private router: Router,
+              private userService: UserService,  private router: Router, private taskService: TaskService,
               private forumentryService: ForumentryService) { }
 
   ngOnInit() { this.forumentryFormGroup = this.fb.group({
@@ -52,21 +56,19 @@ export class EventDetailComponent implements OnInit {
     this.eventService.getEventWithId(id)
       .subscribe((response: any) => {
         this.event = response;
-
-        // this.test = this.event;
-        //this.filterTasks();
+        this.filterTasks();
       });
 
     this.eventService.getEvents()
       .subscribe((response: any) => {
         this.events = response;
+        this.filterTasks();
       });
 
     this.userService.retrieveUserOptions().subscribe((result) => {
       this.userOptions = result;
     });
   }
-
 
   private loadForumEntries(id) {
     this.forumentryService.getForumentryWithEventId(id)
@@ -86,28 +88,8 @@ export class EventDetailComponent implements OnInit {
 
 
 
-filterTasks() {
-   this.events.tasks.forEach(task => {
-     switch (task.status) {
-       case 'o':
-         this.tasksOpen.push(task);
-         break;
-       case 'i':
-         this.tasksInProgress.push(task);
-         break;
-       case 'd':
-         this.tasksDone.push(task);
-         break;
-     }
-     /*if (task.status === 'i') {
-        this.test = 'KOMISCH';
-        this.tasksInProgress.push(task);
-      }*/
-    });
-    /*for (const task of this.event.tasks) {
-      /*if (task.status === 'i') {
-        this.test = 'KOMISCH';
-      }
+  filterTasks() {
+    this.events.tasks.forEach(task => {
       switch (task.status) {
         case 'o':
           this.tasksOpen.push(task);
@@ -119,15 +101,34 @@ filterTasks() {
           this.tasksDone.push(task);
           break;
       }
-    }*/
+    });
   }
 
-  deleteEvent(event: any) {
-    this.eventService.deleteEvent(event)
-      .subscribe(() => {
-        this.ngOnInit();
-      });
-  }
+  saveDroppedItem(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
+    // console.log(event.container);
 
+    switch (event.container.id) {
+      case 'listToDo':
+        event.item.data.status = 'o';
+        break;
+      case 'listInProgress':
+        event.item.data.status = 'i';
+        break;
+      case 'listDone':
+        event.item.data.status = 'd';
+        break;
+    }
+
+    this.taskService.updateTask(event.item.data).subscribe(() => { });
+    // console.log(event.item.data);
+  }
 
 }

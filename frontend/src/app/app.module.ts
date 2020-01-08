@@ -29,7 +29,7 @@ import {
 import { EventDetailComponent } from './event-detail/event-detail.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -66,7 +66,8 @@ import { HomepageComponent } from './homepage/homepage.component';
     MatNativeDateModule,
     MatCheckboxModule,
     MatDividerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

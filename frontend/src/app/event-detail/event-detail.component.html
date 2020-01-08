@@ -5,7 +5,7 @@
 <mat-card class="event-card">
 
   <mat-card-header>
-    <mat-card-title >{{event.name}}</mat-card-title>
+    <mat-card-title>{{event.name}}</mat-card-title>
   </mat-card-header>
   <hr>
   <mat-card-content>
@@ -89,30 +89,105 @@
 
   <!--All Tasks -->
 
+
+<!-- --------------------------------------------------------------------------------------------------------------- -->
+
+
 <div>
+
   <div class="task-status">
-    To Do
-    <div *ngFor="let task of tasksOpen"> <!--*ngIf="task.status=='o'"-->
-      Title: {{task.title}}
-      Status: {{task.status}}
+    <div class="task-status-inner">
+      <div class="task-status-text">To Do</div>
+      <div cdkDropList id="listToDo" [cdkDropListData]="tasksOpen" (cdkDropListDropped)="saveDroppedItem($event)"
+           [cdkDropListConnectedTo]="['listInProgress', 'listDone']"
+           class="drop-list-height">
+        <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksOpen">
+          <mat-expansion-panel class="task-margin">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="panel-header-width">
+                <strong>{{task.title}}</strong> <br>
+              </mat-panel-title>
+              <mat-panel-description class="panel-header-width">
+                Responsible: {{task.responsible}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+              Description: {{task.description}}
+            </p>
+            <p>
+              Deadline: {{task.deadline}}
+            </p>
+            <p *ngIf="task.supporters!=''">
+              Supporters: {{task.supporters}}
+            </p>
+          </mat-expansion-panel>
+        </div>
+      </div>
     </div>
   </div>
+
   <div class="task-status">
-    In Progress
-    <div *ngFor="let task of tasksInProgress">
-      Title: {{task.title}}
-      Status: {{task.status}}
+    <div class="task-status-inner">
+      <div class="task-status-text">In Progress</div>
+      <div cdkDropList id="listInProgress" [cdkDropListData]="tasksInProgress" (cdkDropListDropped)="saveDroppedItem($event)"
+           [cdkDropListConnectedTo]="['listToDo', 'listDone']"
+           class="drop-list-height">
+        <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksInProgress">
+          <mat-expansion-panel class="task-margin">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="panel-header-width">
+                <strong>{{task.title}}</strong> <br>
+              </mat-panel-title>
+              <mat-panel-description class="panel-header-width">
+                Responsible: {{task.responsible}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+              Description: {{task.description}}
+            </p>
+            <p>
+              Deadline: {{task.deadline}}
+            </p>
+            <p *ngIf="task.supporters!=''">
+              Supporters: {{task.supporters}}
+            </p>
+          </mat-expansion-panel>
+        </div>
+      </div>
     </div>
   </div>
+
   <div class="task-status">
-    Done
-    <div *ngFor="let task of tasksDone">
-      Title: {{task.title}}
-      Status: {{task.status}}
+    <div class="task-status-inner">
+      <div class="task-status-text">Done</div>
+      <div cdkDropList id="listDone" [cdkDropListData]="tasksDone" (cdkDropListDropped)="saveDroppedItem($event)"
+           [cdkDropListConnectedTo]="['listToDo', 'listInProgress']"
+           class="drop-list-height">
+        <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksDone">
+          <mat-expansion-panel class="task-margin">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="panel-header-width">
+                <strong>{{task.title}}</strong> <br>
+              </mat-panel-title>
+              <mat-panel-description class="panel-header-width">
+                Responsible: {{task.responsible}}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>
+              Description: {{task.description}}
+            </p>
+            <p>
+              Deadline: {{task.deadline}}
+            </p>
+            <p *ngIf="task.supporters!=''">
+              Supporters: {{task.supporters}}
+            </p>
+          </mat-expansion-panel>
+        </div>
+      </div>
     </div>
   </div>
-  <!--<div class="task-status">Reihe2</div>
-  ##<div class="task-status">Reihe3</div> -->
+
 </div>
 
 

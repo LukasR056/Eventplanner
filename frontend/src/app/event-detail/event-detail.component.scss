@@ -7,24 +7,53 @@
   width: 25%;
   float: right;
   clear:right;
-
-
 }
+
 .messengerbox{
   height: 40vh;
 }
 
+// UMBENENNEN
 .asdfdiv {
-
   float: left;
   width: 75%;
 }
 
 
 .messenger{
-
   display: block;
+}
 
+.task-margin {;
+  margin-bottom: 5%;
+}
 
+.panel-header-width {
+  width: 50%;
+}
 
+.task-status-inner {
+  padding: 2%;
+}
+
+.task-status-text {
+  font-weight: bold;
+  text-align: center;
+  // border-bottom: 3px solid black;
+  margin-bottom: 2%;
+}
+
+.drop-list-height {
+  min-height: 100px;
+  padding-bottom: 30px;
+}
+
+/* Animate items as they're being sorted. */
+.cdk-drop-list-dragging .cdk-drag {
+  transition: transform 400ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Animate an item that has been dropped. */
+.cdk-drag-animating {
+  transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
 }
