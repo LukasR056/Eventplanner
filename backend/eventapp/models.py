@@ -6,6 +6,7 @@ from django.utils.timezone import now
 
 
 
+
 # Create your models here.
 class User(AbstractUser):
     first_name = models.TextField()
@@ -13,6 +14,7 @@ class User(AbstractUser):
     birthday = models.DateField(default=datetime.date.today)
     active = models.BooleanField(default=True)
     friends = models.ManyToManyField('self',blank=True)
+    pass
 
     def __str__(self):
         return self.username

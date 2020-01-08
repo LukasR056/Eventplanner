@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 ]
 
 ##costum user
-
 AUTH_USER_MODEL = 'eventapp.User'
 
 MIDDLEWARE = [

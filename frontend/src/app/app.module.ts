@@ -70,7 +70,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatNativeDateModule,
     MatCheckboxModule,
     MatIconModule,
-    FlexLayoutModule,
     MatDividerModule,
     MatExpansionModule,
     MatListModule,

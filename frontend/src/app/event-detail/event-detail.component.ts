@@ -3,12 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {EventService} from '../service/event.service';
 import {ForumentryService} from '../service/forumentry.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {forEachComment} from 'tslint';
 import {UserService} from '../service/user.service';
 import {FormBuilder} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
-import {forEachComment} from 'tslint';
 import {TaskService} from '../service/task.service';
 
 @Component({
@@ -23,7 +20,7 @@ export class EventDetailComponent implements OnInit {
   tasksOpen: Array<any>;
   tasksInProgress: Array<any>;
   tasksDone: Array<any>;
-  test
+  test;
   userOptions;
   forumentries: any[];
   forumentryFormGroup;
@@ -32,14 +29,16 @@ export class EventDetailComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
   constructor(private fb: FormBuilder, private http: HttpClient, private eventService: EventService, private route: ActivatedRoute,
-              private userService: UserService,  private router: Router, private taskService: TaskService,
-              private forumentryService: ForumentryService) { }
+              private userService: UserService, private router: Router, private taskService: TaskService,
+              private forumentryService: ForumentryService) {
+  }
 
-  ngOnInit() { this.forumentryFormGroup = this.fb.group({
-    'content': [null],
-    'user': [null],
-    'event': [null],
-  });
+  ngOnInit() {
+    this.forumentryFormGroup = this.fb.group({
+      content: [null],
+      user: [null],
+      event: [null],
+    });
     const id = this.route.snapshot.paramMap.get('id');
     this.tasksOpen = [];
     this.tasksInProgress = [];
@@ -47,9 +46,9 @@ export class EventDetailComponent implements OnInit {
 
 
     //this.forumentryService.getForumentries()
-      //.subscribe((response: any[]) => {
-        //this.forumentries = response;
-      //});
+    //.subscribe((response: any[]) => {
+    //this.forumentries = response;
+    //});
 
     this.loadForumEntries(id);
 
@@ -78,18 +77,17 @@ export class EventDetailComponent implements OnInit {
   }
 
   createForumentry() {
-  const id = this.route.snapshot.paramMap.get('id');
-  const forumentry = this.forumentryFormGroup.value;
-  this.forumentryService.createForumentry(forumentry)
-    .subscribe((response: any) => {
-      this.loadForumEntries(id);
-    });
-}
-
+    const id = this.route.snapshot.paramMap.get('id');
+    const forumentry = this.forumentryFormGroup.value;
+    this.forumentryService.createForumentry(forumentry)
+      .subscribe((response: any) => {
+        this.loadForumEntries(id);
+      });
+  }
 
 
   filterTasks() {
-    this.events.tasks.forEach(task => {
+    this.event.tasks.forEach(task => {
       switch (task.status) {
         case 'o':
           this.tasksOpen.push(task);
@@ -127,7 +125,8 @@ export class EventDetailComponent implements OnInit {
         break;
     }
 
-    this.taskService.updateTask(event.item.data).subscribe(() => { });
+    this.taskService.updateTask(event.item.data).subscribe(() => {
+    });
     // console.log(event.item.data);
   }
 
