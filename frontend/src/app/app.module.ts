@@ -32,6 +32,7 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { EventSearchComponent } from './event-search/event-search.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     FriendsListComponent,
     EventDetailComponent,
     HomepageComponent,
+    EventSearchComponent,
   ],
   imports: [
     BrowserModule,
