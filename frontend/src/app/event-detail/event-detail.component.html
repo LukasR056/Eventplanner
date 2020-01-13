@@ -1,6 +1,6 @@
 
 <div>
-  <div class="asdfdiv">
+  <div class="eventanzeige">
 
 <mat-card class="event-card">
 
@@ -47,11 +47,18 @@
           <p>
             Content: {{forumentry.content}}
           </p>
+          <p>
+          Datetime: {{forumentry.datetime}}
+          </p>
         </mat-card-content>
       </mat-card>
         </div>
+      </div>
       <!--Neue Message -->
 
+
+        <div class="newmessgage">
+          Messenger
       <form [formGroup]="forumentryFormGroup" class="forumentry-form">
 
 
@@ -67,15 +74,10 @@
         <br>
 
 
-        <mat-form-field>
-          <mat-select placeholder="Event"
-                      formControlName="event">
-            <mat-option [value]="event.id" *ngFor="let event of events">{{event.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
 
         <br>
 
+   
 
 
 
@@ -86,6 +88,8 @@
       </button>
     </div>
   </div>
+
+
 
   <!--All Tasks -->
 

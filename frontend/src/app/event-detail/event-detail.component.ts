@@ -20,10 +20,10 @@ export class EventDetailComponent implements OnInit {
   tasksOpen: Array<any>;
   tasksInProgress: Array<any>;
   tasksDone: Array<any>;
-  test;
   userOptions;
   forumentries: any[];
   forumentryFormGroup;
+  id2 = this.route.snapshot.paramMap.get('id');
   // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
 
@@ -37,7 +37,7 @@ export class EventDetailComponent implements OnInit {
     this.forumentryFormGroup = this.fb.group({
       content: [null],
       user: [null],
-      event: [null],
+      event: [this.id2],
     });
     const id = this.route.snapshot.paramMap.get('id');
     this.tasksOpen = [];

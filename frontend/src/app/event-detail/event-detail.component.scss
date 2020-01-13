@@ -11,14 +11,17 @@
 
 .messengerbox{
   height: 40vh;
+  overflow-y: scroll
 }
 
-// UMBENENNEN
-.asdfdiv {
+.eventanzeige {
   float: left;
   width: 75%;
 }
-#test
+
+.newmessgage{
+  display: block;
+}
 
 
 .messenger{
