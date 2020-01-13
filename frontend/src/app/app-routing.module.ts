@@ -13,6 +13,7 @@ import {EventListComponent} from './event-list/event-list.component';
 import {EventDetailComponent} from './event-detail/event-detail.component';
 import {FriendsListComponent} from './friends-list/friends-list.component';
 import {HomepageComponent} from './homepage/homepage.component';
+import {LoginComponent} from './login/login.component';
 
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'event-detail/:id', component: EventDetailComponent },
   { path: 'friends-list', component: FriendsListComponent },
   { path: 'homepage', component: HomepageComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({

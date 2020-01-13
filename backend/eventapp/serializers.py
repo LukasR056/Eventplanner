@@ -110,3 +110,4 @@ class ForumentryFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = Forumentry
         fields = '__all__'
+
