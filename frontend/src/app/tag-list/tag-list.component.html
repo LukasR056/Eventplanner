@@ -1,1 +1,31 @@
-<p>tag-list works!</p>
+<mat-form-field class="chip-list">
+  <mat-chip-list  aria-label="Tag selection" [multiple]="true" >
+    <mat-chip *ngFor="let tag of tags" [selectable]="selectable" (click)="changeEvent(tag)" >
+      {{tag.name}}
+    </mat-chip>
+  </mat-chip-list >
+</mat-form-field>
+
+<br>
+
+<div class="event-list">
+
+    <mat-card class="event-card" *ngFor="let event of showEvents" (click)="eventDetail(event.id)" >
+    <mat-card-header>
+      <mat-card-title >{{event.name}}</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <p>
+        Location: {{event.location}}
+      </p>
+      <p>
+        When: {{event.date}} at {{event.time}}
+      </p>
+      <p>
+        For more information, click on the EVENT!
+      </p>
+    </mat-card-content>
+    </mat-card>
+
+</div>

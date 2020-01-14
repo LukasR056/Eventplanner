@@ -18,8 +18,9 @@ import { TagListComponent } from './tag-list/tag-list.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDividerModule, MatExpansionModule,
-  MatFormFieldModule,  MatIconModule,
+  MatAutocompleteModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDividerModule, MatExpansionModule,
+  MatFormFieldModule, MatIconModule,
   MatInputModule, MatListModule,
   MatMenuModule, MatNativeDateModule,
   MatSelectModule,
@@ -33,7 +34,6 @@ import { HomepageComponent } from './homepage/homepage.component';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { EventSearchComponent } from './event-search/event-search.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,8 +77,11 @@ import { EventSearchComponent } from './event-search/event-search.component';
     MatListModule,
     FormsModule,
     DragDropModule,
+    MatAutocompleteModule,
+    MatChipsModule,
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

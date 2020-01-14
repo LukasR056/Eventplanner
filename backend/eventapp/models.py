@@ -67,10 +67,10 @@ class Task(models.Model):
 
 
 class Tag(models.Model):
-    name = models.TextField()
-    events = models.ManyToManyField(Event, blank=True)
+    name = models.TextField(unique=True)
+    events = models.ManyToManyField(Event,related_name='tags', blank=True)
 
-    # wird beidseitig benötigt und muss noch gelöst werden
+
 
     def __str__(self):
         return self.name

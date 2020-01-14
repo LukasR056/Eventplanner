@@ -29,6 +29,7 @@ const routes: Routes = [
   { path: 'event-detail/:id', component: EventDetailComponent },
   { path: 'friends-list', component: FriendsListComponent },
   { path: 'homepage', component: HomepageComponent },
+  { path: 'tag-list', component: TagListComponent },
 ];
 
 @NgModule({

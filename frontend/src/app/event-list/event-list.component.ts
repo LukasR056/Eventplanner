@@ -13,7 +13,7 @@ export class EventListComponent implements OnInit {
 
   events: any[];
 
-  constructor(private http: HttpClient, private eventService: EventService, private router: Router) { }
+  constructor( private eventService: EventService, private router: Router) { }
 
   ngOnInit() {
     this.eventService.getEvents()
@@ -40,3 +40,5 @@ export class EventListComponent implements OnInit {
     this.router.navigate(['/user-list']);
   }
 }
+
+
