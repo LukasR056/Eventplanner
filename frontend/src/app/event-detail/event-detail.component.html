@@ -37,7 +37,7 @@
     <div class="messengerstatus">
       Messenger
       <div>
-        <div class="messengerbox">
+        <div class="messengerbox" #scrollMe [scrollTop]="scrollMe.scrollHeight">
       <mat-card class="messenger" *ngFor="let forumentry of forumentries" >
         <mat-card-content>
 
@@ -48,7 +48,10 @@
             Content: {{forumentry.content}}
           </p>
           <p>
-          Datetime: {{forumentry.datetime}}
+            Time: {{forumentry.datetime | date:'h:mm'}}
+          </p>
+          <p>
+          Date: {{forumentry.datetime | date}}
           </p>
         </mat-card-content>
       </mat-card>
@@ -77,7 +80,7 @@
 
         <br>
 
-   
+
 
 
 
