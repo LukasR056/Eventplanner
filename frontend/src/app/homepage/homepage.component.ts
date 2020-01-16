@@ -12,16 +12,22 @@ import {Router} from '@angular/router';
 })
 export class HomepageComponent implements OnInit {
 
-  events: any[];
+  events: Array<any>;
   taskFormGroupStatus;
   tasks: any[];
   eventsOptions;
+  username: string;
+  userId: any;
 
   constructor(private http: HttpClient, private eventService: EventService, public taskService: TaskService, private fb: FormBuilder,
               private router: Router) {
   }
 
   ngOnInit() {
+
+    this.username = localStorage.getItem('username');
+    this.userId = localStorage.getItem('user_id');
+    this.events = [];
 
     this.taskFormGroupStatus = this.fb.group({
       status: [null]
@@ -33,12 +39,14 @@ export class HomepageComponent implements OnInit {
         this.taskFormGroupStatus.patchValue(response);
       });
 
-    this.eventService.getFirstRow()
-      .subscribe((response: any[]) => {
-        this.events = response;
-      });
-    this.eventService.retrieveEvents().subscribe((result) => {
-      this.eventsOptions = result;
+    this.eventService.retrieveEvents().subscribe((result: any[]) => {
+      // TODO: EVENTS SORTIEREN UND AUF ANZAHL BESCHRÄNKEN (z.B. 4) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      for (const event of result) {
+        if (event.eventplanner === this.username || event.invited.includes(' ' + this.username)) {
+          this.events.push(event);
+        }
+      }
+      this.events = this.events.sort((a, b) => b.date - a.date);
     });
 
   }

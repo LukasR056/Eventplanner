@@ -13,6 +13,9 @@ retrieveUserOptions() {
   return this.http.get <any[]>('/api/user/list/');
 }
 
+getAbstractUserByUsername(username: string) {
+    return this.http.get<any>('/api/abstract-user/' + username + '/get');
+}
 
 getUsers() {
   return this.http.get('/api/user/list/');

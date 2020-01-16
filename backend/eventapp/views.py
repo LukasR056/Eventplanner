@@ -1,16 +1,26 @@
+from django.contrib.auth.models import User
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from .models import Task, Event, Forumentry, Tag, User
+from .models import Task, Event, Forumentry, Tag, Profile
 from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, \
-    EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer
+    EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer, AbstractUserForm
 
 
 @api_view(['GET'])
+def abstract_user_form(request, username):
+    try:
+        abstract_user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return Response({'error': 'User does not exist'}, status=404)
+    serializer = AbstractUserForm(abstract_user)
+    return Response(serializer.data)
+
+@api_view(['GET'])
 def user_list(request):
-    users = User.objects.all()
+    users = Profile.objects.all()
     serializers = UserList(users, many=True)
     return Response(serializers.data)
 
@@ -18,8 +28,8 @@ def user_list(request):
 @api_view(['GET'])
 def user_form(request, pk):
     try:
-        user = User.objects.get(pk=pk)
-    except User.DoesNotExist:
+        user = Profile.objects.get(pk=pk)
+    except Profile.DoesNotExist:
         return Response({'error': 'User does not exist.'}, status=404)
     serializer = UserForm(user)
     return Response(serializer.data)
@@ -83,8 +93,8 @@ def task_form_create(request):
 @api_view(['PUT'])
 def user_form_update(request, pk):
     try:
-        user = User.objects.get(pk=pk)
-    except User.DoesNotExist:
+        user = Profile.objects.get(pk=pk)
+    except Profile.DoesNotExist:
         return Response({'error': 'User does not exist.'}, status=404)
     serializer = UserForm(user, data=request.data)
     if serializer.is_valid():
@@ -203,8 +213,8 @@ def event_form_update(request, pk):
 @api_view(['DELETE'])
 def user_delete(request, pk):
     try:
-        user = User.objects.get(pk=pk)
-    except User.DoesNotExist:
+        user = Profile.objects.get(pk=pk)
+    except Profile.DoesNotExist:
         return Response({'error': 'User does not exist.'}, status=404)
 
     if request.method == 'GET':

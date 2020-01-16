@@ -1,15 +1,15 @@
 from django.contrib import admin
 
 # Register your models here.
-from eventapp.models import User, Forumentry, Event, Tag, Task
+from eventapp.models import Profile, Forumentry, Event, Tag, Task
 
 
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['username','email','active','first_name','last_name','birthday']
+    list_display = ['user','active','first_name','last_name','birthday']
     pass
-admin.site.register(User,UserAdmin)
+admin.site.register(Profile,UserAdmin)
 
 class ForumentryAdmin(admin.ModelAdmin):
     list_display = ['content','datetime']

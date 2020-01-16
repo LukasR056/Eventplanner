@@ -2,23 +2,32 @@ from rest_framework import serializers
 
 from .models import *
 
-
-class UserList(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'first_name','last_name','username','birthday','email','active','eventplanner','invited','responsible','supporters','friends']
-
-        def get_user_username(self, obj):
-            return obj.user.username if obj.user else ''
-
-
-class UserForm (serializers.ModelSerializer):
+class AbstractUserForm(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+        # fields = ['username']
+
+class UserList(serializers.ModelSerializer):
+    user = AbstractUserForm(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+        #def get_user(self, obj):
+        #    return obj.user.user if obj.user else ''
+
+
+
+class UserForm (serializers.ModelSerializer):
+    user = AbstractUserForm(read_only=True)
+    class Meta:
+        model = Profile
+        fields = '__all__'
 
         def get_user_username(self, obj):
-            return obj.user.username if obj.user else ''
+            return obj.user.user if obj.user else ''
 
 
 class TaskListSerializer(serializers.ModelSerializer):

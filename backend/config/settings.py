@@ -58,8 +58,8 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=3)
 }
 
-##costum user
-AUTH_USER_MODEL = 'eventapp.User'
+## custom user
+## AUTH_USER_MODEL = 'eventapp.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

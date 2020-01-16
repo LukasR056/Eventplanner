@@ -30,7 +30,6 @@ export class EventFormComponent implements OnInit {
     'invited': [null],
   });
 
-
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.http.get('/api/event/' + id + '/get')
