@@ -48,8 +48,9 @@
         Description: {{task.description}}
       </p>
       <p>
-        status: {{taskService.status[task.status]}}
+        status: {{taskService.statusName[task.status]}}
       </p>
+
       <p>
         deadline: {{task.deadline}}
       </p>
@@ -60,7 +61,7 @@
         supporters: {{task.supporters}}
       </p>
       <p>
-        event: {{task.event_name}}
+        event: {{task.event}}
       </p>
     </mat-expansion-panel>
   </mat-accordion>

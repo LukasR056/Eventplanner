@@ -61,7 +61,7 @@ class Forumentry(models.Model):
 class Task(models.Model):
     STATUS = (
         ('o', 'Open'),
-        ('i', 'In Progress'),
+        ('p', 'In Progress'),
         ('d', 'Done')
     )
     title = models.TextField()
