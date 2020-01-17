@@ -20,6 +20,7 @@ from django.urls import path
 from django.contrib import admin
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 
 from eventapp import views
@@ -32,6 +33,7 @@ urlpatterns = [
     path('user/create', views.user_form_create),
     path('user/<int:pk>/update', views.user_form_update),
     path('user/<int:pk>/delete', views.user_delete),
+    path('abstract-user/<username>/get', views.abstract_user_form),
 
     path('task/list', views.tasks_list),
     path('task/create', views.task_form_create),
@@ -63,6 +65,8 @@ urlpatterns = [
     path('event/<int:pk>/update', views.event_form_update),
     path('event/<int:pk>/delete', views.event_delete),
 
+    url(r'^api-token-auth/', obtain_jwt_token),
+    url(r'^api-token-refresh/', refresh_jwt_token),
 
 ]
 

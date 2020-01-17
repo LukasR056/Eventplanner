@@ -32,6 +32,14 @@ import { EventDetailComponent } from './event-detail/event-detail.component';
 import { HomepageComponent } from './homepage/homepage.component';
 
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { EventSearchComponent } from './event-search/event-search.component';
+import {JwtModule} from '@auth0/angular-jwt';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
+
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -51,6 +59,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     FriendsListComponent,
     EventDetailComponent,
     HomepageComponent,
+    EventSearchComponent,
+    LoginComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,6 +86,12 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatListModule,
     FormsModule,
     DragDropModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4200']
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
