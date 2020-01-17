@@ -24,6 +24,7 @@ export class EventDetailComponent implements OnInit {
   forumentries: any[];
   forumentryFormGroup;
   id2 = this.route.snapshot.paramMap.get('id');
+  userId: any;
   // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
 
@@ -34,9 +35,10 @@ export class EventDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userId = localStorage.getItem('user_id');
     this.forumentryFormGroup = this.fb.group({
       content: [null],
-      user: [null],
+      user: [this.userId],
       event: [this.id2],
     });
     const id = this.route.snapshot.paramMap.get('id');
