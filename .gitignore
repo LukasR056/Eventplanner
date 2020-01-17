@@ -2,7 +2,7 @@
 # Default ignored files
 **/.idea/workspace.xml
 backend/venv/
-/.idea/
+**/.idea/
 *.pyc
 backend/config/__pycache__/urls.cpython-38.pyc
 backend/eventapp/__pycache__/
@@ -10,6 +10,6 @@ backend/config/__pycache__/
 backend/eventapp/migrations/
 venv
 .idea
-*.pyc
+.idea/
 _pycache_
 db.sqlite3
