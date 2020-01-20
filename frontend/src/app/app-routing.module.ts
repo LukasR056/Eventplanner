@@ -14,23 +14,27 @@ import {EventDetailComponent} from './event-detail/event-detail.component';
 import {FriendsListComponent} from './friends-list/friends-list.component';
 import {HomepageComponent} from './homepage/homepage.component';
 import {LoginComponent} from './login/login.component';
+import {RegistrationComponent} from './registration/registration.component';
+import {AuthenticationGuard} from './guard/authentication.guard';
 
 
 const routes: Routes = [
-  { path: 'task-list', component: TaskListComponent },
-  { path: 'task-form', component: TaskFormComponent },
-  { path: 'tag-list', component: TagListComponent },
-  { path: 'tag-form', component: TagFormComponent },
-  { path: 'forumentry-list', component: ForumentryListComponent },
-  { path: 'forumentry-form', component: ForumentryFormComponent },
-  { path: 'event-list', component: EventListComponent },
-  { path: 'event-form', component: EventFormComponent },
-  { path: 'user-list', component: UserListComponent },
-  { path: 'user-form', component: UserFormComponent },
-  { path: 'event-detail/:id', component: EventDetailComponent },
-  { path: 'friends-list', component: FriendsListComponent },
-  { path: 'homepage', component: HomepageComponent },
+  { path: '', redirectTo: 'homepage', pathMatch: 'full'},
+  { path: 'task-list', component: TaskListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'task-form', component: TaskFormComponent, canActivate: [AuthenticationGuard] },
+  { path: 'tag-list', component: TagListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'tag-form', component: TagFormComponent, canActivate: [AuthenticationGuard] },
+  { path: 'forumentry-list', component: ForumentryListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'forumentry-form', component: ForumentryFormComponent, canActivate: [AuthenticationGuard] },
+  { path: 'event-list', component: EventListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'event-form', component: EventFormComponent, canActivate: [AuthenticationGuard] },
+  { path: 'user-list', component: UserListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'user-form', component: UserFormComponent, canActivate: [AuthenticationGuard] },
+  { path: 'event-detail/:id', component: EventDetailComponent, canActivate: [AuthenticationGuard] },
+  { path: 'friends-list', component: FriendsListComponent, canActivate: [AuthenticationGuard] },
+  { path: 'homepage', component: HomepageComponent, canActivate: [AuthenticationGuard] },
   { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent },
 ];
 
 @NgModule({

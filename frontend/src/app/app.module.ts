@@ -36,6 +36,7 @@ import { EventSearchComponent } from './event-search/event-search.component';
 import {JwtModule} from '@auth0/angular-jwt';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -62,6 +63,7 @@ export function tokenGetter() {
     EventSearchComponent,
     LoginComponent,
     LogoutComponent,
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +90,7 @@ export function tokenGetter() {
     DragDropModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetter,
+        tokenGetter,
         whitelistedDomains: ['localhost:4200']
       }
     })

@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../service/user.service';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   loginFormGroup;
   userId: any;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private userService: UserService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private userService: UserService,
+              private jwtHelperService: JwtHelperService) {
   }
 
   ngOnInit() {
@@ -26,18 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.http.post('/api/api-token-auth/', this.loginFormGroup.value)
-      .subscribe((res: any) => {
-        localStorage.setItem('access_token', res.token);
-        localStorage.setItem('username', this.loginFormGroup.value.username);
-        this.userService.getAbstractUserByUsername(this.loginFormGroup.value.username).subscribe(result => {
-          localStorage.setItem('user_id', result.id);
-          this.router.navigate(['homepage']);
-        });
-      }, () => {
-        alert('wrong username or password');
-        // HIER Z.B. TOAST EINFÜGEN
-      });
+    this.userService.login(this.loginFormGroup.value);
   }
 
 }
