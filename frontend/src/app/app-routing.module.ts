@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'friends-list', component: FriendsListComponent },
   { path: 'homepage', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'tag-list', component: TagListComponent },
 ];
 
 @NgModule({

@@ -18,8 +18,9 @@ import { TagListComponent } from './tag-list/tag-list.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDividerModule, MatExpansionModule,
-  MatFormFieldModule,  MatIconModule,
+  MatAutocompleteModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDividerModule, MatExpansionModule,
+  MatFormFieldModule, MatIconModule,
   MatInputModule, MatListModule,
   MatMenuModule, MatNativeDateModule,
   MatSelectModule,
@@ -86,6 +87,8 @@ export function tokenGetter() {
     MatListModule,
     FormsModule,
     DragDropModule,
+    MatAutocompleteModule,
+    MatChipsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter,
@@ -93,7 +96,8 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

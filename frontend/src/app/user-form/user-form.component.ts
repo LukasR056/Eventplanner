@@ -24,14 +24,8 @@ export class UserFormComponent implements OnInit {
 
     this.userFormGroup = this.fb.group({
       id: [],
-      first_name: [],
-      last_name: [],
-      username: [],
-      birthday: [],
-      email: [],
-      active: [],
-      friends: [[]],
-
+      name: [],
+      events: [[]],
     });
 
   }
