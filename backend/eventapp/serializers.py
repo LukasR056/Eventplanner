@@ -5,7 +5,7 @@ from .models import *
 class AbstractUserForm(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'username']
         # fields = ['username']
 
 class UserList(serializers.ModelSerializer):
@@ -28,6 +28,17 @@ class UserForm (serializers.ModelSerializer):
 
         def get_user_username(self, obj):
             return obj.user.user if obj.user else ''
+
+class AbstractUserCreateForm (serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
+class UserCreateForm (serializers.ModelSerializer):
+    user = AbstractUserCreateForm()
+    class Meta:
+        model = Profile
+        fields = ['user', 'first_name', 'last_name', 'birthday']
 
 
 class TaskListSerializer(serializers.ModelSerializer):

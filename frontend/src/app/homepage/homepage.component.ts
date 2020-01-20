@@ -4,6 +4,7 @@ import {EventService} from '../service/event.service';
 import {TaskService} from '../service/task.service';
 import {FormBuilder} from '@angular/forms';
 import {Router} from '@angular/router';
+import {UserService} from '../service/user.service';
 
 @Component({
   selector: 'app-homepage',
@@ -15,12 +16,12 @@ export class HomepageComponent implements OnInit {
   events: Array<any>;
   taskFormGroupStatus;
   tasks: any[];
-  eventsOptions;
+  user;
   username: string;
   userId: any;
 
   constructor(private http: HttpClient, private eventService: EventService, public taskService: TaskService, private fb: FormBuilder,
-              private router: Router) {
+              private router: Router, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -38,6 +39,10 @@ export class HomepageComponent implements OnInit {
         this.tasks = response;
         this.taskFormGroupStatus.patchValue(response);
       });
+
+    this.userService.getUserById(this.userId).subscribe(result => {
+      this.user = result;
+    });
 
     this.eventService.retrieveEvents().subscribe((result: any[]) => {
       // TODO: EVENTS SORTIEREN UND AUF ANZAHL BESCHRÄNKEN (z.B. 4) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

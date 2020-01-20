@@ -1,22 +1,14 @@
 from django.contrib.auth.models import User
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 
 from .models import Task, Event, Forumentry, Tag, Profile
 from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, \
-    EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer, AbstractUserForm
+    EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer, AbstractUserForm, \
+    UserCreateForm, AbstractUserCreateForm
 
-
-@api_view(['GET'])
-def abstract_user_form(request, username):
-    try:
-        abstract_user = User.objects.get(username=username)
-    except User.DoesNotExist:
-        return Response({'error': 'User does not exist'}, status=404)
-    serializer = AbstractUserForm(abstract_user)
-    return Response(serializer.data)
 
 @api_view(['GET'])
 def user_list(request):
@@ -34,18 +26,43 @@ def user_form(request, pk):
     serializer = UserForm(user)
     return Response(serializer.data)
 
+@api_view(['POST'])
+@authentication_classes([])
+@permission_classes([])
+def user_form_adapted_create(request):
+    serializer = AbstractUserCreateForm(data=request.data)
+    if serializer.is_valid():
+        User.objects.create_user(serializer.validated_data['username'], password=serializer.validated_data['password'])
+        return Response(serializer.data, status=201)
+    return Response(serializer.data, status=400)
 
+
+'''
 @api_view(['POST'])
 def user_form_create(request):
     serializer = UserForm(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400) 
+'''
+
+@api_view(['PUT'])
+def user_form_update(request, pk):
+    try:
+        user = Profile.objects.get(pk=pk)
+    except Profile.DoesNotExist:
+        return Response({'error': 'User does not exist.'}, status=404)
+    serializer = UserForm(user, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
     return Response(serializer.errors, status=400)
+    # TODO: HIER EVTL UNTERES RETURN ÜBERPRÜFEN
+
 
 
 ''' TAG SERIALIZERS '''
-
 
 @api_view(['GET'])
 def tag_form_list(request):
@@ -88,20 +105,6 @@ def task_form_create(request):
         serializer.save()
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
-
-
-@api_view(['PUT'])
-def user_form_update(request, pk):
-    try:
-        user = Profile.objects.get(pk=pk)
-    except Profile.DoesNotExist:
-        return Response({'error': 'User does not exist.'}, status=404)
-    serializer = UserForm(user, data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.errors, status=400)
-
 
 @api_view(['GET', 'PUT'])
 def task_form_update(request, pk):
