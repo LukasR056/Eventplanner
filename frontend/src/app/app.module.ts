@@ -88,7 +88,7 @@ export function tokenGetter() {
     DragDropModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetter,
+        tokenGetter,
         whitelistedDomains: ['localhost:4200']
       }
     })
