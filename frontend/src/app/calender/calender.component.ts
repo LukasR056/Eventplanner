@@ -35,20 +35,35 @@ const colors: any = {
 })
 export class CalenderComponent implements OnInit, AfterContentChecked {
 
-
   constructor(private http: HttpClient, private eventService: EventService, private router: Router) {}
 
     @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
   eventName;
-  event = this.eventService.getEventWithId(2).subscribe(value => {this.eventName = value.name.toString();
+  event = this.eventService.getEventWithId(2).subscribe(value => {this.eventName = value.name;
                                                                   console.log('eventname: ' + this.eventName);
                                                                   console.log('value.name: ' + value.name)} );
+
+  eventNames = [];
+
+ /* events = this.eventService.getEvents().subscribe(value => {
+    for (const e in value) {
+      console.log('e :' + e);
+    }
+    console.log('sollte gehen ' + value);
+    console.log('event names: ' + this.eventNames);
+  }); */
+ eventLR = this.eventService.getEvents().subscribe((response: any[]) => {
+   (response.forEach(eventx => {this.eventNames.push(eventx.name)}) );
+   console.log(this.eventNames);
+});
+
+
   CalendarView = CalendarView;
   viewDate: Date = new Date();
   refresh: Subject<any> = new Subject();
-  events1: CalendarEvent[];
+  events1: Array<CalendarEvent>;
 
   activeDayIsOpen = false;
     ngOnInit() {
@@ -57,7 +72,7 @@ export class CalenderComponent implements OnInit, AfterContentChecked {
           this.event = response;
         });
 
-      this.eventName = this.event.name;*/
+      this.eventName = this.event.name;**/
     }
 
   ngAfterContentChecked() {
@@ -74,16 +89,14 @@ export class CalenderComponent implements OnInit, AfterContentChecked {
   }
 
   setEvent() {
-    this.events1 = [
-      {
+      this.events1 = [{
         start: new Date(2019, 12, 8),
         end: new Date(2019, 12, 8),
         title: this.eventName,
         color: colors.red,
         allDay: true,
-      }
-    ];
-  }
+  }];
+    }
 
   setView(view: CalendarView) {
     this.view = view;
