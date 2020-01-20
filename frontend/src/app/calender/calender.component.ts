@@ -2,7 +2,9 @@ import {
   Component,
   ChangeDetectionStrategy,
   ViewChild,
-  TemplateRef
+  TemplateRef,
+  OnInit,
+  AfterContentChecked,
 } from '@angular/core';
 import {
   isSameDay,
@@ -14,6 +16,9 @@ import {
   CalendarEvent,
   CalendarView
 } from 'angular-calendar';
+import {HttpClient} from '@angular/common/http';
+import {EventService} from '../service/event.service';
+import {Router} from '@angular/router';
 
 const colors: any = {
   red: {
@@ -28,42 +33,56 @@ const colors: any = {
   templateUrl: './calender.component.html',
   styleUrls: ['./calender.component.scss']
 })
-export class CalenderComponent {
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+export class CalenderComponent implements OnInit, AfterContentChecked {
+
+
+  constructor(private http: HttpClient, private eventService: EventService, private router: Router) {}
+
+    @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
-
+  eventName;
+  event = this.eventService.getEventWithId(2).subscribe(value => {this.eventName = value.name.toString();
+                                                                  console.log('eventname: ' + this.eventName);
+                                                                  console.log('value.name: ' + value.name)} );
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
-
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
-
   refresh: Subject<any> = new Subject();
-
-  events: CalendarEvent[] = [
-    {
-      start: new Date(2019, 12, 8),
-      end: new Date(2019, 12, 8),
-      title: 'hi',
-      color: colors.red,
-      allDay: true,
-    }
-  ];
+  events1: CalendarEvent[];
 
   activeDayIsOpen = false;
+    ngOnInit() {
+      /*this.eventService.getEvents()
+        .subscribe((response: any[]) => {
+          this.event = response;
+        });
 
-  constructor(private modal: NgbModal) {}
+      this.eventName = this.event.name;*/
+    }
+
+  ngAfterContentChecked() {
+    this.setEvent();
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
+      console.log('eventName unten ' + this.eventName);
       this.activeDayIsOpen = !((isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
         events.length === 0);
       this.viewDate = date;
     }
+  }
+
+  setEvent() {
+    this.events1 = [
+      {
+        start: new Date(2019, 12, 8),
+        end: new Date(2019, 12, 8),
+        title: this.eventName,
+        color: colors.red,
+        allDay: true,
+      }
+    ];
   }
 
   setView(view: CalendarView) {
