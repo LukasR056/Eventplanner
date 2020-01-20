@@ -18,12 +18,12 @@ import { TagListComponent } from './tag-list/tag-list.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDividerModule, MatExpansionModule,
-  MatFormFieldModule,  MatIconModule,
+  MatButtonModule, MatButtonToggle, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDividerModule, MatExpansionModule,
+  MatFormFieldModule, MatIconModule,
   MatInputModule, MatListModule,
   MatMenuModule, MatNativeDateModule,
   MatSelectModule,
-  MatTableModule,
+  MatTableModule, MatButtonToggleModule,
   MatToolbarModule,
 } from '@angular/material';
 import { FriendsFormComponent } from './friends-form/friends-form.component';
@@ -39,6 +39,7 @@ import { LogoutComponent } from './logout/logout.component';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { CalenderComponent } from './calender/calender.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -65,6 +66,7 @@ export function tokenGetter() {
     EventSearchComponent,
     LoginComponent,
     LogoutComponent,
+    CalenderComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,6 +89,7 @@ export function tokenGetter() {
     MatDividerModule,
     NgbModalModule,
     MatExpansionModule,
+    MatButtonToggleModule,
     MatListModule,
     FormsModule,
     DragDropModule,
@@ -96,7 +99,8 @@ export function tokenGetter() {
         whitelistedDomains: ['localhost:4200']
       }
     }),
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
+    CalendarModule.forRoot({provide: DateAdapter, useFactory: adapterFactory}),
+    MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

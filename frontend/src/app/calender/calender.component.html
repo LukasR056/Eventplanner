@@ -1,0 +1,65 @@
+<div class="calendar">
+
+  <div  class="text">
+    <strong> {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }} </strong>
+
+    <mat-divider></mat-divider>
+
+  </div>
+
+
+  <br>
+  <br>
+
+  <div class="toggles">
+
+    <mat-button-toggle-group class="group1">
+
+      <mat-button-toggle mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+                         (viewDateChange)="closeOpenMonthViewDay()">Previous</mat-button-toggle>
+
+      <mat-button-toggle mwlCalendarToday [(viewDate)]="viewDate">Today</mat-button-toggle>
+
+      <mat-button-toggle mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+                         (viewDateChange)="closeOpenMonthViewDay()">Next</mat-button-toggle>
+
+    </mat-button-toggle-group>
+
+
+    <mat-button-toggle-group class="group2">
+
+      <mat-button-toggle (click)="setView(CalendarView.Month)"
+                         [class.active]="view === CalendarView.Month">Month</mat-button-toggle>
+
+      <mat-button-toggle (click)="setView(CalendarView.Week)"
+                         [class.active]="view === CalendarView.Week">Week</mat-button-toggle>
+
+    </mat-button-toggle-group>
+  </div>
+
+
+  <br />
+
+
+  <div [ngSwitch]="view" class="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="CalendarView.Month"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+    >
+    </mwl-calendar-month-view>
+
+    <mwl-calendar-week-view
+      *ngSwitchCase="CalendarView.Week"
+      [viewDate]="viewDate"
+      [events]="events"
+      [refresh]="refresh"
+    >
+    </mwl-calendar-week-view>
+
+  </div>
+
+</div>

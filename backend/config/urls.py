@@ -65,6 +65,9 @@ urlpatterns = [
     path('event/<int:pk>/update', views.event_form_update),
     path('event/<int:pk>/delete', views.event_delete),
 
+
+
+
     url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^api-token-refresh/', refresh_jwt_token),
 
