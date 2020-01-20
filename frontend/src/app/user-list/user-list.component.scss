@@ -1,0 +1,44 @@
+.calendar {
+  display: flex;
+  flex-direction: column;
+  width: 50rem;
+  margin: 3rem auto;
+}
+
+.mat-button-toggle-checked {
+  background-color: #652247;
+}
+
+.mat-button-toggle {
+  background-color: #A05F83;
+}
+
+.toggles {
+  display: inline;
+}
+
+.group1 {
+  float: left;
+}
+
+.group2 {
+  float: right;
+}
+
+.text {
+  align-self: center;
+  font-size: 5vh;
+}
+
+.mat-divider {
+  border-top-width: 5px;
+  border-top-color: #A05F83;
+}
+
+.cal-cell-top .ng-star-inserted {
+  background-color: #A05F83;
+}
+
+.view{
+  background-color: yellowgreen;
+}

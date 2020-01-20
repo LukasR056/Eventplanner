@@ -36,6 +36,9 @@ import { EventSearchComponent } from './event-search/event-search.component';
 import {JwtModule} from '@auth0/angular-jwt';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -82,6 +85,7 @@ export function tokenGetter() {
     MatCheckboxModule,
     MatIconModule,
     MatDividerModule,
+    NgbModalModule,
     MatExpansionModule,
     MatListModule,
     FormsModule,
@@ -91,7 +95,8 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
         whitelistedDomains: ['localhost:4200']
       }
-    })
+    }),
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
   providers: [],
   bootstrap: [AppComponent]
