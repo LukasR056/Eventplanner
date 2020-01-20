@@ -41,11 +41,13 @@ export class CalenderComponent implements OnInit, AfterContentChecked {
 
   view: CalendarView = CalendarView.Month;
   eventName;
+  doofus = 0;
   event = this.eventService.getEventWithId(2).subscribe(value => {this.eventName = value.name;
                                                                   console.log('eventname: ' + this.eventName);
                                                                   console.log('value.name: ' + value.name)} );
 
   eventNames = [];
+  eventYears = [];
 
  /* events = this.eventService.getEvents().subscribe(value => {
     for (const e in value) {
@@ -54,16 +56,19 @@ export class CalenderComponent implements OnInit, AfterContentChecked {
     console.log('sollte gehen ' + value);
     console.log('event names: ' + this.eventNames);
   }); */
- eventLR = this.eventService.getEvents().subscribe((response: any[]) => {
-   (response.forEach(eventx => {this.eventNames.push(eventx.name)}) );
-   console.log(this.eventNames);
+ eventNames2 = this.eventService.getEvents().subscribe((response: any[]) => {
+   (response.forEach(eventx => {this.eventNames.push(eventx.name);
+                                // this.eventNames.push(eventx.date.year);
+                                console.log('jahr: ' + eventx.date);
+     }));
+   console.log('drinnen: ' + this.eventNames);
 });
 
 
   CalendarView = CalendarView;
   viewDate: Date = new Date();
   refresh: Subject<any> = new Subject();
-  events1: Array<CalendarEvent>;
+  events1: Array<CalendarEvent> = [];
 
   activeDayIsOpen = false;
     ngOnInit() {
@@ -72,7 +77,8 @@ export class CalenderComponent implements OnInit, AfterContentChecked {
           this.event = response;
         });
 
-      this.eventName = this.event.name;**/
+      this.eventName = this.event.name;*/
+      this.doofus = 1;
     }
 
   ngAfterContentChecked() {
@@ -89,13 +95,26 @@ export class CalenderComponent implements OnInit, AfterContentChecked {
   }
 
   setEvent() {
-      this.events1 = [{
+
+      if (this.events1.length === this.eventNames.length) {
+        console.log('gleich lang');
+      } else {
+
+    for (const en of this.eventNames) {
+
+      this.events1.push({
+
         start: new Date(2019, 12, 8),
         end: new Date(2019, 12, 8),
-        title: this.eventName,
+        title: en,
         color: colors.red,
         allDay: true,
-  }];
+
+      });
+      // console.log(en);
+    }
+      }
+
     }
 
   setView(view: CalendarView) {
