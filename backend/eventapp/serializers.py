@@ -92,7 +92,7 @@ class EventListSerializer(serializers.ModelSerializer):
     invited = serializers.SerializerMethodField()
     class Meta:
         model = Event
-        fields = ['id', 'name', 'date','time', 'description', 'location', 'public', 'eventplanner', 'invited', 'tasks', 'message','tags']
+        fields = ['id', 'name', 'date','time', 'description', 'location', 'public', 'eventplanner', 'invited', 'tasks', 'message','tags','participants']
 
     def get_eventplanner(self, obj):
         return obj.eventplanner.username if obj.eventplanner else ''
@@ -110,6 +110,9 @@ class EventFormSerializer(serializers.ModelSerializer):
         fields = [field.name for field in model._meta.fields]
         fields.append('invited')
         fields.append('tasks')
+        fields.append('tags')
+        fields.append('eventplanner')
+        fields.append('participants')
         #fields = ['__all__', 'tasks']
         #fields = ['tasks',]
 

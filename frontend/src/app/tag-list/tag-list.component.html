@@ -10,9 +10,9 @@
 
 <div class="event-list">
 
-    <mat-card class="event-card" *ngFor="let event of showEvents" (click)="eventDetail(event.id)" >
+    <mat-card class="event-card" *ngFor="let event of showEvents"  >
     <mat-card-header>
-      <mat-card-title >{{event.name}}</mat-card-title>
+      <mat-card-title (click)="eventDetail(event.id)" >{{event.name}}</mat-card-title>
     </mat-card-header>
     <hr>
     <mat-card-content>
@@ -26,6 +26,7 @@
         For more information, click on the EVENT!
       </p>
     </mat-card-content>
+      <button mat-button (click)="participateEvent(event)" >I'm in!</button>
     </mat-card>
 
 </div>

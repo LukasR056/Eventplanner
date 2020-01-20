@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'forumentry-form', component: ForumentryFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'event-list', component: EventListComponent, canActivate: [AuthenticationGuard] },
   { path: 'event-form', component: EventFormComponent, canActivate: [AuthenticationGuard] },
+  { path: 'event-form/:id', component: EventFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'user-list', component: UserListComponent, canActivate: [AuthenticationGuard] },
   { path: 'user-form', component: UserFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'event-detail/:id', component: EventDetailComponent, canActivate: [AuthenticationGuard] },

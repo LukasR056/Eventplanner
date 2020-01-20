@@ -5,12 +5,14 @@
     <mat-hint align="end">The name of the event</mat-hint>
   </mat-form-field>
 
- <!-- <app-date placeholder="Datetime" formControlName="datetime" hint="Datetime des Penis"
-            [required]="true"></app-date> -->
+  <app-date placeholder="Date" formControlName="date" hint="When is the event?"
+            [required]="true"></app-date>
 
-  <mat-form-field>
-    <input matInput type="datetime-local" placeholder="start date" formControlName="datetime">
-  </mat-form-field>
+  <div class="24hr-example">
+    <input matInput  placeholder="24hr format" aria-label="24hr format" formControlName="time" [ngxTimepicker]="fullTime" [format]="24"  >
+    <ngx-material-timepicker #fullTime ></ngx-material-timepicker>
+  </div>
+
 
   <mat-form-field>
     <input matInput type="text" placeholder="Description" formControlName="description">

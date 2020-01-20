@@ -173,6 +173,12 @@ def event_list(request):
     serializers = EventListSerializer(events, many=True)
     return Response(serializers.data)
 
+@api_view(['GET'])
+def event_listId(request):
+    events = Event.objects.all()
+    serializers = EventFormSerializer(events, many=True)
+    return Response(serializers.data)
+
 
 @api_view(['GET'])
 def event_list_firstrow(request):
@@ -200,7 +206,7 @@ def event_form_get(request, pk):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
+@api_view(['PUT'])
 def event_form_update(request, pk):
     try:
         event = Event.objects.get(pk=pk)

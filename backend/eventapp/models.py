@@ -35,12 +35,13 @@ class Profile(models.Model):
 class Event(models.Model):
     name = models.TextField()
     date = models.DateField()
-    time = models.TimeField()
+    time = models.TimeField(input_formats='%H:%M',)
     description = models.TextField()
     location = models.TextField()
     public = models.BooleanField()
     eventplanner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='eventplanner')
     invited = models.ManyToManyField(User, related_name='invited', blank=True)
+    participants = models.ManyToManyField(User, related_name='participants', blank=True)
 
     # https://stackoverflow.com/questions/13918968/multiple-many-to-many-relations-to-the-same-model-in-django
 

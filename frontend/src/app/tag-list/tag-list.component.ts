@@ -13,29 +13,42 @@ export class TagListComponent implements OnInit {
   selectable = true;
   events: any [];
   showEvents: any[];
+  private username: any;
+  private userId: any;
 
 
   constructor(private tagService: TagsService, private  eventService: EventService, private router: Router) {
   }
 
   ngOnInit() {
+    this.username = localStorage.getItem('username');
+    this.userId = localStorage.getItem('user_id');
     this.tagService.getTags()
       .subscribe((response: any[]) => {
         this.tags = response;
       });
-    this.eventService.getEvents()
+    this.eventService.getEventsId()
       .subscribe((response: any[]) => {
         this.events = response;
       });
   }
 
+  // event.tags.includes(tag.id) && event.public
   changeEvent(tag: any) {
-    this.showEvents = this.events.filter(event => event.tags.includes(tag.id) && event.public );
-    console.log(this.showEvents);
+    // console.log(this.userId)
+    this.showEvents = this.events.filter(event => event.tags.includes(tag.id) && event.public && !event.participants.includes(Number(this.userId)) && !event.invited.includes(Number(this.userId)));
+    // console.log(this.showEvents);
   }
 
   eventDetail(id: any) {
     this.router.navigate(['/event-detail/' + id]);
+  }
+
+  participateEvent(event: any) {
+    event.participants.push(this.userId);
+    this.eventService.updateEvent(event).subscribe(() => {
+      this.router.navigate(['/event-detail/' + event.id]);
+    });
   }
 }
 

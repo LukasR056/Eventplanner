@@ -14,27 +14,31 @@ import {UserService} from '../service/user.service';
 export class EventFormComponent implements OnInit {
   eventFormGroup;
   userOptions;
+  time: any;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,
               private router: Router, private eventService: EventService, private userService: UserService) {
   }
 
-  ngOnInit() {    this.eventFormGroup = this.fb.group({
-    'id': [null],
-    'name': [null],
-    'datetime': [null],
-    'description': [null],
-    'location': [null],
-    'public': [null],
-    'eventplanner': [null],
-    'invited': [null],
-  });
+  ngOnInit() {
+    this.eventFormGroup = this.fb.group({
+      id: [null],
+      name: [null],
+      date: [null],
+      time: [null],
+      description: [null],
+      location: [null],
+      public: [null],
+      eventplanner: [null],
+      invited: [null],
+    });
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.http.get('/api/event/' + id + '/get')
         .subscribe((response) => {
           this.eventFormGroup.patchValue(response);
+          this.time = this.eventFormGroup.time;
         });
     }
 
@@ -59,4 +63,7 @@ export class EventFormComponent implements OnInit {
   }
 
 
+  test(time: any) {
+
+  }
 }

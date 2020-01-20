@@ -38,6 +38,7 @@ import {JwtModule} from '@auth0/angular-jwt';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RegistrationComponent } from './registration/registration.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -96,7 +97,8 @@ export function tokenGetter() {
         tokenGetter,
         whitelistedDomains: ['localhost:4200']
       }
-    })
+    }),
+    NgxMaterialTimepickerModule,
   ],
   providers: [
   ],
