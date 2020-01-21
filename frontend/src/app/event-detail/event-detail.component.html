@@ -58,7 +58,7 @@
 
           <!-- message aller anderen -->
 
-          <div class="him"  *ngIf="forumentry.userid != userId" >
+          <div class="others"  *ngIf="forumentry.userid != userId" >
             <p>
               {{forumentry.user}}
             </p>
@@ -82,19 +82,14 @@
 
 
         <div class="newmessgage">
-          Messenger
+          New Message
       <form [formGroup]="forumentryFormGroup" class="forumentry-form">
-
-
         <mat-form-field>
           <input matInput type="text" placeholder="Content" formControlName="content">
         </mat-form-field>
-
-
       </form>
-
       <button mat-button (click)="createForumentry()">
-        Create
+        Send
       </button>
     </div>
   </div>

@@ -8,21 +8,18 @@
   width: 25%;
   float: right;
   clear:right;
-
-
 }
 
 .messengerbox{
-  height: 80vh;
+  height: 75vh;
   overflow-y: scroll;
-
 }
 
 /* links rechts */
-.him{
+.others{
   float: left;
   height: 10vh;
-  background: #9DA05F;
+  background: #A4E3BC;
   color: #fff;
   display:inline-block;
   clear: both;
@@ -31,11 +28,12 @@
   margin-bottom: 2px;
   font-family: Helvetica, Arial, sans-serif;
 }
+
 
 .me{
   float: right;
   height: 10vh;
-  background: #A0615F;
+  background: #66CDAA;
   color: #fff;
   display:inline-block;
   clear: both;
@@ -43,6 +41,27 @@
   border-radius: 30px;
   margin-bottom: 2px;
   font-family: Helvetica, Arial, sans-serif;
+}
+
+
+.mat-button{
+  background-color: #A4E3BC; /* Blue background */
+  float: right;
+  border: none; /* Remove borders */
+  color: white; /* White text */
+  padding: 8px 16px; /* Some padding */
+  font-size: 12px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+}
+
+/* Darker background on mouse-over */
+.mat-button:hover {
+  background-color: Black;
+}
+
+.newmessgage.matInput{
+
+
 }
 
 /* */
@@ -53,7 +72,16 @@
 }
 
 .newmessgage{
-  display: block;
+  height: 10vh;
+  width: 40vh;
+  background: #66CDAA;
+  color: #fff;
+  display:inline-block;
+  clear: both;
+  padding: 20px;
+  border-radius: 30px;
+  margin-bottom: 2px;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 
