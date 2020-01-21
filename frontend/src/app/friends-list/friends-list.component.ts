@@ -75,7 +75,9 @@ export class FriendsListComponent implements OnInit {
 
   private _filter(name: string): any[] {
     const filterValue = name.toLowerCase();
-    return this.userList.filter(option => option.first_name.toLowerCase().indexOf(filterValue) === 0);
+    return this.userList.filter(option => option.first_name.toLowerCase().indexOf(filterValue) === 0
+      || option.last_name.toLowerCase().indexOf(filterValue) === 0
+      || option.user.username.toLowerCase().indexOf(filterValue) === 0);
   }
 
   removeFriend(id: any) {
