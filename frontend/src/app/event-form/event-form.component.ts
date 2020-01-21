@@ -65,11 +65,12 @@ export class EventFormComponent implements OnInit {
     }
 
     this.userService.getUsers().subscribe((response: any[]) => {
+      // Bei !== kommt nicht der gewünschte Output raus bei !=, deshalb das folgende Kommentar
       // tslint:disable-next-line:triple-equals
       this.userOptions = response.filter(user => user.id != this.userId && !this.eventFormGroup.value.participants.includes(user.id) && !this.eventFormGroup.value.invited.includes(user.id));
       if (this.userOptions.length === 0) {
         this.userOptionsNotEmpty = false;
-        //console.log(this.userOptionsEmpty);
+
       }
     });
 
