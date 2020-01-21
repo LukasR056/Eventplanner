@@ -35,7 +35,7 @@ class Profile(models.Model):
 class Event(models.Model):
     name = models.TextField()
     date = models.DateField()
-    time = models.TimeField(input_formats='%H:%M',)
+    time = models.TimeField()
     description = models.TextField()
     location = models.TextField()
     public = models.BooleanField()
