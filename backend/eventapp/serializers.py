@@ -106,16 +106,20 @@ class EventFormSerializer(serializers.ModelSerializer):
 class ForumentryListSerializer(serializers.ModelSerializer):
     event = serializers.SerializerMethodField()
     user = serializers.SerializerMethodField()
+    userid = serializers.SerializerMethodField()
 
     class Meta:
         model = Forumentry
-        fields = ['id', 'content', 'datetime', 'user', 'event']
+        fields = ['id', 'content', 'datetime', 'user', 'event', 'userid']
 
     def get_event(self, obj):
         return obj.event.name if obj.event else ''
 
     def get_user(self, obj):
         return obj.user.username if obj.user else ''
+
+    def get_userid(self, obj):
+        return obj.user.id if obj.user else ''
 
 
 class ForumentryFormSerializer(serializers.ModelSerializer):

@@ -43,9 +43,10 @@
   <!--  soll nur angezeigt werden, wenn forumentry.user == eingeloggter userid -->
 
 
-          <div class="me"  *ngIf="forumentry.user == 'jandi'" >
+          <div class="me"  *ngIf="forumentry.userid == userId" >
           <p>
             {{forumentry.user}}
+
           </p>
           <p>
            {{forumentry.content}},    {{forumentry.datetime | date:'h:mm'}}
@@ -57,7 +58,7 @@
 
           <!-- message aller anderen -->
 
-          <div class="him"  *ngIf="forumentry.user != 'jandi'" >
+          <div class="him"  *ngIf="forumentry.userid != userId" >
             <p>
               {{forumentry.user}}
             </p>
