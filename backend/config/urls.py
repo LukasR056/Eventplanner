@@ -24,6 +24,7 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token
 
 
 from eventapp import views
+from eventapp.views import FileUploadView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -64,6 +65,10 @@ urlpatterns = [
     path('event/<int:pk>/get', views.event_form_get),
     path('event/<int:pk>/update', views.event_form_update),
     path('event/<int:pk>/delete', views.event_delete),
+
+    url(r'^media$', FileUploadView.as_view()),
+    path('media/<int:pk>', views.media_download),
+    path('media/<int:pk>/get', views.media_get),
 
 
 

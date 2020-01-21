@@ -1,12 +1,17 @@
 from django.contrib.auth.models import User
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
+from django.http import HttpResponse
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import status
+from rest_framework import status, views
 from rest_framework.decorators import api_view
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 
-from .models import Task, Event, Forumentry, Tag, Profile
+from .models import Task, Event, Forumentry, Tag, Profile, Media
 from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, \
-    EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer, AbstractUserForm
+    EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer, AbstractUserForm, \
+    MediaSerializer
 
 
 @api_view(['GET'])
@@ -17,6 +22,7 @@ def abstract_user_form(request, username):
         return Response({'error': 'User does not exist'}, status=404)
     serializer = AbstractUserForm(abstract_user)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def user_list(request):
@@ -312,7 +318,7 @@ def forumentry_delete(request, pk):
 
 
 @api_view(['GET'])
-def tasks_list_options(request,pk):
+def tasks_list_options(request, pk):
     tasks = Task.objects.get(pk=pk)
     serializer = TaskFormSerializer(tasks, many=True)
     return Response(serializer.data)
@@ -322,4 +328,47 @@ def tasks_list_options(request,pk):
 def event_option_list(request):
     event = Event.objects.all()
     serializer = EventListSerializer(event, many=True)
+    return Response(serializer.data)
+
+
+'''Fileupload'''
+
+
+class FileUploadView(views.APIView):
+    parser_classes = [MultiPartParser]
+
+    def post(self, request, format=None):
+        file = request.FILES['file']
+        file_input = {
+            'original_file_name': file.name,
+            'content_type': file.content_type,
+            'size': file.size,
+        }
+        serializer = MediaSerializer(data=file_input)
+        if serializer.is_valid():
+            serializer.save()
+            default_storage.save('media/' + str(serializer.data['id']), ContentFile(file.read()))
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+
+
+def media_download(request, pk):
+    media = Media.objects.get(pk=pk)
+    data = default_storage.open('media/' + str(pk)).read()
+    content_type = media.content_type
+    response = HttpResponse(data, content_type=content_type)
+    original_file_name = media.original_file_name
+    response['Content-Disposition'] = 'inline; filename=' + original_file_name
+    return response
+
+
+@swagger_auto_schema(method='GET', responses={200: MediaSerializer()})
+@api_view(['GET'])
+def media_get(request, pk):
+    try:
+        media = Media.objects.get(pk=pk)
+    except Event.DoesNotExist:
+        return Response({'error': 'Media does not exist.'}, status=404)
+
+    serializer = MediaSerializer(media)
     return Response(serializer.data)

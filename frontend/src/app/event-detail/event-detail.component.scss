@@ -18,6 +18,35 @@
 
 }
 
+/* links rechts */
+.him{
+  float: left;
+  height: 10vh;
+  background: #9DA05F;
+  color: #fff;
+  display:inline-block;
+  clear: both;
+  padding: 20px;
+  border-radius: 30px;
+  margin-bottom: 2px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.me{
+  float: right;
+  height: 10vh;
+  background: #A0615F;
+  color: #fff;
+  display:inline-block;
+  clear: both;
+  padding: 20px;
+  border-radius: 30px;
+  margin-bottom: 2px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* */
+
 .eventanzeige {
   float: left;
   width: 75%;

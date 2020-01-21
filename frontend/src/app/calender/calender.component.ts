@@ -42,9 +42,6 @@ export class CalenderComponent implements OnInit, AfterContentChecked {
   view: CalendarView = CalendarView.Month;
   eventName;
   doofus = 0;
-  event = this.eventService.getEventWithId(2).subscribe(value => {this.eventName = value.name;
-                                                                  console.log('eventname: ' + this.eventName);
-                                                                  console.log('value.name: ' + value.name)} );
 
   eventNames = [];
   eventYears = [];

@@ -40,23 +40,43 @@
         <div class="messengerbox" #scrollMe [scrollTop]="scrollMe.scrollHeight">
       <mat-card class="messenger" *ngFor="let forumentry of forumentries" >
         <mat-card-content>
+  <!--  soll nur angezeigt werden, wenn forumentry.user == eingeloggter userid -->
 
+
+          <div class="me"  *ngIf="forumentry.user == 'jandi'" >
           <p>
-            Username: {{forumentry.user}}
+            {{forumentry.user}}
           </p>
           <p>
-            Content: {{forumentry.content}}
-          </p>
-          <p>
-            Time: {{forumentry.datetime | date:'h:mm'}}
+           {{forumentry.content}},    {{forumentry.datetime | date:'h:mm'}}
           </p>
           <p>
           Date: {{forumentry.datetime | date}}
           </p>
+          </div>
+
+          <!-- message aller anderen -->
+
+          <div class="him"  *ngIf="forumentry.user != 'jandi'" >
+            <p>
+              {{forumentry.user}}
+            </p>
+            <p>
+              {{forumentry.content}},    {{forumentry.datetime | date:'h:mm'}}
+            </p>
+            <p>
+              Date: {{forumentry.datetime | date}}
+            </p>
+          </div>
+
         </mat-card-content>
       </mat-card>
         </div>
       </div>
+
+
+
+
       <!--Neue Message -->
 
 

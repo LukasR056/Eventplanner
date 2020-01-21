@@ -40,6 +40,8 @@ import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalenderComponent } from './calender/calender.component';
+import { MediainputComponent } from './mediainput/mediainput.component';
+import {FileUploadModule} from 'ng2-file-upload';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -67,12 +69,15 @@ export function tokenGetter() {
     LoginComponent,
     LogoutComponent,
     CalenderComponent,
+    MediainputComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FileUploadModule,
     BrowserAnimationsModule,
     MatTableModule,
     MatButtonModule,

@@ -28,6 +28,7 @@ export class EventFormComponent implements OnInit {
     'public': [null],
     'eventplanner': [null],
     'invited': [null],
+    'pictures': [[]]
   });
 
     const id = this.route.snapshot.paramMap.get('id');

@@ -124,3 +124,8 @@ class ForumentryFormSerializer(serializers.ModelSerializer):
         model = Forumentry
         fields = '__all__'
 
+
+class MediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Media
+        fields = '__all__'
