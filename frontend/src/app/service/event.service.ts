@@ -12,6 +12,9 @@ export class EventService {
   getEvents() {
     return this.http.get('/api/event/list');
   }
+  getEventsId() {
+    return this.http.get('/api/event/listId');
+  }
 
   retrieveEvents() {
     return this.http.get<any[]>('/api/event/list');

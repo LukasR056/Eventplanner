@@ -31,10 +31,10 @@ urlpatterns = [
     path('user/list/', views.user_list),
     path('user/options', views.user_list),
     path('user/<int:pk>/get', views.user_form),
-    path('user/create', views.user_form_create),
+    # path('user/create', views.user_form_create), EIGENTLICH NICHT MEHR BENÖTIGT
+    path('user/create', views.user_form_adapted_create),
     path('user/<int:pk>/update', views.user_form_update),
     path('user/<int:pk>/delete', views.user_delete),
-    path('abstract-user/<username>/get', views.abstract_user_form),
 
     path('task/list', views.tasks_list),
     path('task/create', views.task_form_create),
@@ -59,6 +59,7 @@ urlpatterns = [
     path('forumentry/<int:pk>/delete', views.forumentry_delete),
 
     path('event/list', views.event_list),
+    path('event/listId', views.event_listId),
     path('event/list/firstrow', views.event_list_firstrow),
     path('event/options', views.event_list),
     path('event/create', views.event_form_create),

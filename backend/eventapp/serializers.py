@@ -5,7 +5,7 @@ from .models import *
 class AbstractUserForm(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'username']
         # fields = ['username']
 
 class UserList(serializers.ModelSerializer):
@@ -28,6 +28,17 @@ class UserForm (serializers.ModelSerializer):
 
         def get_user_username(self, obj):
             return obj.user.user if obj.user else ''
+
+class AbstractUserCreateForm (serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
+class UserCreateForm (serializers.ModelSerializer):
+    user = AbstractUserCreateForm()
+    class Meta:
+        model = Profile
+        fields = ['user', 'first_name', 'last_name', 'birthday']
 
 
 class TaskListSerializer(serializers.ModelSerializer):
@@ -81,7 +92,7 @@ class EventListSerializer(serializers.ModelSerializer):
     invited = serializers.SerializerMethodField()
     class Meta:
         model = Event
-        fields = ['id', 'name', 'date','time', 'description', 'location', 'public', 'eventplanner', 'invited', 'tasks', 'message']
+        fields = ['id', 'name', 'date','time', 'description', 'location', 'public', 'eventplanner', 'invited', 'tasks', 'message','tags','participants']
 
     def get_eventplanner(self, obj):
         return obj.eventplanner.username if obj.eventplanner else ''
@@ -99,6 +110,9 @@ class EventFormSerializer(serializers.ModelSerializer):
         fields = [field.name for field in model._meta.fields]
         fields.append('invited')
         fields.append('tasks')
+        fields.append('tags')
+        fields.append('eventplanner')
+        fields.append('participants')
         #fields = ['__all__', 'tasks']
         #fields = ['tasks',]
 

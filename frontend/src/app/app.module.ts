@@ -18,7 +18,8 @@ import { TagListComponent } from './tag-list/tag-list.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatButtonToggle, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDividerModule, MatExpansionModule,
+  MatAutocompleteModule,MatButtonToggle,MatCheckboxModule,
+  MatButtonModule, MatCardModule, MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDividerModule, MatExpansionModule,
   MatFormFieldModule, MatIconModule,
   MatInputModule, MatListModule,
   MatMenuModule, MatNativeDateModule,
@@ -42,6 +43,10 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalenderComponent } from './calender/calender.component';
 import { MediainputComponent } from './mediainput/mediainput.component';
 import {FileUploadModule} from 'ng2-file-upload';
+import { RegistrationComponent } from './registration/registration.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { CheckInvitationComponent } from './check-invitation/check-invitation.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -70,7 +75,8 @@ export function tokenGetter() {
     LogoutComponent,
     CalenderComponent,
     MediainputComponent,
-
+    RegistrationComponent,
+    CheckInvitationComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,16 +104,19 @@ export function tokenGetter() {
     MatListModule,
     FormsModule,
     DragDropModule,
+    MatAutocompleteModule,
+    MatChipsModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetter,
+        tokenGetter,
         whitelistedDomains: ['localhost:4200']
       }
     }),
+
     CalendarModule.forRoot({provide: DateAdapter, useFactory: adapterFactory}),
-    MatButtonToggleModule
-  ],
-  providers: [],
+    MatButtonToggleModule,
+    NgxMaterialTimepickerModule,
+  providers: [  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

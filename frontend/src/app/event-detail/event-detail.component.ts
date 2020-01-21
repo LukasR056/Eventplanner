@@ -132,4 +132,7 @@ export class EventDetailComponent implements OnInit {
     // console.log(event.item.data);
   }
 
+  updateEvent(id: any) {
+    this.router.navigate(['/event-form/' + id]);
+  }
 }

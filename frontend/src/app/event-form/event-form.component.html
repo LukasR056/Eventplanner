@@ -5,12 +5,14 @@
     <mat-hint align="end">The name of the event</mat-hint>
   </mat-form-field>
 
- <!-- <app-date placeholder="Datetime" formControlName="datetime" hint="Datetime des Penis"
-            [required]="true"></app-date> -->
+  <app-date placeholder="Date" formControlName="date" hint="When is the event?"
+            [required]="true"></app-date>
 
-  <mat-form-field>
-    <input matInput type="datetime-local" placeholder="start date" formControlName="datetime">
-  </mat-form-field>
+  <div class="24hr-example">
+    <input matInput  placeholder="24hr format" aria-label="24hr format" formControlName="time" [ngxTimepicker]="fulltime" [format]="24" [value]=time  >
+    <ngx-material-timepicker #fulltime ></ngx-material-timepicker>
+  </div>
+
 
   <mat-form-field>
     <input matInput type="text" placeholder="Description" formControlName="description">
@@ -24,24 +26,32 @@
 
   <mat-checkbox formControlName="public">public</mat-checkbox>
 
-  <mat-form-field>
-    <mat-select placeholder="Eventplanner"
-                formControlName="eventplanner">
-      <mat-option [value]="null">Unknown</mat-option>
-      <mat-option [value]="userOption.id" *ngFor="let userOption of userOptions">{{userOption.username}}</mat-option>
-    </mat-select>
-    <mat-hint align="end">The Author of the book</mat-hint>
-  </mat-form-field>
+  <br>
+
+ <mat-label > Eventplanner: {{username}} </mat-label>
 <br>
 
   <mat-form-field>
-    <mat-select placeholder="Invited"
-                formControlName="invited" multiple>
-      <mat-option [value]="null">Unknown</mat-option>
-      <mat-option [value]="userOption.id" *ngFor="let userOption of userOptions">{{userOption.username}}</mat-option>
+    <mat-select placeholder="Tags"
+                formControlName="tags" multiple >
+      <mat-option  [value]="tagOptions.id" *ngFor="let
+      tagOptions of tagOptions">{{tagOptions.name}}</mat-option>
     </mat-select>
-    <mat-hint align="end">The Author of the book</mat-hint>
+    <mat-hint align="end">What kind of event is it?</mat-hint>
   </mat-form-field>
+
+
+  <mat-form-field *ngIf="userOptionsNotEmpty">
+    <mat-select placeholder="Invite"
+                formControlName="invited" multiple >
+      <mat-option [value]="userOption.id" *ngFor="let
+      userOption of userOptions">{{userOption.user.username}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">Which of your friends do you want to invite?</mat-hint>
+  </mat-form-field>
+  <mat-label *ngIf="!userOptionsNotEmpty"> You have already invited all your friends! </mat-label>
+
+  <br>
 
   <mat-card-actions align="center">
     <button mat-raised-button color="primary" [disabled]="!eventFormGroup.valid" (click)="createEvent()">

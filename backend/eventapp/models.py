@@ -41,6 +41,7 @@ class Event(models.Model):
     public = models.BooleanField()
     eventplanner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='eventplanner')
     invited = models.ManyToManyField(User, related_name='invited', blank=True)
+    participants = models.ManyToManyField(User, related_name='participants', blank=True)
     pictures = models.ManyToManyField('Media', blank=True)
 
     # https://stackoverflow.com/questions/13918968/multiple-many-to-many-relations-to-the-same-model-in-django
@@ -80,10 +81,10 @@ class Task(models.Model):
 
 
 class Tag(models.Model):
-    name = models.TextField()
-    events = models.ManyToManyField(Event, blank=True)
+    name = models.TextField(unique=True)
+    events = models.ManyToManyField(Event,related_name='tags', blank=True)
 
-    # wird beidseitig benötigt und muss noch gelöst werden
+
 
     def __str__(self):
         return self.name
