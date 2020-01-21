@@ -16,6 +16,7 @@ import {HomepageComponent} from './homepage/homepage.component';
 import {LoginComponent} from './login/login.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {AuthenticationGuard} from './guard/authentication.guard';
+import {CheckInvitationComponent} from './check-invitation/check-invitation.component';
 
 
 const routes: Routes = [
@@ -35,8 +36,9 @@ const routes: Routes = [
   { path: 'friends-list', component: FriendsListComponent, canActivate: [AuthenticationGuard] },
   { path: 'homepage', component: HomepageComponent, canActivate: [AuthenticationGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'tag-list', component: TagListComponent },
+  { path: 'tag-list', component: TagListComponent, canActivate: [AuthenticationGuard] },
   { path: 'registration', component: RegistrationComponent },
+  { path: 'check-invitation', component: CheckInvitationComponent, canActivate: [AuthenticationGuard] },
 ];
 
 @NgModule({

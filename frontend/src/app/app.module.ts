@@ -39,6 +39,7 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { RegistrationComponent } from './registration/registration.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { CheckInvitationComponent } from './check-invitation/check-invitation.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -66,6 +67,7 @@ export function tokenGetter() {
     LoginComponent,
     LogoutComponent,
     RegistrationComponent,
+    CheckInvitationComponent,
   ],
   imports: [
     BrowserModule,
