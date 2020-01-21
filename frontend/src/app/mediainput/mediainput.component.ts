@@ -41,7 +41,7 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
   ngOnInit() {
     this.uploader = new FileUploader({
       url: this.resourceUrl,
-      //authToken: 'Bearer ' + localStorage.getItem(this.userService.accessTokenLocalStorageKey),
+      authToken: 'Bearer ' + localStorage.getItem('access_token'),
       autoUpload: true,
     });
     this.uploader.onBeforeUploadItem = (item: FileItem) => {
