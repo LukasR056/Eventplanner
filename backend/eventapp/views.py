@@ -58,8 +58,6 @@ def user_form_update(request, pk):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
-    # TODO: HIER EVTL UNTERES RETURN ÜBERPRÜFEN
-
 
 
 ''' TAG SERIALIZERS '''

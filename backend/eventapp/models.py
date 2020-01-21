@@ -17,6 +17,7 @@ class Profile(models.Model):
     birthday = models.DateField(default=datetime.date.today)
     active = models.BooleanField(default=True)
     friends = models.ManyToManyField('self', blank=True)
+    friend_requests = models.ManyToManyField('self', blank=True)
 
     def __str__(self):
         return self.user.username
