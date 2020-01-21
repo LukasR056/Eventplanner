@@ -15,6 +15,7 @@ import {FriendsListComponent} from './friends-list/friends-list.component';
 import {HomepageComponent} from './homepage/homepage.component';
 import {LoginComponent} from './login/login.component';
 import {CalenderComponent} from './calender/calender.component';
+import { MapsComponent } from './maps/maps.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
   { path: 'calender', component: CalenderComponent },
+  { path: 'maps', component: MapsComponent}
 ];
 
 @NgModule({

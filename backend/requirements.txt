@@ -1,3 +1,4 @@
+weasyprint
 Django==3.0.2
 djangorestframework==3.11.0
 djangorestframework-jwt-custom-user==1.11.1

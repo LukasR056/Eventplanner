@@ -40,6 +40,8 @@ import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalenderComponent } from './calender/calender.component';
+import { AgmCoreModule } from '@agm/core';
+import { MapsComponent } from './maps/maps.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -67,6 +69,7 @@ export function tokenGetter() {
     LoginComponent,
     LogoutComponent,
     CalenderComponent,
+    MapsComponent,
   ],
   imports: [
     BrowserModule,
@@ -93,6 +96,10 @@ export function tokenGetter() {
     MatListModule,
     FormsModule,
     DragDropModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAfJTVKnpLl0ULuuwDuix-9ANpyQhP6mfc'
+      // API Key von https://www.code-sample.com/2018/05/angular-5-6-7-google-maps-agm-api-key.html
+    }),
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
