@@ -9,7 +9,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
-  <button mat-raised-button mat-button class="button-add" (click)="addFriend()">+</button>
+  <button mat-raised-button mat-button class="button-add" (click)="addFriend(-1,true)">+</button>
 </form>
 
 <h2>Friends</h2>
@@ -29,5 +29,19 @@
     </p>
 
   </mat-card-content>
-
 </mat-card>
+
+<mat-expansion-panel *ngIf="receivedFriendRequestsCount > 0">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <strong>Friendship requests: {{receivedFriendRequestsCount}}</strong>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div *ngFor="let friendRequest of receivedFriendRequests">
+    <p>
+      {{friendRequest.first_name}} {{friendRequest.last_name}} (@{{friendRequest.user.username}})
+      <button mat-raised-button (click)="addFriend(friendRequest.id, false)">accept</button>
+    </p>
+    <hr>
+  </div>
+</mat-expansion-panel>

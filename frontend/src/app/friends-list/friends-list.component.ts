@@ -1,64 +1,88 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../service/user.service';
-import {FormBuilder, FormControl} from '@angular/forms';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {FriendshipRequestService} from '../service/friendship-request.service';
 
 @Component({
   selector: 'app-friends-list',
   templateUrl: './friends-list.component.html',
   styleUrls: ['./friends-list.component.scss']
 })
+// tslint:disable:triple-equals
 export class FriendsListComponent implements OnInit {
   friends: any[];
-  friendRequests: any[];
   idFriendRequested: any;
+  allFriendRequests: any[];
+  friendRequestOfCounterpart: any;
+  receivedFriendRequests: any[];
+  receivedFriendRequestsRawId: any;
+  receivedFriendRequestsCount: number;
+
   userId: any;
   input = new FormControl();
   userList: any[];
   filteredUserList: Observable<any[]>;
-  private userFriendFormGroup;
-  private userFriendRequestedFormGroup;
+  private friendRequestsFormGroup;
   private userFormGroup;
 
 
-  constructor(private userService: UserService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private friendshipRequestService: FriendshipRequestService, private fb: FormBuilder) {
   }
 
   ngOnInit() {
-    this.userFriendFormGroup = this.fb.group({
-      'id': [null],
-      'friends': [[]],
-    });
-
-    this.userFriendRequestedFormGroup = this.fb.group({
-      'id': [null],
-      'friend_requests': [[]],
+    this.friendRequestsFormGroup = this.fb.group({
+      id: [null],
+      request_sent: [null, Validators.required],
+      user: [null],
+      potential_friends: [[]],
     });
 
     this.userFormGroup = this.fb.group({
-      'id': [null],
-      'user': [null],
-      'first_name': [''],
-      'last_name': [''],
-      'birthday': [null],
-      'friends': [[]],
-      'friend_requests': [[]],
+      id: [null],
+      user: [null],
+      friend_requests: [[null]],
+      first_name: [''],
+      last_name: [''],
+      birthday: [null],
+      friends: [[]],
     });
 
-    this.userId = localStorage.getItem('user_id');
-    this.userService.getUserById(this.userId).subscribe(response => {
-      this.userFormGroup.patchValue(response);
-      console.log(this.userFormGroup);
-    });
+    this.userId = Number(localStorage.getItem('user_id'));
 
     this.userService.getUsers().subscribe((response: any[]) => {
-      this.userList = response.filter(user => !user.friends.includes(Number(this.userId))
-        && !user.friend_requests.includes(Number(this.userId))
-        && user.id !== Number(this.userId));
-      this.friends = response.filter(user => user.friends.includes(Number(this.userId)));
-      this.friendRequests = response.filter(user => user.friends.includes(Number(this.userId)))
-        .filter(user => user.id !== this.userId);
+      this.userService.getUserById(this.userId).subscribe(currentUser => {
+        this.userFormGroup.patchValue(currentUser);
+        console.log(this.userFormGroup.value);
+        this.userList = response.filter(user => !user.friends.includes(this.userId)
+          // some um zu überprüfen ob der Wert wenigstens 1x vorhanden ist wenn ja sollte er nicht vorkommen daher ! am Anfang
+          && !this.userFormGroup.value.friend_requests.some(request => request.potential_friends.includes(user.id))
+          && user.id !== this.userId);
+      });
+
+      this.friends = response.filter(user => user.friends.includes(this.userId));
+      // this.friendRequests = response.filter(user => this.userFormGroup.value.friend_requests.forEach()
+      // user.friends.includes(this.userId));
+
+      this.friendshipRequestService.getFriendshipRequests().subscribe((friendRequests: any[]) => {
+        //   this.sentFriendRequests = response.filter(request => request.user === this.userId
+        //     && request.request_sent === true);
+        //   console.log(this.sentFriendRequests);
+
+        this.receivedFriendRequestsRawId = friendRequests.filter(request => request.user == this.userId
+          && request.request_sent == false).map(request => request.potential_friends)[0];
+
+        this.receivedFriendRequests = response.filter(user => this.receivedFriendRequestsRawId.includes(user.id));
+        this.receivedFriendRequestsCount = this.receivedFriendRequests.length;
+        // console.log(this.receivedFriendRequests);
+
+      });
+
+    });
+
+    this.friendshipRequestService.getFriendshipRequests().subscribe((response: any[]) => {
+      this.allFriendRequests = response;
     });
 
     this.filteredUserList = this.input.valueChanges
@@ -70,7 +94,7 @@ export class FriendsListComponent implements OnInit {
   }
 
   displayFn(user?: any): string | undefined {
-    return user ? (user.first_name + ' ' + user.last_name) : undefined;
+    return user ? (user.first_name || user.last_name ? (user.first_name + ' ' + user.last_name) : ('@' + user.user.username)) : undefined;
   }
 
   private _filter(name: string): any[] {
@@ -93,13 +117,47 @@ export class FriendsListComponent implements OnInit {
     this.idFriendRequested = data.id;
   }
 
-  addFriend() {
-    this.userFormGroup.value.friend_requests.push(this.idFriendRequested);
-    console.log(this.userFormGroup.value.friend_requests);
-    this.userService.updateUser(this.userFormGroup.value).subscribe(() => {
-      this.ngOnInit();
-      // TODO: MIT TOAST ERSETZEN
-      alert('Friend request sent');
+  addFriend(id: any, sent: boolean) {
+    this.userFormGroup.value.friend_requests.forEach(request => {
+      // RECEIVED --> (request_sent == false)
+      if (request.request_sent == false && sent == false) {
+        this.userFormGroup.value.friends.push(id);
+        this.friendRequestsFormGroup.value.id = request.id;
+        this.friendRequestsFormGroup.value.request_sent = false;
+        this.friendRequestsFormGroup.value.user = this.userId;
+        this.friendRequestsFormGroup.value.potential_friends = request.potential_friends.filter(obj => obj != id);
+
+        this.friendRequestOfCounterpart = this.allFriendRequests.filter(singleRequest => singleRequest.user == id
+          && singleRequest.request_sent == true)[0];
+        this.friendRequestOfCounterpart.potential_friends.filter(potentialFriend => potentialFriend != this.userId);
+      }
+      // REQUESTED --> (request_sent == true)
+      if (request.request_sent == true && sent == true) {
+        id = this.idFriendRequested;
+        this.friendRequestsFormGroup.value.id = request.id;
+        this.friendRequestsFormGroup.value.request_sent = true;
+        this.friendRequestsFormGroup.value.user = this.userId;
+        request.potential_friends.push(id);
+        this.friendRequestsFormGroup.value.potential_friends = request.potential_friends;
+
+        this.friendRequestOfCounterpart = this.allFriendRequests.filter(singleRequest => singleRequest.user == id
+          && singleRequest.request_sent == false)[0];
+        this.friendRequestOfCounterpart.potential_friends.push(this.userId);
+
+        // um Searchfeld zu leeren
+        this.input.setValue('');
+      }
+    });
+    // User, Own FriendRequest & Counterpart FriendRequest
+    // console.log(this.userFormGroup.value);
+    // console.log(this.friendRequestsFormGroup.value);
+    // console.log(this.friendRequestOfCounterpart);
+    this.friendshipRequestService.updateFriendshipRequest(this.friendRequestsFormGroup.value).subscribe(() => {
+      this.friendshipRequestService.updateFriendshipRequest(this.friendRequestOfCounterpart).subscribe(() => {
+        this.userService.updateUser(this.userFormGroup.value).subscribe(() => {
+          this.ngOnInit();
+        });
+      });
     });
   }
 }

@@ -1,15 +1,18 @@
 from django.contrib import admin
 
 # Register your models here.
-from eventapp.models import Profile, Forumentry, Event, Tag, Task
-
-
+from eventapp.models import Profile, Forumentry, Event, Tag, Task, FriendshipRequest
 
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ['user','active','first_name','last_name','birthday']
     pass
 admin.site.register(Profile,UserAdmin)
+
+class FriendshipRequestAdmin(admin.ModelAdmin):
+    list_display = ['user', 'request_sent']
+    pass
+admin.site.register(FriendshipRequest,FriendshipRequestAdmin)
 
 class ForumentryAdmin(admin.ModelAdmin):
     list_display = ['content','datetime']

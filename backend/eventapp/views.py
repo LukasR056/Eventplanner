@@ -4,10 +4,10 @@ from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 
-from .models import Task, Event, Forumentry, Tag, Profile
+from .models import Task, Event, Forumentry, Tag, Profile, FriendshipRequest
 from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, \
     EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer, AbstractUserForm, \
-    UserCreateForm, AbstractUserCreateForm
+    UserCreateForm, AbstractUserCreateForm, FriendshipRequestList, FriendshipRequestForm, UserFormUpdate
 
 
 @api_view(['GET'])
@@ -53,14 +53,43 @@ def user_form_update(request, pk):
         user = Profile.objects.get(pk=pk)
     except Profile.DoesNotExist:
         return Response({'error': 'User does not exist.'}, status=404)
-    serializer = UserForm(user, data=request.data)
+    serializer = UserFormUpdate(user, data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
 
 
-''' TAG SERIALIZERS '''
+''' FRIENDSHIP REQUEST VIEWS '''
+
+@api_view(['GET'])
+def friendship_request_list(request):
+    requests = FriendshipRequest.objects.all()
+    serializers = FriendshipRequestList(requests, many=True)
+    return Response(serializers.data)
+
+@api_view(['POST'])
+def friendship_request_form_create(request):
+    serializer = FriendshipRequestForm(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
+@api_view(['PUT'])
+def friendship_request_form_update(request, pk):
+    try:
+        friendRequest = FriendshipRequest.objects.get(pk=pk)
+    except FriendshipRequest.DoesNotExist:
+        return Response({'error': 'User does not exist.'}, status=404)
+    serializer = FriendshipRequestForm(friendRequest, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
+
+
+''' TAG VIEWS '''
 
 @api_view(['GET'])
 def tag_form_list(request):
