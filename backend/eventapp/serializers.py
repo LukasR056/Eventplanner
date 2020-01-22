@@ -67,7 +67,7 @@ class TaskListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = ['id', 'title', 'description', 'verified_by_planner', 'verified_by_participant',
-                  'status', 'deadline', 'responsible', 'supporters', 'event']
+                  'status', 'deadline_date','deadline_time', 'responsible', 'supporters', 'event']
 
     def get_event(self, obj):
         return obj.event.name if obj.event else ''

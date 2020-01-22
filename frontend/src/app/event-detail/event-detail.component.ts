@@ -135,4 +135,9 @@ export class EventDetailComponent implements OnInit {
   updateEvent(id: any) {
     this.router.navigate(['/event-form/' + id]);
   }
+
+
+  createTask() {
+    this.router.navigate(['/task-form/']);
+  }
 }

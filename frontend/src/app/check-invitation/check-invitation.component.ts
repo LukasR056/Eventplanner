@@ -23,11 +23,9 @@ export class CheckInvitationComponent implements OnInit {
     this.eventService.getEventsId()
       .subscribe((response: any[]) => {
         this.events = response.filter(event => event.invited.includes(Number(this.userId)));
-
         if (this.events.length === 0) {
           this.invitationsNotEmpty = false;
         }
-
       });
 
   }
@@ -47,5 +45,22 @@ export class CheckInvitationComponent implements OnInit {
 
   moveToEventDetail(id: any) {
     this.router.navigate(['/event-detail/' + id]);
+  }
+
+  cancel(id: any) {
+    const updateEvent = this.events.filter(event => event.id === id);
+    // Bei !== kommt nicht der gewünschte Output raus bei !=, deshalb das folgende Kommentar
+    // tslint:disable-next-line:triple-equals
+    updateEvent[0].invited = updateEvent[0].invited.filter(user => user != this.userId);
+    this.eventService.updateEvent(updateEvent[0]).subscribe(() => {
+      this.eventService.getEventsId()
+        .subscribe((response: any[]) => {
+          this.events = response.filter(event => event.invited.includes(Number(this.userId)));
+          if (this.events.length === 0) {
+            this.invitationsNotEmpty = false;
+          }
+        });
+
+    });
   }
 }
