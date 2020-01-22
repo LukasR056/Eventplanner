@@ -6,7 +6,7 @@
   </div>
 
 
-  <mat-card class="event-card" *ngFor="let event of events">
+  <mat-card class="event-card" *ngFor="let event of events2" (click)="moveToEventDetail(event.id)">
     <mat-card-header>
       <mat-card-title>{{event.name}}</mat-card-title>
     </mat-card-header>
@@ -52,7 +52,7 @@
   <h3>My Tasks</h3>
 
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let task of tasks">
+    <mat-expansion-panel *ngFor="let task of tasks2">
 
       <mat-expansion-panel-header>
         <mat-panel-title>

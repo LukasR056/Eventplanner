@@ -23,6 +23,10 @@ export class TaskService {
     return this.http.get('/api/task/' + task.id + '/get', task);
   }
 
+  getTaskWithUserId(id: any) {
+    return this.http.get('/api/task/user/' + id + '/get', id);
+  }
+
   createTask(task: any) {
     return this.http.post('/api/task/create', task);
   }

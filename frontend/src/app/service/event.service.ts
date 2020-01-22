@@ -28,6 +28,10 @@ export class EventService {
     return this.http.get('/api/event/' + id + '/get', id);
   }
 
+  getEventWithUserId(id: any) {
+    return this.http.get('/api/event/user/' + id + '/get', id);
+  }
+
   updateEvent(event: any) {
     return this.http.put('/api/event/' + event.id + '/update', event);
   }

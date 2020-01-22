@@ -14,6 +14,7 @@ import {UserService} from '../service/user.service';
 export class HomepageComponent implements OnInit {
 
   events: Array<any>;
+  events2;
   taskFormGroupStatus;
   tasks: any[];
   user;
@@ -21,6 +22,7 @@ export class HomepageComponent implements OnInit {
   userId: any;
   userTasksEvents: any;
   openEvents = false;
+  tasks2;
 
   constructor(private http: HttpClient, private eventService: EventService, public taskService: TaskService, private fb: FormBuilder,
               private router: Router, private userService: UserService) {
@@ -45,6 +47,14 @@ export class HomepageComponent implements OnInit {
     this.userService.getUserById(this.userId).subscribe(result => {
       this.user = result;
     });
+
+    this.taskService.getTasks().subscribe((response: any) => {
+      this.tasks2 = response.filter(task =>  task.responsible == Number(this.userId));
+      console.log(this.tasks2)
+
+    });
+
+    this.eventService.getEventWithUserId(this.userId).subscribe(response => {this.events2 = response;});
 
     this.userService.getUserEventTask(this.userId).subscribe(result => {
       this.userTasksEvents = result;
@@ -71,6 +81,14 @@ export class HomepageComponent implements OnInit {
       .subscribe(() => {
         this.ngOnInit();
       });
+  }
+
+  filterTasks(userId, allTasks) {
+    allTasks
+  }
+
+  moveToEventDetail(id: any) {
+    this.router.navigate(['/event-detail/' + id]);
   }
 
   saveTask(task, taskStatus) {
