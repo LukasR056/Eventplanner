@@ -2,7 +2,9 @@
   <mat-form-field class="example-full-width">
     <input type="text" placeholder="Search for new friends!" aria-label="Search for new friends!" matInput
            [formControl]="input" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="getFriendForRequest($event.option.value)" >
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                      (optionSelected)="getFriendForRequest($event.option.value)"
+                      (keydown.enter)="addFriend(-1,true)">
       <mat-option *ngFor="let user of filteredUserList | async" [value]="user">
         {{user.first_name}} {{user.last_name}}
         @{{user.user.username}}
@@ -41,6 +43,7 @@
     <p>
       {{friendRequest.first_name}} {{friendRequest.last_name}} (@{{friendRequest.user.username}})
       <button mat-raised-button (click)="addFriend(friendRequest.id, false)">accept</button>
+      <button mat-raised-button (click)="declineFriendRequest(friendRequest.id)">decline</button>
     </p>
     <hr>
   </div>

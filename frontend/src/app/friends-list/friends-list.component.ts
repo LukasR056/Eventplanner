@@ -118,6 +118,9 @@ export class FriendsListComponent implements OnInit {
   }
 
   addFriend(id: any, sent: boolean) {
+    if (this.idFriendRequested == undefined && sent == true) {
+      return;
+    }
     this.userFormGroup.value.friend_requests.forEach(request => {
       // RECEIVED --> (request_sent == false)
       if (request.request_sent == false && sent == false) {
@@ -129,7 +132,8 @@ export class FriendsListComponent implements OnInit {
 
         this.friendRequestOfCounterpart = this.allFriendRequests.filter(singleRequest => singleRequest.user == id
           && singleRequest.request_sent == true)[0];
-        this.friendRequestOfCounterpart.potential_friends.filter(potentialFriend => potentialFriend != this.userId);
+        this.friendRequestOfCounterpart.potential_friends = this.friendRequestOfCounterpart.potential_friends
+          .filter(potentialFriend => potentialFriend != this.userId);
       }
       // REQUESTED --> (request_sent == true)
       if (request.request_sent == true && sent == true) {
@@ -160,5 +164,31 @@ export class FriendsListComponent implements OnInit {
       });
     });
   }
-}
 
+  declineFriendRequest(id: any) {
+    this.userFormGroup.value.friend_requests.forEach(request => {
+      // RECEIVED --> (request_sent == false)
+      if (request.request_sent == false) {
+        this.friendRequestsFormGroup.value.id = request.id;
+        this.friendRequestsFormGroup.value.request_sent = false;
+        this.friendRequestsFormGroup.value.user = this.userId;
+        this.friendRequestsFormGroup.value.potential_friends = request.potential_friends.filter(obj => obj != id);
+
+        this.friendRequestOfCounterpart = this.allFriendRequests.filter(singleRequest => singleRequest.user == id
+          && singleRequest.request_sent == true)[0];
+        this.friendRequestOfCounterpart.potential_friends = this.friendRequestOfCounterpart.potential_friends
+          .filter(potentialFriend => potentialFriend != this.userId);
+      }
+    });
+    // User, Own FriendRequest & Counterpart FriendRequest
+    // console.log(this.userFormGroup.value);
+    // console.log(this.friendRequestsFormGroup.value);
+    // console.log(this.friendRequestOfCounterpart);
+    this.friendshipRequestService.updateFriendshipRequest(this.friendRequestsFormGroup.value).subscribe(() => {
+      this.friendshipRequestService.updateFriendshipRequest(this.friendRequestOfCounterpart).subscribe(() => {
+        this.ngOnInit();
+      });
+    });
+  }
+
+}
