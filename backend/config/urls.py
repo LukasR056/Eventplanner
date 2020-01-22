@@ -31,10 +31,15 @@ urlpatterns = [
     path('user/list/', views.user_list),
     path('user/options', views.user_list),
     path('user/<int:pk>/get', views.user_form),
+    path('user/<int:pk>/gettaskevent', views.user_task_event),
     # path('user/create', views.user_form_create), EIGENTLICH NICHT MEHR BENÖTIGT
     path('user/create', views.user_form_adapted_create),
     path('user/<int:pk>/update', views.user_form_update),
     path('user/<int:pk>/delete', views.user_delete),
+
+    path('friendship-request/list', views.friendship_request_list),
+    path('friendship-request/create', views.friendship_request_form_create),
+    path('friendship-request/<int:pk>/update', views.friendship_request_form_update),
 
     path('task/list', views.tasks_list),
     path('task/create', views.task_form_create),

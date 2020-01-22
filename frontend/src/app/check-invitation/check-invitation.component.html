@@ -1,1 +1,25 @@
-<p>check-invitation works!</p>
+<div class="check-invitation" *ngIf="invitationsNotEmpty" >
+  <mat-card class="event-card" *ngFor="let event of events"  >
+    <mat-card-header>
+      <mat-card-title (click)="moveToEventDetail(event.id)">{{event.name}}</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <p>
+        Location: {{event.location}}
+      </p>
+      <p>
+        When: {{event.date}} at {{event.time}}
+      </p>
+      <p>
+        Is it public: {{event.public}}
+      </p>
+
+    </mat-card-content>
+    <mat-card-actions style="float: right">
+      <button mat-raised-button  mat-button (click)="invite(event.id)">I'm in</button>
+    </mat-card-actions>
+  </mat-card>
+
+</div>
+<h2  *ngIf="!invitationsNotEmpty" >You have no open invitations!</h2>

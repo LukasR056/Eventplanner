@@ -1,16 +1,18 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
+import {EventService} from './event.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   isLoggedIn = new BehaviorSubject(false);
+  username: any;
 
-  constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router) {
+  constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router,) {
     const token = localStorage.getItem('access_token');
     if (token) {
       const tokenValid = !this.jwtHelperService.isTokenExpired(token);
@@ -44,6 +46,10 @@ export class UserService {
     return this.http.get <any[]>('/api/user/list/');
   }
 
+  getUserEventTask(id: any) {
+    return this.http.get('/api/user/' + id + '/gettaskevent');
+  }
+
   getAbstractUserByUsername(username: string) {
     return this.http.get<any>('/api/abstract-user/' + username + '/get');
   }
@@ -67,6 +73,7 @@ export class UserService {
   deleteUser(user: any) {
     return this.http.delete('/api/user/' + user.id + '/delete');
   }
+
 
 }
 
