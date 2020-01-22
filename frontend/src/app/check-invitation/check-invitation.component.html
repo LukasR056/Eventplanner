@@ -1,4 +1,4 @@
-<div class="check-invitation">
+<div class="check-invitation" *ngIf="invitationsNotEmpty" >
   <mat-card class="event-card" *ngFor="let event of events"  >
     <mat-card-header>
       <mat-card-title (click)="moveToEventDetail(event.id)">{{event.name}}</mat-card-title>
@@ -21,5 +21,5 @@
     </mat-card-actions>
   </mat-card>
 
-
 </div>
+<h2  *ngIf="!invitationsNotEmpty" >You have no open invitations!</h2>

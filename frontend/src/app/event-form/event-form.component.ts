@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {EventService} from '../service/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
@@ -6,6 +6,7 @@ import {FormBuilder} from '@angular/forms';
 import {UserService} from '../service/user.service';
 import {NgxMaterialTimepickerComponent} from 'ngx-material-timepicker';
 import {TagsService} from '../service/tags.service';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 
 
 @Component({
@@ -21,10 +22,11 @@ export class EventFormComponent implements OnInit {
   username: string;
   tagOptions;
   userOptionsNotEmpty = true;
+  newTagForm;
 
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,
-              private router: Router, private eventService: EventService, private userService: UserService, private tagService: TagsService) {
+              private router: Router, private eventService: EventService, private userService: UserService, private tagService: TagsService, public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -35,6 +37,9 @@ export class EventFormComponent implements OnInit {
       this.tagOptions = result;
     });
 
+    this.newTagForm = this.fb.group({
+      name: [null]
+    });
 
     this.eventFormGroup = this.fb.group({
       id: [null],
@@ -94,5 +99,13 @@ export class EventFormComponent implements OnInit {
     }
   }
 
-
+  addNewTag() {
+  const test = this.newTagForm.value;
+  console.log(test);
+  }
 }
+
+
+
+
+

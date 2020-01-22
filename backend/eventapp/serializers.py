@@ -10,7 +10,6 @@ class AbstractUserForm(serializers.ModelSerializer):
 
 class UserList(serializers.ModelSerializer):
     user = AbstractUserForm(read_only=True)
-
     class Meta:
         model = Profile
         fields = '__all__'
@@ -138,3 +137,8 @@ class ForumentryFormSerializer(serializers.ModelSerializer):
         model = Forumentry
         fields = '__all__'
 
+class UserEventTaskSerializers(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['id','username','invited','participants','responsible','supporters']

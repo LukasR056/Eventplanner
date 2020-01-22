@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from .models import Task, Event, Forumentry, Tag, Profile
 from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, \
     EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer, AbstractUserForm, \
-    UserCreateForm, AbstractUserCreateForm
+    UserCreateForm, AbstractUserCreateForm, UserEventTaskSerializers
 
 
 @api_view(['GET'])
@@ -331,4 +331,22 @@ def tasks_list_options(request,pk):
 def event_option_list(request):
     event = Event.objects.all()
     serializer = EventListSerializer(event, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def user_form(request, pk):
+    try:
+        user = Profile.objects.get(pk=pk)
+    except Profile.DoesNotExist:
+        return Response({'error': 'User does not exist.'}, status=404)
+    serializer = UserForm(user)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def user_task_event(request, pk):
+    try:
+        user = User.objects.get(pk=pk)
+    except Profile.DoesNotExist:
+        return Response({'error': 'User does not exist.'}, status=404)
+    serializer = UserEventTaskSerializers(user)
     return Response(serializer.data)

@@ -11,6 +11,7 @@ export class CheckInvitationComponent implements OnInit {
   events: any;
   private userId: any;
   private username: any;
+  invitationsNotEmpty = true;
 
 
   constructor(private router: Router, private eventService: EventService) {
@@ -22,7 +23,13 @@ export class CheckInvitationComponent implements OnInit {
     this.eventService.getEventsId()
       .subscribe((response: any[]) => {
         this.events = response.filter(event => event.invited.includes(Number(this.userId)));
+
+        if (this.events.length === 0) {
+          this.invitationsNotEmpty = false;
+        }
+
       });
+
   }
 
   invite(id: any) {
@@ -33,7 +40,7 @@ export class CheckInvitationComponent implements OnInit {
     updateEvent[0].participants.push(Number(this.userId));
     this.eventService.updateEvent(updateEvent[0]).subscribe(() => {
       this.router.navigate(['/event-detail/' + updateEvent.id]);
-      
+
     });
   }
 

@@ -46,6 +46,10 @@ export class UserService {
     return this.http.get <any[]>('/api/user/list/');
   }
 
+  getUserEventTask(id: any) {
+    return this.http.get('/api/user/' + id + '/gettaskevent');
+  }
+
   getAbstractUserByUsername(username: string) {
     return this.http.get<any>('/api/abstract-user/' + username + '/get');
   }
