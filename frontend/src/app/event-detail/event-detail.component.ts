@@ -25,7 +25,8 @@ export class EventDetailComponent implements OnInit {
   forumentryFormGroup;
   id2 = this.route.snapshot.paramMap.get('id');
   userId: any;
-  private pictures;
+  pictures: any[];
+  picture: any;
   // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
 

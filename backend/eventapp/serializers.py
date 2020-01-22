@@ -131,6 +131,7 @@ class EventFormSerializer(serializers.ModelSerializer):
         fields.append('tags')
         fields.append('eventplanner')
         fields.append('participants')
+        fields.append('pictures')
         #fields = ['__all__', 'tasks']
         #fields = ['tasks',]
 

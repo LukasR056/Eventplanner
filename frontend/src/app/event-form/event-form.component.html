@@ -62,6 +62,9 @@
   <mat-label *ngIf="!userOptionsNotEmpty"> You have already invited all your friends!</mat-label>
 
   <br>
+  <div>
+    <app-mediainput formControlName="pictures"></app-mediainput>
+  </div>
 
   <mat-card-actions align="center">
     <button mat-raised-button color="primary" [disabled]="!eventFormGroup.valid" (click)="createEvent()">
@@ -69,7 +72,4 @@
       <span *ngIf="eventFormGroup.controls.id.value">Update</span>
     </button>
   </mat-card-actions>
-  <div>
-    <app-mediainput formControlName="pictures"></app-mediainput>
-  </div>
 </form>
