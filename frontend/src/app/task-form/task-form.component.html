@@ -1,1 +1,53 @@
-<p>task-form works!</p>
+<form [formGroup]="taskFormGroup" class="task-form">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Name" formControlName="title">
+    <mat-hint align="end">The title of the task</mat-hint>
+   <!-- <mat-error *ngIf="eventFormGroup.controls.name.hasError('required')">Name is required</mat-error> -->
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="text" placeholder="Description" formControlName="description">
+    <mat-hint align="end">The description of the task</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Status" formControlName="status">
+      <mat-option [value]="status.key" *ngFor="let status of
+        taskService.statusName | keyvalue">{{status.value}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">The status of the task</mat-hint>
+  </mat-form-field>
+
+  <app-date placeholder="Date" formControlName="deadlineDate" hint="When is the event?"
+            [required]="true"></app-date>
+
+  <div class="24hr-example">
+    <input matInput placeholder="24hr format" aria-label="24hr format" formControlName="deadlineTime" [ngxTimepicker]="fulltime"
+           [format]="24" [value]=deadlineTime>
+    <!-- <mat-error *ngIf="eventFormGroup.controls.time.hasError('required')">Time is required</mat-error> -->
+    <ngx-material-timepicker #fulltime></ngx-material-timepicker>
+  </div>
+
+
+
+
+  <mat-form-field >
+    <mat-select placeholder="Responsible"
+                formControlName="responsible" >
+      <mat-option [value]="userOption.id" *ngFor="let
+      userOption of userOptions">{{userOption.user.username}}</mat-option>
+    </mat-select>
+    <mat-hint align="end">Which of your friends do you want to invite?</mat-hint>
+  </mat-form-field>
+
+
+  <br>
+
+  <mat-card-actions align="center">
+    <button mat-raised-button color="primary" [disabled]="!taskFormGroup.valid" (click)="createTask()">
+      <span *ngIf="!taskFormGroup.controls.id.value">Create</span>
+      <span *ngIf="taskFormGroup.controls.id.value">Update</span>
+    </button>
+  </mat-card-actions>
+</form>
+

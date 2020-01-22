@@ -17,7 +17,9 @@
 
     </mat-card-content>
     <mat-card-actions style="float: right">
+      <button mat-raised-button color="warn" mat-button (click)="cancel(event.id)">No</button>
       <button mat-raised-button  mat-button (click)="invite(event.id)">I'm in</button>
+
     </mat-card-actions>
   </mat-card>
 

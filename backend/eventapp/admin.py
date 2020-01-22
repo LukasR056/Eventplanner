@@ -30,6 +30,6 @@ class TagAdmin(admin.ModelAdmin):
 admin.site.register(Tag,TagAdmin)
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ['title','description','verified_by_planner','verified_by_participant','status','deadline']
+    list_display = ['title','description','verified_by_planner','verified_by_participant','status','deadline_date','deadline_time']
     pass
 admin.site.register(Task,TaskAdmin)

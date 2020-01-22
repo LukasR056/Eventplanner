@@ -65,7 +65,7 @@ export class HomepageComponent implements OnInit {
     });
 
     this.eventService.retrieveEvents().subscribe((result: any[]) => {
-      // TODO: EVENTS SORTIEREN UND AUF ANZAHL BESCHRÄNKEN (z.B. 4) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // TODO: EVENTS SORTIEREN UND AUF ANZAHL BESCHRÄNKEN (z.B. 4) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! .slice funktion
       for (const event of result) {
         if (event.eventplanner === this.username || event.invited.includes(' ' + this.username)) {
           this.events.push(event);
