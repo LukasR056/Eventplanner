@@ -25,6 +25,7 @@ export class EventDetailComponent implements OnInit {
   forumentryFormGroup;
   id2 = this.route.snapshot.paramMap.get('id');
   userId: any;
+  private pictures;
   // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
 
@@ -58,6 +59,7 @@ export class EventDetailComponent implements OnInit {
       .subscribe((response: any) => {
         this.event = response;
         this.filterTasks();
+        this.pictures = response.pictures;
       });
 
     this.eventService.getEvents()

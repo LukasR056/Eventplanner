@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {EventService} from '../service/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {MediaService} from '../service/media.service';
 
 
 @Component({
@@ -12,15 +13,19 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class EventListComponent implements OnInit {
 
   events: any[];
+  //pictures: [null];
+  private pictures;
 
-  constructor( private eventService: EventService, private router: Router) { }
+  constructor( private eventService: EventService, private router: Router, private mediaService: MediaService) { }
 
   ngOnInit() {
     this.eventService.getEvents()
       .subscribe((response: any[]) => {
         this.events = response;
+        this.pictures = response;
       });
   }
+
 
   deleteEvent(event: any) {
     this.eventService.deleteEvent(event)

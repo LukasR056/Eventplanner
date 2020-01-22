@@ -49,7 +49,7 @@ export class EventFormComponent implements OnInit {
       tags: [[]],
       invited: [[]],
       participants: [[]],
-      pictures: [[]]
+      pictures: [null],
     });
 
 
@@ -93,6 +93,7 @@ export class EventFormComponent implements OnInit {
           this.router.navigate(['/event-detail/' + event.id]);
           console.log(event);
         });
+      console.log(event);
     }
   }
 
