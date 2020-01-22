@@ -1,7 +1,10 @@
 <div class="event-list">
 
+  <div>
     <h3>My Events <br>MY USERNAME {{username}} WITH ID {{userId}}<br> </h3>
-  <!--     Firstname: {{user.first_name}} Lastname: {{user.last_name}} -->
+  <button  mat-button routerLink="../check-invitation" *ngIf="openEvents" >You have been invited to new events!</button>
+  </div>
+
 
   <mat-card class="event-card" *ngFor="let event of events">
     <mat-card-header>
@@ -16,7 +19,7 @@
         Location: {{event.location}}
       </p>
       <p>
-        When: {{event.datetime}}
+        When: {{event.date}}  {{event.date}}
       </p>
       <p>
         Is it public {{event.public}}?

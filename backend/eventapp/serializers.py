@@ -19,6 +19,7 @@ class AbstractUserForm(serializers.ModelSerializer):
         fields = ['id', 'username']
         # fields = ['username']
 
+
 class UserList(serializers.ModelSerializer):
     user = AbstractUserForm(read_only=True)
     friend_requests = FriendshipRequestList(read_only=True, many=True)
@@ -160,7 +161,14 @@ class ForumentryFormSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
 class MediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Media
         fields = '__all__'
+
+class UserEventTaskSerializers(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ['id','username','invited','participants','responsible','supporters']

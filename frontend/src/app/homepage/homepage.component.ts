@@ -19,6 +19,8 @@ export class HomepageComponent implements OnInit {
   user;
   username: string;
   userId: any;
+  userTasksEvents: any;
+  openEvents = false;
 
   constructor(private http: HttpClient, private eventService: EventService, public taskService: TaskService, private fb: FormBuilder,
               private router: Router, private userService: UserService) {
@@ -42,6 +44,14 @@ export class HomepageComponent implements OnInit {
 
     this.userService.getUserById(this.userId).subscribe(result => {
       this.user = result;
+    });
+
+    this.userService.getUserEventTask(this.userId).subscribe(result => {
+      this.userTasksEvents = result;
+      if (this.userTasksEvents.invited.length > 0) {
+        this.openEvents = true;
+        console.log(this.openEvents);
+      }
     });
 
     this.eventService.retrieveEvents().subscribe((result: any[]) => {

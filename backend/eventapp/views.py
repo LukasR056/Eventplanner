@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from .models import Task, Event, Forumentry, Tag, Profile, Media, FriendshipRequest
 from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, \
     EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer, AbstractUserForm, \
-    MediaSerializer,UserCreateForm, AbstractUserCreateForm, FriendshipRequestList, FriendshipRequestForm, UserFormUpdate
+    MediaSerializer,UserCreateForm, AbstractUserCreateForm, FriendshipRequestList, FriendshipRequestForm, UserFormUpdate, UserEventTaskSerializers
 
 
 @api_view(['GET'])
@@ -21,6 +21,7 @@ def abstract_user_form(request, username):
         return Response({'error': 'User does not exist'}, status=404)
     serializer = AbstractUserForm(abstract_user)
     return Response(serializer.data)
+
 
 
 
@@ -375,6 +376,7 @@ def event_option_list(request):
     return Response(serializer.data)
 
 
+
 '''Fileupload'''
 
 
@@ -415,4 +417,22 @@ def media_get(request, pk):
         return Response({'error': 'Media does not exist.'}, status=404)
 
     serializer = MediaSerializer(media)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def user_form(request, pk):
+    try:
+        user = Profile.objects.get(pk=pk)
+    except Profile.DoesNotExist:
+        return Response({'error': 'User does not exist.'}, status=404)
+    serializer = UserForm(user)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def user_task_event(request, pk):
+    try:
+        user = User.objects.get(pk=pk)
+    except Profile.DoesNotExist:
+        return Response({'error': 'User does not exist.'}, status=404)
+    serializer = UserEventTaskSerializers(user)
     return Response(serializer.data)
