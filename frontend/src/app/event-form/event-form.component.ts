@@ -21,6 +21,7 @@ export class EventFormComponent implements OnInit {
   username: string;
   tagOptions;
   userOptionsNotEmpty = true;
+  loggedUser: any;
 
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,
@@ -31,6 +32,10 @@ export class EventFormComponent implements OnInit {
   ngOnInit() {
     this.username = localStorage.getItem('username');
     this.userId = localStorage.getItem('user_id');
+
+    this.userService.getUserById(this.userId).subscribe((result) => {
+      this.loggedUser = result;
+    });
 
     this.tagService.getTags().subscribe((result) => {
       this.tagOptions = result;
@@ -69,7 +74,10 @@ export class EventFormComponent implements OnInit {
 
     this.userService.getUsers().subscribe((response: any[]) => {
       // tslint:disable-next-line:triple-equals
-      this.userOptions = response.filter(user => user.id != this.userId && !this.eventFormGroup.value.participants.includes(user.id) && !this.eventFormGroup.value.invited.includes(user.id));
+      this.userOptions = response.filter(user => user.id != this.userId
+        && !this.eventFormGroup.value.participants.includes(user.id)
+        && !this.eventFormGroup.value.invited.includes(user.id)
+        && this.loggedUser.friends.includes(user.id));
       if (this.userOptions.length === 0) {
         this.userOptionsNotEmpty = false;
         //console.log(this.userOptionsEmpty);
@@ -90,7 +98,7 @@ export class EventFormComponent implements OnInit {
       event.eventplanner = this.userId;
       this.eventService.createEvent(event)
         .subscribe((response: any) => {
-          this.router.navigate(['/event-detail/' + event.id]);
+          this.router.navigate(['/homepage']);
           console.log(event);
         });
     }
