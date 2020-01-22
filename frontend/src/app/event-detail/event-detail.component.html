@@ -8,10 +8,12 @@
     <mat-card-title>{{event.name}}</mat-card-title>
     <button  style="width: 20%; background-color: darkorange; color: white" mat-button (click)="updateEvent(event.id)" >Update</button>
   </mat-card-header>
-  <p>
+  <p *ngFor="let picture of pictures">
 
-    pic:  <img src="api/media/{{event.pictures}}" height="100px">
+    pic:  <img src="api/media/{{picture}}" height="100px"><br>
+    api/media/{{picture}}
   </p>
+  {{event.pictures}}
   <hr>
   <mat-card-content>
     <p>
