@@ -60,7 +60,7 @@ export class EventDetailComponent implements OnInit {
       .subscribe((response: any) => {
         this.event = response;
         this.filterTasks();
-        this.pictures = response.pictures;
+       // this.pictures = response.pictures;
       });
 
     this.eventService.getEvents()

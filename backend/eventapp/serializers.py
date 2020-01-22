@@ -108,6 +108,8 @@ class TagFormSerializer(serializers.ModelSerializer):
 class EventListSerializer(serializers.ModelSerializer):
     eventplanner = serializers.SerializerMethodField()
     invited = serializers.SerializerMethodField()
+
+
     class Meta:
         model = Event
         fields = ['id', 'name', 'date','time', 'description', 'location', 'public', 'eventplanner', 'invited', 'tasks', 'message','tags','participants', 'pictures']
