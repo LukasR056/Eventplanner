@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {Attribute, Component, OnInit} from '@angular/core';
+import {AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
@@ -17,17 +17,24 @@ export class RegistrationComponent implements OnInit {
   friendRequest: {request_sent: boolean, user: number};
 
   constructor(private fb: FormBuilder, private http: HttpClient, private userService: UserService, private router: Router,
-              private jwtHelperService: JwtHelperService, private friendshipRequestService: FriendshipRequestService) { }
+              private jwtHelperService: JwtHelperService, private friendshipRequestService: FriendshipRequestService,
+              @Attribute('validateEquals') public validateEquals: string) { }
 
   ngOnInit() {
     this.registrationUserFormGroup = this.fb.group({
-      'username': ['', Validators.required],
-      'password': ['', Validators.required]
+      username: ['', Validators.required],
+      password: ['', Validators.compose([Validators.required,
+        this.passwordPatternValidator(/[A-Z]/, {hasCapitalChar: true}),
+        this.passwordPatternValidator(/[a-z]/, {hasLowerChar: true}),
+        Validators.minLength(8)])], //[this.passwordConfirmationValidator()]], // Validators.required]
+      confirm_password: ['']
+    }, {
+      validator: this.passwordConfirmationValidator
     });
 
     this.registrationProfileFormGroup = this.fb.group({
-      'first_name': ['', Validators.required],
-      'last_name': ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
       // 'birthday': ['', Validators.required]
       // TODO: BIRTHDAY IMPLEMENTIEREN
     });
@@ -51,6 +58,26 @@ export class RegistrationComponent implements OnInit {
         });
       });
     });
+  }
+
+  // Für RegEx Pattern
+  passwordPatternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const validInput = control.value;
+      if (!validInput || regex.test(validInput)) {
+        return null;
+      }
+      return error;
+    };
+  }
+
+  // Für Password Confirmation
+  passwordConfirmationValidator(control: AbstractControl) {
+    const password = control.get('password').value;
+    const confirmPassword = control.get('confirm_password').value;
+    if (password != confirmPassword) {
+      control.get('confirm_password').setErrors({NoPasswordMatch: true});
+    }
   }
 
 }
