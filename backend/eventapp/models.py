@@ -10,6 +10,7 @@ from django.utils.timezone import now
 
 # Create your models here.
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
@@ -17,6 +18,7 @@ class Profile(models.Model):
     birthday = models.DateField(default=datetime.date.today)
     active = models.BooleanField(default=True)
     friends = models.ManyToManyField('self', blank=True)
+    # friend_requests = models.ManyToManyField('FriendshipRequest', related_name='user', blank=True)
 
 
     def __str__(self):
@@ -31,6 +33,15 @@ class Profile(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
 
+
+
+class FriendshipRequest(models.Model):
+    user = models.ForeignKey(Profile, related_name='friend_requests', on_delete=models.CASCADE)
+    potential_friends = models.ManyToManyField(Profile, blank=True)
+    request_sent = models.BooleanField()
+
+    def __str__(self):
+        return str(self.user)
 
 class Event(models.Model):
     name = models.TextField()
@@ -82,9 +93,7 @@ class Task(models.Model):
 
 class Tag(models.Model):
     name = models.TextField(unique=True)
-    events = models.ManyToManyField(Event,related_name='tags', blank=True)
-
-
+    events = models.ManyToManyField(Event, related_name='tags', blank=True)
 
     def __str__(self):
         return self.name

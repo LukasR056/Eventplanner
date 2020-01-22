@@ -36,6 +36,10 @@ urlpatterns = [
     path('user/<int:pk>/update', views.user_form_update),
     path('user/<int:pk>/delete', views.user_delete),
 
+    path('friendship-request/list', views.friendship_request_list),
+    path('friendship-request/create', views.friendship_request_form_create),
+    path('friendship-request/<int:pk>/update', views.friendship_request_form_update),
+
     path('task/list', views.tasks_list),
     path('task/create', views.task_form_create),
     path('task/<int:pk>/get', views.task_form_get),

@@ -1,1 +1,47 @@
-<p>friends-list works!</p>
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input type="text" placeholder="Search for new friends!" aria-label="Search for new friends!" matInput
+           [formControl]="input" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="getFriendForRequest($event.option.value)" >
+      <mat-option *ngFor="let user of filteredUserList | async" [value]="user">
+        {{user.first_name}} {{user.last_name}}
+        @{{user.user.username}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <button mat-raised-button mat-button class="button-add" (click)="addFriend(-1,true)">+</button>
+</form>
+
+<h2>Friends</h2>
+
+<mat-card class="event-card" *ngFor="let friend of friends">
+  <button mat-raised-button mat-button class="button-delete" (click)="removeFriend(friend.id)">X</button>
+  <mat-card-header>
+    <mat-card-title class="event-card-title">{{friend.first_name}} {{friend.last_name}}</mat-card-title>
+  </mat-card-header>
+  <hr>
+  <mat-card-content>
+    <p>
+      @{{friend.user.username}}
+    </p>
+    <p>
+      Birthday: {{friend.birthday}}
+    </p>
+
+  </mat-card-content>
+</mat-card>
+
+<mat-expansion-panel *ngIf="receivedFriendRequestsCount > 0">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <strong>Friendship requests: {{receivedFriendRequestsCount}}</strong>
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+  <div *ngFor="let friendRequest of receivedFriendRequests">
+    <p>
+      {{friendRequest.first_name}} {{friendRequest.last_name}} (@{{friendRequest.user.username}})
+      <button mat-raised-button (click)="addFriend(friendRequest.id, false)">accept</button>
+    </p>
+    <hr>
+  </div>
+</mat-expansion-panel>

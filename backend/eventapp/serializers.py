@@ -2,6 +2,17 @@ from rest_framework import serializers
 
 from .models import *
 
+class FriendshipRequestList(serializers.ModelSerializer):
+    class Meta:
+        model = FriendshipRequest
+        fields = '__all__'
+
+class FriendshipRequestForm(serializers.ModelSerializer):
+    class Meta:
+        model = FriendshipRequest
+        fields = '__all__'
+
+
 class AbstractUserForm(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -10,24 +21,29 @@ class AbstractUserForm(serializers.ModelSerializer):
 
 class UserList(serializers.ModelSerializer):
     user = AbstractUserForm(read_only=True)
+    friend_requests = FriendshipRequestList(read_only=True, many=True)
 
     class Meta:
         model = Profile
         fields = '__all__'
-
-        #def get_user(self, obj):
-        #    return obj.user.user if obj.user else ''
-
 
 
 class UserForm (serializers.ModelSerializer):
     user = AbstractUserForm(read_only=True)
+    friend_requests = FriendshipRequestList(many=True)
+    #friends = UserList(many=True)
+
     class Meta:
         model = Profile
         fields = '__all__'
 
-        def get_user_username(self, obj):
-            return obj.user.user if obj.user else ''
+class UserFormUpdate (serializers.ModelSerializer):
+    user = AbstractUserForm(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
 
 class AbstractUserCreateForm (serializers.ModelSerializer):
     class Meta:
@@ -39,6 +55,7 @@ class UserCreateForm (serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['user', 'first_name', 'last_name', 'birthday']
+
 
 
 class TaskListSerializer(serializers.ModelSerializer):
