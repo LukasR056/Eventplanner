@@ -15,6 +15,7 @@ import {FriendsListComponent} from './friends-list/friends-list.component';
 import {HomepageComponent} from './homepage/homepage.component';
 import {LoginComponent} from './login/login.component';
 import {CalenderComponent} from './calender/calender.component';
+import { EventResolver } from './resolver/event.resolver';
 
 
 const routes: Routes = [
@@ -32,7 +33,12 @@ const routes: Routes = [
   { path: 'friends-list', component: FriendsListComponent },
   { path: 'homepage', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'calender', component: CalenderComponent },
+  { path: 'calender',
+    component: CalenderComponent,
+    resolve: {
+      events: EventResolver
+    }
+  },
 ];
 
 @NgModule({
