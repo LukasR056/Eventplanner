@@ -19,7 +19,7 @@ class Profile(models.Model):
     active = models.BooleanField(default=True)
     friends = models.ManyToManyField('self', blank=True)
     # friend_requests = models.ManyToManyField('FriendshipRequest', related_name='user', blank=True)
-    pictures = models.ManyToManyField('Media', blank=True)
+    # pictures = models.ManyToManyField('Media', blank=True)
 
     def __str__(self):
         return self.user.username
@@ -54,7 +54,7 @@ class Event(models.Model):
     invited = models.ManyToManyField(User, related_name='invited', blank=True)
     participants = models.ManyToManyField(User, related_name='participants', blank=True)
     # pictures = models.OneToOneField('Media', blank=True, on_delete=models.CASCADE)
-    # pictures = models.ManyToManyField('Media', blank=True)
+    pictures = models.ManyToManyField('Media', blank=True)
 
     # https://stackoverflow.com/questions/13918968/multiple-many-to-many-relations-to-the-same-model-in-django
 
