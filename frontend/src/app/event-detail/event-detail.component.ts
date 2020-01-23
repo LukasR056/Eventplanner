@@ -137,8 +137,8 @@ export class EventDetailComponent implements OnInit {
   }
 
 
-  createTask(id: any) {
-    this.taskService.currentEventid = id;
+  createTask(event: any) {
+    this.taskService.currentEvent = event;
     this.router.navigate(['/task-form/']);
   }
 }
