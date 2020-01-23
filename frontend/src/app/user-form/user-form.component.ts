@@ -32,7 +32,8 @@ export class UserFormComponent implements OnInit {
       id: [null],
       user: [this.userId],
       first_name: [null],
-      last_name: [null]
+      last_name: [null],
+      pictures: [[]],
 
     });
 

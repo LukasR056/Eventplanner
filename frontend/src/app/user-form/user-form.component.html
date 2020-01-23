@@ -15,6 +15,11 @@
   <app-date placeholder="Birth" formControlName="birthday" hint="The birth of the User"
             [required]="true"></app-date>
 -->
+
+  <div>
+    <app-mediainput formControlName="pictures"></app-mediainput>
+  </div>
+
   <mat-card-actions align="center">
     <button mat-raised-button color="primary" (click)="updateUser()">
       <span> Update </span>

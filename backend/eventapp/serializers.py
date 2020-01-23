@@ -55,8 +55,8 @@ class UserCreateForm (serializers.ModelSerializer):
     user = AbstractUserCreateForm()
     class Meta:
         model = Profile
-        fields = ['user', 'first_name', 'last_name', 'birthday']
-        #, 'pictures'
+        fields = ['user', 'first_name', 'last_name', 'birthday', 'pictures']
+        #,
 
 
 
