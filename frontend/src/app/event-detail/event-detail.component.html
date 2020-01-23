@@ -1,40 +1,41 @@
-
 <div>
   <div class="eventanzeige">
 
-<mat-card class="event-card">
+    <mat-card class="event-card" *ngIf="event">
 
-  <mat-card-header>
-    <mat-card-title>{{event.name}}</mat-card-title>
-    <button  style="width: 20%; background-color: darkorange; color: white" mat-button (click)="updateEvent(event.id)" >Update</button>
-  </mat-card-header>
-  <p>
+      <mat-card-header>
+        <mat-card-title>{{event.name}}</mat-card-title>
+        <button style="width: 20%; background-color: darkorange; color: white" mat-button
+                (click)="updateEvent(event.id)">Update
+        </button>
+      </mat-card-header>
+      <p>
 
-    pic:  <img src="api/media/{{event.id}}" height="100px">
-  </p>
-  <hr>
-  <mat-card-content>
-    <p>
-      Description: {{event.description}}
-    </p>
-    <p>
-      Location: {{event.location}}
-    </p>
-    <p>
-      When: {{event.datetime}}
-    </p>
-    <p>
-      Is it public: {{event.public}}
-    </p>
-    <p>
-      Responsible: {{event.eventplanner}}
-    </p>
-    <p>
-      Invited: {{event.invited}}
-    </p>
-  </mat-card-content>
-</mat-card>
-</div>
+        pic: <img src="api/media/{{event.id}}" height="100px">
+      </p>
+      <hr>
+      <mat-card-content>
+        <p>
+          Description: {{event.description}}
+        </p>
+        <p>
+          Location: {{event.location}}
+        </p>
+        <p>
+          When: {{event.datetime}}
+        </p>
+        <p>
+          Is it public: {{event.public}}
+        </p>
+        <p>
+          Responsible: {{event.eventplanner}}
+        </p>
+        <p>
+          Invited: {{event.invited}}
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
   <mat-divider></mat-divider>
   <!--Anzeigen aller Messages -->
@@ -43,169 +44,166 @@
       Messenger
       <div>
         <div class="messengerbox" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-      <mat-card class="messenger" *ngFor="let forumentry of forumentries" >
-        <mat-card-content>
-  <!--  soll nur angezeigt werden, wenn forumentry.user == eingeloggter userid -->
+          <mat-card class="messenger" *ngFor="let forumentry of forumentries">
+            <mat-card-content>
+              <!--  soll nur angezeigt werden, wenn forumentry.user == eingeloggter userid -->
 
 
-          <div class="me"  *ngIf="forumentry.userid == userId" >
-          <p>
-            {{forumentry.user}}
+              <div class="me" *ngIf="forumentry.userid == userId">
+                <p>
+                  {{forumentry.user}}
 
-          </p>
-          <p>
-           {{forumentry.content}},    {{forumentry.datetime | date:'h:mm'}}
-          </p>
-          <p>
-          Date: {{forumentry.datetime | date}}
-          </p>
-          </div>
+                </p>
+                <p>
+                  {{forumentry.content}},    {{forumentry.datetime | date:'h:mm'}}
+                </p>
+                <p>
+                  Date: {{forumentry.datetime | date}}
+                </p>
+              </div>
 
-          <!-- message aller anderen -->
+              <!-- message aller anderen -->
 
-          <div class="others"  *ngIf="forumentry.userid != userId" >
-            <p>
-              {{forumentry.user}}
-            </p>
-            <p>
-              {{forumentry.content}},    {{forumentry.datetime | date:'h:mm'}}
-            </p>
-            <p>
-              Date: {{forumentry.datetime | date}}
-            </p>
-          </div>
+              <div class="others" *ngIf="forumentry.userid != userId">
+                <p>
+                  {{forumentry.user}}
+                </p>
+                <p>
+                  {{forumentry.content}},    {{forumentry.datetime | date:'h:mm'}}
+                </p>
+                <p>
+                  Date: {{forumentry.datetime | date}}
+                </p>
+              </div>
 
-        </mat-card-content>
-      </mat-card>
+            </mat-card-content>
+          </mat-card>
         </div>
       </div>
-
-
 
 
       <!--Neue Message -->
 
 
-        <div class="newmessgage">
-          New Message
-      <form [formGroup]="forumentryFormGroup" class="forumentry-form">
-        <mat-form-field>
-          <input matInput type="text" placeholder="Content" formControlName="content">
-        </mat-form-field>
-      </form>
-      <button mat-button (click)="createForumentry()">
-        Send
-      </button>
-    </div>
-  </div>
-
-
-
-  <!--All Tasks -->
-
-
-<!-- --------------------------------------------------------------------------------------------------------------- -->
-
-    <button  style="width: 20%;" mat-button (click)="createTask(event.id)" >Create new Task</button>
-<div>
-
-  <div class="task-status">
-    <div class="task-status-inner">
-      <div class="task-status-text">To Do</div>
-      <div cdkDropList id="listToDo" [cdkDropListData]="tasksOpen" (cdkDropListDropped)="saveDroppedItem($event)"
-           [cdkDropListConnectedTo]="['listInProgress', 'listDone']"
-           class="drop-list-height">
-        <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksOpen">
-          <mat-expansion-panel class="task-margin">
-            <mat-expansion-panel-header>
-              <mat-panel-title class="panel-header-width">
-                <strong>{{task.title}}</strong> <br>
-              </mat-panel-title>
-              <mat-panel-description class="panel-header-width">
-                Responsible: {{task.responsible}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>
-              Description: {{task.description}}
-            </p>
-            <p>
-              Deadline: {{task.deadline}}
-            </p>
-            <p *ngIf="task.supporters!=''">
-              Supporters: {{task.supporters}}
-            </p>
-          </mat-expansion-panel>
-        </div>
+      <div class="newmessgage">
+        New Message
+        <form [formGroup]="forumentryFormGroup" class="forumentry-form">
+          <mat-form-field>
+            <input matInput type="text" placeholder="Content" formControlName="content">
+          </mat-form-field>
+        </form>
+        <button mat-button (click)="createForumentry()">
+          Send
+        </button>
       </div>
     </div>
-  </div>
 
-  <div class="task-status">
-    <div class="task-status-inner">
-      <div class="task-status-text">In Progress</div>
-      <div cdkDropList id="listInProgress" [cdkDropListData]="tasksInProgress" (cdkDropListDropped)="saveDroppedItem($event)"
-           [cdkDropListConnectedTo]="['listToDo', 'listDone']"
-           class="drop-list-height">
-        <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksInProgress">
-          <mat-expansion-panel class="task-margin">
-            <mat-expansion-panel-header>
-              <mat-panel-title class="panel-header-width">
-                <strong>{{task.title}}</strong> <br>
-              </mat-panel-title>
-              <mat-panel-description class="panel-header-width">
-                Responsible: {{task.responsible}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>
-              Description: {{task.description}}
-            </p>
-            <p>
-              Deadline: {{task.deadline}}
-            </p>
-            <p *ngIf="task.supporters!=''">
-              Supporters: {{task.supporters}}
-            </p>
-          </mat-expansion-panel>
+
+    <!--All Tasks -->
+
+
+    <!-- --------------------------------------------------------------------------------------------------------------- -->
+
+    <button style="width: 20%;" mat-button (click)="createTask(event.id)">Create new Task</button>
+    <div>
+
+      <div class="task-status">
+        <div class="task-status-inner">
+          <div class="task-status-text">To Do</div>
+          <div cdkDropList id="listToDo" [cdkDropListData]="tasksOpen" (cdkDropListDropped)="saveDroppedItem($event)"
+               [cdkDropListConnectedTo]="['listInProgress', 'listDone']"
+               class="drop-list-height">
+            <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksOpen">
+              <mat-expansion-panel class="task-margin">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="panel-header-width">
+                    <strong>{{task.title}}</strong> <br>
+                  </mat-panel-title>
+                  <mat-panel-description class="panel-header-width">
+                    Responsible: {{task.responsible}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>
+                  Description: {{task.description}}
+                </p>
+                <p>
+                  Deadline: {{task.deadline}}
+                </p>
+                <p *ngIf="task.supporters!=''">
+                  Supporters: {{task.supporters}}
+                </p>
+              </mat-expansion-panel>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <div class="task-status">
-    <div class="task-status-inner">
-      <div class="task-status-text">Done</div>
-      <div cdkDropList id="listDone" [cdkDropListData]="tasksDone" (cdkDropListDropped)="saveDroppedItem($event)"
-           [cdkDropListConnectedTo]="['listToDo', 'listInProgress']"
-           class="drop-list-height">
-        <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksDone">
-          <mat-expansion-panel class="task-margin">
-            <mat-expansion-panel-header>
-              <mat-panel-title class="panel-header-width">
-                <strong>{{task.title}}</strong> <br>
-              </mat-panel-title>
-              <mat-panel-description class="panel-header-width">
-                Responsible: {{task.responsible}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>
-              Description: {{task.description}}
-            </p>
-            <p>
-              Deadline: {{task.deadline}}
-            </p>
-            <p *ngIf="task.supporters!=''">
-              Supporters: {{task.supporters}}
-            </p>
-          </mat-expansion-panel>
+      <div class="task-status">
+        <div class="task-status-inner">
+          <div class="task-status-text">In Progress</div>
+          <div cdkDropList id="listInProgress" [cdkDropListData]="tasksInProgress"
+               (cdkDropListDropped)="saveDroppedItem($event)"
+               [cdkDropListConnectedTo]="['listToDo', 'listDone']"
+               class="drop-list-height">
+            <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksInProgress">
+              <mat-expansion-panel class="task-margin">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="panel-header-width">
+                    <strong>{{task.title}}</strong> <br>
+                  </mat-panel-title>
+                  <mat-panel-description class="panel-header-width">
+                    Responsible: {{task.responsible}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>
+                  Description: {{task.description}}
+                </p>
+                <p>
+                  Deadline: {{task.deadline}}
+                </p>
+                <p *ngIf="task.supporters!=''">
+                  Supporters: {{task.supporters}}
+                </p>
+              </mat-expansion-panel>
+            </div>
+          </div>
         </div>
       </div>
+
+      <div class="task-status">
+        <div class="task-status-inner">
+          <div class="task-status-text">Done</div>
+          <div cdkDropList id="listDone" [cdkDropListData]="tasksDone" (cdkDropListDropped)="saveDroppedItem($event)"
+               [cdkDropListConnectedTo]="['listToDo', 'listInProgress']"
+               class="drop-list-height">
+            <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksDone">
+              <mat-expansion-panel class="task-margin">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="panel-header-width">
+                    <strong>{{task.title}}</strong> <br>
+                  </mat-panel-title>
+                  <mat-panel-description class="panel-header-width">
+                    Responsible: {{task.responsible}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>
+                  Description: {{task.description}}
+                </p>
+                <p>
+                  Deadline: {{task.deadline}}
+                </p>
+                <p *ngIf="task.supporters!=''">
+                  Supporters: {{task.supporters}}
+                </p>
+              </mat-expansion-panel>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
+
   </div>
 
 </div>
-
-
-</div>
-
-
-

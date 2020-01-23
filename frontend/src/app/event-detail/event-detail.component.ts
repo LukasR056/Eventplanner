@@ -14,13 +14,15 @@ import {TaskService} from '../service/task.service';
   styleUrls: ['./event-detail.component.scss']
 })
 export class EventDetailComponent implements OnInit {
-  events: any;
   event: any;
-  forumentry: any;
+  // Tasks for bottom Board
+  eventTasks: any[];
   tasksOpen: Array<any>;
   tasksInProgress: Array<any>;
   tasksDone: Array<any>;
+
   userOptions;
+  forumentry: any;
   forumentries: any[];
   forumentryFormGroup;
   id2 = this.route.snapshot.paramMap.get('id');
@@ -58,14 +60,9 @@ export class EventDetailComponent implements OnInit {
     this.eventService.getEventWithId(id)
       .subscribe((response: any) => {
         this.event = response;
+        // console.log(this.event);
         this.filterTasks();
         this.pictures = response.pictures;
-      });
-
-    this.eventService.getEvents()
-      .subscribe((response: any) => {
-        this.events = response;
-        this.filterTasks();
       });
 
     this.userService.retrieveUserOptions().subscribe((result) => {
@@ -91,18 +88,22 @@ export class EventDetailComponent implements OnInit {
 
 
   filterTasks() {
-    this.event.tasks.forEach(task => {
-      switch (task.status) {
-        case 'o':
-          this.tasksOpen.push(task);
-          break;
-        case 'i':
-          this.tasksInProgress.push(task);
-          break;
-        case 'd':
-          this.tasksDone.push(task);
-          break;
-      }
+    this.taskService.getTasks().subscribe((response: any[]) => {
+      this.eventTasks = response.filter(task => this.event.tasks.includes(task.id));
+      // console.log(this.eventTasks);
+      this.eventTasks.forEach(task => {
+        switch (task.status) {
+          case 'o':
+            this.tasksOpen.push(task);
+            break;
+          case 'i':
+            this.tasksInProgress.push(task);
+            break;
+          case 'd':
+            this.tasksDone.push(task);
+            break;
+        }
+      });
     });
   }
 
@@ -128,7 +129,8 @@ export class EventDetailComponent implements OnInit {
         event.item.data.status = 'd';
         break;
     }
-
+    event.item.data.event = this.event.id;
+    console.log(event.item.data);
     this.taskService.updateTask(event.item.data).subscribe(() => {
     });
     // console.log(event.item.data);
