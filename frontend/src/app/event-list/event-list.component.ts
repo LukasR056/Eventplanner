@@ -13,8 +13,7 @@ import {MediaService} from '../service/media.service';
 export class EventListComponent implements OnInit {
 
   events: any[];
-  //pictures: [null];
-  private pictures;
+
 
   constructor( private eventService: EventService, private router: Router, private mediaService: MediaService) { }
 
@@ -22,7 +21,6 @@ export class EventListComponent implements OnInit {
     this.eventService.getEvents()
       .subscribe((response: any[]) => {
         this.events = response;
-        this.pictures = response;
       });
   }
 
