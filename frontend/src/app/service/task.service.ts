@@ -8,6 +8,7 @@ export class TaskService {
 
   constructor(private http: HttpClient) {
   }
+  public currentEventid: any;
 
   statusName = {
     o: 'Open',
@@ -38,4 +39,5 @@ export class TaskService {
   deleteTask(task: any) {
     return this.http.delete('/api/task/' + task.id + '/delete');
   }
+
 }

@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full'},
   { path: 'task-list', component: TaskListComponent, canActivate: [AuthenticationGuard] },
   { path: 'task-form', component: TaskFormComponent, canActivate: [AuthenticationGuard] },
+  { path: 'task-form/:id', component: TaskFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'tag-list', component: TagListComponent, canActivate: [AuthenticationGuard] },
   { path: 'tag-form', component: TagFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'forumentry-list', component: ForumentryListComponent, canActivate: [AuthenticationGuard] },

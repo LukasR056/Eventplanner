@@ -82,9 +82,10 @@ class Task(models.Model):
     verified_by_planner = models.BooleanField()
     verified_by_participant = models.BooleanField()
     status = models.CharField(max_length=1, choices=STATUS)
-    deadline = models.DateTimeField()
+    deadline_date = models.DateField()
+    deadline_time =models.TimeField()
     responsible = models.ForeignKey(User, on_delete=models.CASCADE, related_name='responsible')
-    supporters = models.ManyToManyField(User, related_name='supporters', blank=True)
+    ##supporters = models.ManyToManyField(User, related_name='supporters', blank=True)
     event = models.ForeignKey(Event, related_name='tasks', on_delete=models.CASCADE)
 
     def __str__(self):

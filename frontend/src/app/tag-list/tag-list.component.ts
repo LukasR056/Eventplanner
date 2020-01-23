@@ -29,10 +29,11 @@ export class TagListComponent implements OnInit {
 
   ngOnInit() {
     this.username = localStorage.getItem('username');
-    this.userId = localStorage.getItem('user_id');
+    this.userId = Number(localStorage.getItem('user_id'));
     this.tagService.getTags()
       .subscribe((response: any[]) => {
         this.tags = response;
+        this.tags.sort((a, b) => (a.name > b.name) ? 1 : -1);
       });
     this.eventService.getEventsId()
       .subscribe((response: any[]) => {
@@ -61,7 +62,8 @@ export class TagListComponent implements OnInit {
   changeEvent(tag: any) {
     // console.log(this.userId)
     this.showEvents = this.events.filter(event => event.tags.includes(tag.id)
-      && event.public && !event.participants.includes(Number(this.userId))
+      && event.public && event.eventplanner != this.userId
+      && !event.participants.includes(Number(this.userId))
       && !event.invited.includes(Number(this.userId)));
     // console.log(this.showEvents);
   }
