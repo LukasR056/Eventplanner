@@ -60,6 +60,10 @@
 
   <br>
 
+  <div>
+    <app-mediainput formControlName="pictures"></app-mediainput>
+  </div>
+
   <mat-card-actions align="center">
     <button mat-raised-button color="primary"
             [disabled]="!registrationUserFormGroup.valid || !registrationProfileFormGroup.valid" (click)="register()">
