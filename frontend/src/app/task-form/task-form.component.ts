@@ -14,37 +14,34 @@ import {EventService} from '../service/event.service';
 export class TaskFormComponent implements OnInit {
   taskFormGroup;
   userOptions: any[];
-  deadlineTime: any;
+  deadline_time: any;
   private userId: any;
   event: any;
   isLoggedUserEventplanner = true;
   loggedUser: any;
+  oldTask: any;
 
 
   constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private eventService: EventService, private http: HttpClient, private route: ActivatedRoute, private taskService: TaskService) {
   }
 
   ngOnInit() {
-
-
     this.userId = Number(localStorage.getItem('user_id'));
 
     this.userService.getUserById(this.userId).subscribe(response => {
       this.loggedUser = response;
     });
 
-    console.log(this.taskService.currentEvent);
     if (this.taskService.currentEvent.eventplanner != this.userId) {
       this.isLoggedUserEventplanner = false;
     }
-
 
     this.userService.retrieveUserOptions().subscribe((result: any[]) => {
       this.userOptions = result.filter(user => (this.taskService.currentEvent.participants ? this.taskService.currentEvent.participants.includes(user.id) : false) || user.id == this.taskService.currentEvent.eventplanner);
     });
 
 
-    this.deadlineTime = '00:00';
+    this.deadline_time = '00:00';
     this.taskFormGroup = this.fb.group({
       id: [null],
       title: ['', [Validators.required]],
@@ -57,31 +54,61 @@ export class TaskFormComponent implements OnInit {
       responsible: [null],
       event: [null],
     });
+
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.taskService.getTask(id)
+        .subscribe((response) => {
+          this.taskFormGroup.patchValue(response);
+          this.deadline_time = this.taskFormGroup.value.deadline_time;
+          this.deadline_time = this.deadline_time.substring(0, 5);
+          console.log(response);
+          this.oldTask = this.taskFormGroup.value;
+        });
+    } else {
+      this.deadline_time = '00:00';
+    }
+
   }
 
   createTask() {
     const task = this.taskFormGroup.value;
-    task.event = this.taskService.currentEvent.id;
+    if (task.id) {
+      console.log(task);
+      // falls der responsible sich geändert hat so muss eine Bestätigng eingeholt werden
+      if (task.responsible != this.oldTask.responsible && task.responsible != this.userId) {
+        task.responsible = this.oldTask.responsible;
+        console.log('res wurde geändert');
+        task.verified_by_participant = false;
+      }
+      this.taskService.updateTask(task).subscribe((response: any) => {
+        this.router.navigate(['/event-detail/' + this.taskService.currentEvent.id]);
+      });
 
-    if (this.taskService.currentEvent.eventplanner == this.userId && task.responsible == this.userId) {
-      task.verified_by_participant = true;
-      task.verified_by_planner = true;
-      task.responsible = this.userId;
-    }
-    if (this.taskService.currentEvent.eventplanner == this.userId && task.responsible != this.userId) {
-      task.verified_by_participant = false;
-      task.verified_by_planner = true;
-    }
-    if (this.taskService.currentEvent.eventplanner != this.userId) {
-      task.verified_by_participant = true;
-      task.verified_by_planner = false;
-      task.responsible = this.userId;
-    }
 
-    console.log(task);
-    this.taskService.createTask(task).subscribe((response: any) => {
-      this.router.navigate(['/event-detail/' + this.taskService.currentEvent.id]);
-    });
+    } else {
+      task.event = this.taskService.currentEvent.id;
+
+      if (this.taskService.currentEvent.eventplanner == this.userId && task.responsible == this.userId) {
+        task.verified_by_participant = true;
+        task.verified_by_planner = true;
+        task.responsible = this.userId;
+      }
+      if (this.taskService.currentEvent.eventplanner == this.userId && task.responsible != this.userId) {
+        task.verified_by_participant = false;
+        task.verified_by_planner = true;
+      }
+      if (this.taskService.currentEvent.eventplanner != this.userId) {
+        task.verified_by_participant = true;
+        task.verified_by_planner = false;
+        task.responsible = this.userId;
+      }
+
+      this.taskService.createTask(task).subscribe((response: any) => {
+        this.router.navigate(['/event-detail/' + this.taskService.currentEvent.id]);
+      });
+
+    }
 
   }
 }

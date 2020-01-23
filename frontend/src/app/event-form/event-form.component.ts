@@ -75,16 +75,13 @@ export class EventFormComponent implements OnInit {
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-
-
-      this.http.get('/api/event/' + id + '/get')
+      this.eventService.getEventWithId(id)
         .subscribe((response) => {
           this.eventFormGroup.patchValue(response);
           // console.log(this.userOptions);
           this.time = this.eventFormGroup.value.time;
           this.time = this.time.substring(0, 5);
           console.log(response);
-
         });
     } else {
       this.time = '00:00';

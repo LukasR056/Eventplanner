@@ -20,8 +20,8 @@ export class TaskService {
     return this.http.get('/api/task/list');
   }
 
-  getTask(task: any) {
-    return this.http.get('/api/task/' + task.id + '/get', task);
+  getTask(id: any) {
+    return this.http.get('/api/task/' + id + '/get');
   }
 
   getTaskWithUserId(id: any) {

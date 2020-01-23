@@ -25,23 +25,14 @@ export class EventService {
   }
 
   getEventWithId(id: any) {
-    return this.http.get('/api/event/' + id + '/get', id);
+    return this.http.get('/api/event/' + id + '/get');
   }
-
-  getEventWithUserId(id: any) {
-    return this.http.get('/api/event/user/' + id + '/get', id);
-  }
-
   updateEvent(event: any) {
     return this.http.put('/api/event/' + event.id + '/update', event);
   }
 
   deleteEvent(event: any) {
     return this.http.delete('/api/event/' + event.id + '/delete');
-  }
-
-  getFirstRow() {
-    return this.http.get('/api/event/list/firstrow');
   }
 }
 
