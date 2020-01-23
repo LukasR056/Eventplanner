@@ -7,11 +7,13 @@ import {UserService} from '../service/user.service';
 import {FormBuilder} from '@angular/forms';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {TaskService} from '../service/task.service';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-event-detail',
   templateUrl: './event-detail.component.html',
-  styleUrls: ['./event-detail.component.scss']
+  styleUrls: ['./event-detail.component.scss'],
+  providers: [DatePipe]
 })
 export class EventDetailComponent implements OnInit {
   event: any;
@@ -28,18 +30,20 @@ export class EventDetailComponent implements OnInit {
   id2 = this.route.snapshot.paramMap.get('id');
   userId: any;
   pictures: number[];
-  picture: any;
+  username: any;
+
   // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
 
   // tslint:disable-next-line:max-line-length
   constructor(private fb: FormBuilder, private http: HttpClient, private eventService: EventService, private route: ActivatedRoute,
               private userService: UserService, private router: Router, private taskService: TaskService,
-              private forumentryService: ForumentryService) {
+              private forumentryService: ForumentryService, private datepipe: DatePipe) {
   }
 
   ngOnInit() {
-    this.userId = localStorage.getItem('user_id');
+    this.userId = Number(localStorage.getItem('user_id'))
+    this.username = localStorage.getItem('username');
     this.forumentryFormGroup = this.fb.group({
       content: [null],
       user: [this.userId],
@@ -62,7 +66,7 @@ export class EventDetailComponent implements OnInit {
     this.eventService.getEventWithId(id)
       .subscribe((response: any) => {
         this.event = response;
-        // console.log(this.event);
+        console.log(this.event);
         this.filterTasks();
        // this.pictures = response.pictures;
         this.pictures = response.pictures;
@@ -78,6 +82,7 @@ export class EventDetailComponent implements OnInit {
     this.forumentryService.getForumentryWithEventId(id)
       .subscribe((response: any) => {
         this.forumentries = response;
+        // console.log(this.forumentries);
       });
   }
 
@@ -88,6 +93,13 @@ export class EventDetailComponent implements OnInit {
       .subscribe((response: any) => {
         this.loadForumEntries(id);
       });
+  }
+
+  showDateInbetweenForumentries(index: number): boolean {
+    const currentEntry = this.datepipe.transform(this.forumentries[index].datetime, 'dd/MM/yyyy');
+    const previousEntry = this.forumentries[index - 1] ? this.datepipe.transform(this.forumentries[index - 1].datetime,
+      'dd/MM/yyyy') : undefined;
+    return currentEntry != previousEntry;
   }
 
 
