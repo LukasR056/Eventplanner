@@ -56,6 +56,7 @@ class UserCreateForm (serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['user', 'first_name', 'last_name', 'birthday']
+        #, 'pictures' TODO: MAX SPÄTER WIEDER IMPLEMENTIEREN
 
 
 
@@ -127,8 +128,7 @@ class EventFormSerializer(serializers.ModelSerializer):
         fields.append('tags')
         fields.append('eventplanner')
         fields.append('participants')
-        #fields = ['__all__', 'tasks']
-        #fields = ['tasks',]
+        fields.append('pictures')
 
 
 class ForumentryListSerializer(serializers.ModelSerializer):

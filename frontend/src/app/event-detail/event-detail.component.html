@@ -1,3 +1,6 @@
+
+<div>
+
 <div class="eventanzeige">
 
   <mat-card class="event-card" *ngIf="event">
@@ -8,12 +11,13 @@
               (click)="updateEvent(event.id)">Update
       </button>
     </mat-card-header>
-    <p>
+    <p *ngFor="let picture of pictures">
 
-      pic: <img src="api/media/{{event.id}}" height="100px">
+      pic:  <img src="api/media/{{picture}}" height="100px"><br>
     </p>
     <hr>
     <mat-card-content>
+
       <p>
         Description: {{event.description}}
       </p>
@@ -34,6 +38,7 @@
       </p>
     </mat-card-content>
   </mat-card>
+
 
   <mat-divider></mat-divider>
 

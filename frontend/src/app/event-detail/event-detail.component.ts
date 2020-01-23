@@ -29,8 +29,9 @@ export class EventDetailComponent implements OnInit {
   forumentryFormGroup;
   id2 = this.route.snapshot.paramMap.get('id');
   userId: any;
+  pictures: number[];
   username: any;
-  private pictures;
+
   // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
 
@@ -47,7 +48,8 @@ export class EventDetailComponent implements OnInit {
       content: [null],
       user: [this.userId],
       event: [this.id2],
-    });
+    }
+    );
     const id = this.route.snapshot.paramMap.get('id');
     this.tasksOpen = [];
     this.tasksInProgress = [];
@@ -66,7 +68,9 @@ export class EventDetailComponent implements OnInit {
         this.event = response;
         console.log(this.event);
         this.filterTasks();
+       // this.pictures = response.pictures;
         this.pictures = response.pictures;
+        console.log('piiiics: ' + this.pictures);
       });
 
     this.userService.retrieveUserOptions().subscribe((result) => {

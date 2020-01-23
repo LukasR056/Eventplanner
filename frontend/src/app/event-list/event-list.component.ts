@@ -16,6 +16,7 @@ export class EventListComponent implements OnInit {
   username;
   userId;
 
+
   constructor(private eventService: EventService, private router: Router) {
   }
 

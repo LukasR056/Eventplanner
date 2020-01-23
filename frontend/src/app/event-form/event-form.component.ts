@@ -68,7 +68,7 @@ export class EventFormComponent implements OnInit {
       tags: [[]],
       invited: [[]],
       participants: [[]],
-      pictures: [null],
+      pictures: [[]],
     });
 
 
