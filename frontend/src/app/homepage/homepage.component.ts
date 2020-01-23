@@ -21,6 +21,7 @@ export class HomepageComponent implements OnInit {
   userId: any;
   userTasksEvents: any;
   openEvents = false;
+  openTasks: any[];
 
   constructor(private http: HttpClient, private eventService: EventService, public taskService: TaskService, private fb: FormBuilder,
               private router: Router, private userService: UserService) {
@@ -44,7 +45,8 @@ export class HomepageComponent implements OnInit {
             this.tasks.push(task);
           }
         }
-        console.log(this.tasks);
+        this.tasks.sort((a, b) => (a.deadline_date > b.deadline_date) ? 1 : -1);
+        this.openTasks = response.filter(task => task.responsible === this.userId && !task.verified_by_participant);
       });
 
     this.userService.getUserById(this.userId).subscribe(result => {
@@ -59,7 +61,7 @@ export class HomepageComponent implements OnInit {
     });
 
     this.eventService.retrieveEvents().subscribe((result: any[]) => {
-      // TODO: EVENTS SORTIEREN UND AUF ANZAHL BESCHRÄNKEN (z.B. 4) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! .slice funktion
+      // TODO: EVENTS SORTIEREN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! .slice funktion
       // Nach Datum sortieren funktioniert noch nicht!!
 
       for (const event of result) {
@@ -67,8 +69,8 @@ export class HomepageComponent implements OnInit {
           this.events.push(event);
         }
       }
-      this.events = this.events.sort((a, b) => b.date - a.date);
       this.events = this.events.slice(0, 3);
+      this.events.sort((a, b) => (a.date > b.date) ? 1 : -1);
     });
 
   }

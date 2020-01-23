@@ -32,6 +32,7 @@ export class EventListComponent implements OnInit {
             this.events.push(event);
           }
         }
+        this.events.sort((a, b) => (a.date > b.date) ? 1 : -1);
       });
   }
 

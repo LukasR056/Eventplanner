@@ -65,6 +65,9 @@
 
   <div class="task-list">
 
+    <button mat-button routerLink="../check-tasks" *ngIf="openTasks?.length">You have been invited to new events!
+    </button>
+
     <h3>My Tasks</h3>
 
     <mat-accordion>
