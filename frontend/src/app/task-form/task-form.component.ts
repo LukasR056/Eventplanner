@@ -33,6 +33,7 @@ export class TaskFormComponent implements OnInit {
       this.loggedUser = response;
     });
 
+    console.log(this.taskService.currentEvent);
     if (this.taskService.currentEvent.eventplanner != this.userId) {
       this.isLoggedUserEventplanner = false;
     }

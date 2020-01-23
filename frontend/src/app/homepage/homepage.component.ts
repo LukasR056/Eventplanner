@@ -29,7 +29,7 @@ export class HomepageComponent implements OnInit {
   ngOnInit() {
 
     this.username = localStorage.getItem('username');
-    this.userId = localStorage.getItem('user_id');
+    this.userId = Number(localStorage.getItem('user_id'));
     this.events = [];
     this.tasks = [];
 
@@ -40,10 +40,11 @@ export class HomepageComponent implements OnInit {
     this.taskService.getTasks()
       .subscribe((response: any[]) => {
         for (const task of response) {
-          if (task.responsible === this.username && task.verified_by_planner && task.verified_by_participant) {
+          if (task.responsible === this.userId && task.verified_by_planner && task.verified_by_participant) {
             this.tasks.push(task);
           }
         }
+        console.log(this.tasks);
       });
 
     this.userService.getUserById(this.userId).subscribe(result => {
@@ -67,7 +68,7 @@ export class HomepageComponent implements OnInit {
         }
       }
       this.events = this.events.sort((a, b) => b.date - a.date);
-      this.events = this.events.slice(0,3);
+      this.events = this.events.slice(0, 3);
     });
 
   }
@@ -80,7 +81,7 @@ export class HomepageComponent implements OnInit {
   }
 
   filterTasks(userId, allTasks) {
-    allTasks
+    // allTasks
   }
 
   moveToEventDetail(id: any) {

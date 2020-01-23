@@ -2,15 +2,16 @@
   <div class="event-list">
 
     <div>
-      <h3>My Events <br>MY USERNAME {{username}} WITH ID {{userId}}<br> </h3>
-    <button  mat-button routerLink="../check-invitation" *ngIf="openEvents" >You have been invited to new events!</button>
+      <h3>My Events <br>MY USERNAME {{username}} WITH ID {{userId}}<br></h3>
+      <button mat-button routerLink="../check-invitation" *ngIf="openEvents">You have been invited to new events!
+      </button>
     </div>
 
 
     <mat-card class="event-card" *ngFor="let event of events" (click)="moveToEventDetail(event.id)">
 
       <mat-card-header>
-        <mat-card-title>{{event.name}}</mat-card-title>
+        <mat-card-title>{{event.name}} <mat-icon>edit star</mat-icon></mat-card-title>
       </mat-card-header>
       <hr>
       <mat-card-content>
@@ -28,9 +29,9 @@
         This is a
 
         <strong>
-        <div *ngIf="event.public; then thenBlock else elseBlock"></div>
-        <ng-template #thenBlock>public</ng-template>
-        <ng-template #elseBlock>private</ng-template>
+          <div *ngIf="event.public; then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock>public</ng-template>
+          <ng-template #elseBlock>private</ng-template>
         </strong>
 
         event.
@@ -45,7 +46,6 @@
     </mat-card>
 
 
-
   </div>
 
   <div class="buttons">
@@ -57,60 +57,62 @@
 </div>
 
 
-
-
 <!-- --------------------------------------------------------------------------------------------------------- -->
 <br>
 <div class="wrapper">
 
   <mat-divider></mat-divider>
 
-<div class="task-list">
+  <div class="task-list">
 
-  <h3>My Tasks</h3>
+    <h3>My Tasks</h3>
 
-  <mat-accordion>
-    <mat-expansion-panel *ngFor="let task of tasks">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let task of tasks">
 
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          <strong>{{task.title}}</strong> <br>
-          event: {{task.event}}
-        </mat-panel-title>
-        <mat-panel-description>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <p>
+              <strong>{{task.title}}</strong> <br>
+              event: {{task.event.name}}
+            </p>
+          </mat-panel-title>
+          <mat-panel-description>
+            <p>
+              deadline: {{task.deadline_date}} {{task.deadline_time.substring(0, 5)}}
+            </p>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <p>
+          Description: {{task.description}}
+        </p>
+
+        The status of this task: {{taskService.statusName[task.status]}} <br><br>
+        <mat-form-field>
+          <mat-select [(ngModel)]="task.status">
+            <mat-option [value]="status.key" *ngFor="let status of taskService.statusName | keyvalue"
+                        (click)="updateStatus(task, status.key)">{{status.value}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <p>
           deadline: {{task.deadline_date}} {{task.deadline_time}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+        </p>
+        <p>
+          responsible: {{task.responsible}}
+        </p>
 
-      <p>
-        Description: {{task.description}}
-      </p>
+        <!--<div class="buttons">
+          <div class="button-save">
+            <button mat-button (click)="saveTask(task, task.value)">Edit Task</button>
+          </div>
+          <div class="button-delete">
+            <button mat-button (click)="deleteEvent(task)">Delete Task</button>
+          </div>
+        </div>-->
 
-      The status of this task: {{taskService.statusName[task.status]}} <br><br>
-      <mat-form-field>
-        <mat-select [(ngModel)]="task.status">
-          <mat-option [value]="status.key" *ngFor="let status of taskService.statusName | keyvalue"
-                      (click)="updateStatus(task, status.key)">{{status.value}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <p>
-        deadline: {{task.deadline_date}} {{task.deadline_time}}
-      </p>
-      <p>
-        responsible: {{task.responsible}}
-      </p>
-
-      <!--<div class="buttons">
-        <div class="button-save">
-          <button mat-button (click)="saveTask(task, task.value)">Edit Task</button>
-        </div>
-        <div class="button-delete">
-          <button mat-button (click)="deleteEvent(task)">Delete Task</button>
-        </div>
-      </div>-->
-
-    </mat-expansion-panel>
-  </mat-accordion>
-</div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 </div>

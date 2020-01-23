@@ -43,6 +43,7 @@ export class CheckTasksComponent implements OnInit {
   accepTask(updatedTask: any) {
 
     updatedTask.verified_by_planner = true;
+    updatedTask.verified_by_participant = true;
     const eventId = updatedTask.event.id;
     delete updatedTask.event;
     updatedTask.event = eventId;
@@ -55,6 +56,7 @@ export class CheckTasksComponent implements OnInit {
   }
 
   denyTask(canceledTask: any) {
+
 
     const eventId = canceledTask.event.id;
     delete canceledTask.event;

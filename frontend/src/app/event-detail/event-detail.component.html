@@ -39,12 +39,12 @@
 
   <mat-divider></mat-divider>
 
-  <button class="add-task-button" mat-button (click)="createTask(event.id)">Create new Task</button>
+  <button class="add-task-button" mat-button (click)="createTask(event)">Create new Task</button>
   <!--All Tasks -->
 
   <!-- ------------------------------------------------------------------------------------------------------------- -->
 
-  
+
   <div class="task-status">
     <div class="task-status-inner">
       <div class="task-status-text">To Do</div>
@@ -52,10 +52,10 @@
            [cdkDropListConnectedTo]="['listInProgress', 'listDone']"
            class="drop-list-height">
         <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksOpen"
-             [cdkDragDisabled]="username!=task.responsible && userId!=event.eventplanner">
+             [cdkDragDisabled]="userId!=task.responsible && userId!=event.eventplanner">
           <mat-expansion-panel class="task-margin">
             <mat-expansion-panel-header
-              [ngStyle]="{'background-color': (username!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
+              [ngStyle]="{'background-color': (userId!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
               <!-- WÜRDE AUCH GEHEN ABER GIBT KOMISCHEN HOVER ZURÜCK
               <mat-expansion-panel-header [ngClass]="{'task-not-dragable': (username!=task.responsible)}"> -->
 
@@ -86,10 +86,10 @@
            [cdkDropListConnectedTo]="['listToDo', 'listDone']"
            class="drop-list-height">
         <div *ngFor="let task of tasksInProgress" cdkDrag [cdkDragData]="task"
-             [cdkDragDisabled]="username!=task.responsible && userId!=event.eventplanner">
+             [cdkDragDisabled]="userId!=task.responsible && userId!=event.eventplanner">
           <mat-expansion-panel class="task-margin">
             <mat-expansion-panel-header
-              [ngStyle]="{'background-color': (username!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
+              [ngStyle]="{'background-color': (userId!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
               <mat-panel-title class="panel-header-width">
                 <strong>{{task.title}}</strong> <br>
               </mat-panel-title>
@@ -116,10 +116,10 @@
            [cdkDropListConnectedTo]="['listToDo', 'listInProgress']"
            class="drop-list-height">
         <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksDone"
-             [cdkDragDisabled]="username!=task.responsible && userId!=event.eventplanner">
+             [cdkDragDisabled]="userId!=task.responsible && userId!=event.eventplanner">
           <mat-expansion-panel class="task-margin">
             <mat-expansion-panel-header
-              [ngStyle]="{'background-color': (username!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
+              [ngStyle]="{'background-color': (userId!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
               <mat-panel-title class="panel-header-width">
                 <strong>{{task.title}}</strong> <br>
               </mat-panel-title>
