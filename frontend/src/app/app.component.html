@@ -1,27 +1,27 @@
 <mat-toolbar>
   ULTIMATE EVENT
-  <div class="user-settings">
-    <button style="float: right" mat-icon-button [matMenuTriggerFor]="menu" >
-  <mat-icon>account_circle</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-  <button routerLink="user-form" mat-menu-item>
-    <mat-icon>build</mat-icon>
-    <span>Settings</span>
-  </button>
-  <button routerLink="friends-list" mat-menu-item >
-    <mat-icon>favorite</mat-icon>
-    <span>Friends</span>
-  </button>
-    <button routerLink="check-invitation"  mat-menu-item >
-      <mat-icon>event</mat-icon>
-      <span> Invitations </span>
+  <div class="user-settings" *ngIf="isLoggedIn">
+    <button style="float: right" mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
     </button>
-  <app-logout></app-logout>
-</mat-menu>
+    <mat-menu #menu="matMenu">
+      <button routerLink="user-form" mat-menu-item>
+        <mat-icon>build</mat-icon>
+        <span>Settings</span>
+      </button>
+      <button routerLink="friends-list" mat-menu-item>
+        <mat-icon>favorite</mat-icon>
+        <span>Friends</span>
+      </button>
+      <button routerLink="check-invitation" mat-menu-item>
+        <mat-icon>event</mat-icon>
+        <span> Invitations </span>
+      </button>
+      <app-logout></app-logout>
+    </mat-menu>
   </div>
 
-  <button mat-button routerLink="event-list">Home</button>
-  <button mat-button routerLink="homepage">Homepage</button>
+  <button mat-button routerLink="event-list" *ngIf="isLoggedIn">Home</button>
+  <button mat-button routerLink="homepage" *ngIf="isLoggedIn">Homepage</button>
 </mat-toolbar>
 <router-outlet></router-outlet>
