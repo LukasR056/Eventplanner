@@ -106,6 +106,7 @@ export class EventFormComponent implements OnInit {
         });
     } else {
       event.eventplanner = this.userId;
+      event.tasks = [];
       this.eventService.createEvent(event)
         .subscribe((response: any) => {
           this.router.navigate(['/homepage']);
