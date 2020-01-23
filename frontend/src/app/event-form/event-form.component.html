@@ -2,6 +2,7 @@
   <mat-form-field>
     <input matInput type="text" placeholder="Name" formControlName="name">
     <mat-hint align="end">The name of the event</mat-hint>
+    <mat-error *ngIf="eventFormGroup.controls.name.hasError('required')">Name is required</mat-error>
   </mat-form-field>
 
   <app-date placeholder="Date" formControlName="date" hint="When is the event?"
@@ -10,6 +11,7 @@
   <div class="24hr-example">
     <input matInput placeholder="24hr format" aria-label="24hr format" formControlName="time" [ngxTimepicker]="fulltime"
            [format]="24" [value]=time>
+    <mat-error *ngIf="eventFormGroup.controls.time.hasError('required')">Time is required</mat-error>
     <ngx-material-timepicker #fulltime></ngx-material-timepicker>
   </div>
 
@@ -22,6 +24,7 @@
   <mat-form-field>
     <input matInput type="text" placeholder="Location" formControlName="location">
     <mat-hint align="end">The location of the event</mat-hint>
+    <mat-error *ngIf="eventFormGroup.controls.location.hasError('required')">Location is required</mat-error>
   </mat-form-field>
 
   <mat-checkbox formControlName="public">public</mat-checkbox>
@@ -36,7 +39,14 @@
       <mat-form-field>
         <input matInput type="text" formControlName="name" placeholder="Add new tag for an Event!"
                (keydown.enter)="addNewTag()">
+        <mat-error *ngIf="newTagForm.controls.name.hasError('required')">Name is required</mat-error>
+        <mat-error *ngIf="newTagForm.controls.name.hasError('nameAlreadyExists')">Tag already exists</mat-error>
+        <mat-error *ngIf="newTagForm.controls.name.hasError('minlength')">Tag is too short</mat-error>
+        <mat-error *ngIf="newTagForm.controls.name.hasError('maxlength')">Tag is too long</mat-error>
       </mat-form-field>
+      <button mat-raised-button color="primary" [disabled]="!newTagForm.valid" (click)="addNewTag()">
+        <mat-icon>add</mat-icon>
+      </button>
     </form>
 
 

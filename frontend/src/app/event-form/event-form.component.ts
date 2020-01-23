@@ -2,11 +2,13 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {EventService} from '../service/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {FormBuilder} from '@angular/forms';
+import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
 import {UserService} from '../service/user.service';
 import {NgxMaterialTimepickerComponent} from 'ngx-material-timepicker';
 import {TagsService} from '../service/tags.service';
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {MatDialog} from '@angular/material';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 
 @Component({
@@ -41,20 +43,22 @@ export class EventFormComponent implements OnInit {
 
     this.tagService.getTags().subscribe((result) => {
       this.tagOptions = result;
+      this.tagOptions.sort((a, b) => (a.name > b.name) ? 1 : -1)  ;
     });
 
     this.newTagForm = this.fb.group({
-      name: [null]
+      id: [null],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)] , [this.tagValidator()]]
     });
 
     this.eventFormGroup = this.fb.group({
       id: [null],
-      name: [null],
-      date: [null],
-      time: [null],
+      name: ['', [Validators.required]],
+      date: ['', [Validators.required]],
+      time: ['', [Validators.required]],
       description: [null],
-      location: [null],
-      public: [null],
+      location: ['', [Validators.required], [this.tagValidator()]],
+      public: [false],
       eventplanner: [null],
       tags: [[]],
       invited: [[]],
@@ -102,17 +106,49 @@ export class EventFormComponent implements OnInit {
         });
     } else {
       event.eventplanner = this.userId;
+      event.tasks = [];
       this.eventService.createEvent(event)
         .subscribe((response: any) => {
           this.router.navigate(['/homepage']);
-          console.log(event);
+
         });
       console.log(event);
     }
   }
 
   addNewTag() {
-  const test = this.newTagForm.value;
-  console.log(test);
+    const test = this.newTagForm.value;
+    this.tagService.createTag(test).subscribe(() => {
+        this.tagService.getTags().subscribe((result) => {
+          this.tagOptions = result;
+        });
+      }
+    );
+  }
+
+  tagValidator(): AsyncValidatorFn {
+    console.log('im in');
+    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+      return this.tagService.getTags()
+        .pipe(
+          map((tags: any[]) => {
+            // const currentId = this.newTagForm.controls.id.value; nach dem Return in Zeile 135: (currentId || t.id !== currentId) &&
+            const currentName = this.newTagForm.controls.name.value;
+            const tagWithSameTitle = tags.find((t) => {
+              return t.name.toLowerCase() === currentName.toLowerCase();
+            });
+
+            if (tagWithSameTitle) {
+              console.log('name same');
+              return {
+                nameAlreadyExists: true
+              };
+            } else {
+              console.log('name not same');
+              return null;
+            }
+          })
+        );
+    };
   }
 }

@@ -5,10 +5,33 @@
     <mat-error *ngIf="registrationUserFormGroup.controls.username.hasError('required')">Username is required</mat-error>
   </mat-form-field>
 
+  <br>
+
   <mat-form-field>
-    <input matInput type="text" placeholder="Password" formControlName="password" class="input-layout">
+    <input matInput type="password" placeholder="Password" formControlName="password" class="input-layout" val>
     <mat-hint align="end">Please enter a secure password</mat-hint>
     <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('required')">Password is required</mat-error>
+    <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('hasCapitalChar')">
+      At least one character needs to be upper case</mat-error>
+    <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('hasLowerChar')">
+      At least one character needs to be lower case</mat-error>
+    <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('minlength')">
+      Password requires a minimum length of eight characters</mat-error>
+    <!-- <mat-error></mat-error> TODO: VALIDATOR FÜR PASSWORD SECURITY!!! -->
+  </mat-form-field>
+
+  <br>
+
+  <mat-form-field>
+    <input matInput type="password" placeholder="Password confirmation" formControlName="confirm_password"
+           class="input-layout">
+    <mat-hint align="end">Please confirm your secure password</mat-hint>
+    <mat-error *ngIf="registrationUserFormGroup.controls.confirm_password.hasError('required')">Password confirmation is
+      required
+    </mat-error>
+    <mat-error *ngIf="registrationUserFormGroup.controls.confirm_password.hasError('NoPasswordMatch')">Passwords do not
+      match
+    </mat-error>
     <!-- <mat-error></mat-error> TODO: VALIDATOR FÜR PASSWORD SECURITY!!! -->
   </mat-form-field>
 </form>
@@ -19,6 +42,8 @@
     <mat-error *ngIf="registrationProfileFormGroup.controls.first_name.hasError('required')">First name is required
     </mat-error>
   </mat-form-field>
+
+  <br>
 
   <mat-form-field>
     <input matInput placeholder="Last name" formControlName="last_name">
