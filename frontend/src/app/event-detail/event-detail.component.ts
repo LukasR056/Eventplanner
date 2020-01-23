@@ -160,4 +160,12 @@ export class EventDetailComponent implements OnInit {
     this.taskService.currentEvent = event;
     this.router.navigate(['/task-form/']);
   }
+
+  deleteEvent(event: any) {
+    if (confirm('Are you sure you want to delete this event?')) {
+    this.eventService.deleteEvent(event)
+      .subscribe(() => {
+        this.router.navigate(['/event-list/']);
+      });}
+  }
 }
