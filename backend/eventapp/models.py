@@ -84,8 +84,7 @@ class Task(models.Model):
     status = models.CharField(max_length=1, choices=STATUS)
     deadline_date = models.DateField()
     deadline_time =models.TimeField()
-    responsible = models.ForeignKey(User, on_delete=models.CASCADE, related_name='responsible', null=True)
-    ##supporters = models.ManyToManyField(User, related_name='supporters', blank=True)
+    responsible = models.ForeignKey(User, on_delete=models.CASCADE, related_name='responsible')
     event = models.ForeignKey(Event, related_name='tasks', on_delete=models.CASCADE)
 
     def __str__(self):

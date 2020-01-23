@@ -58,47 +58,27 @@ class UserCreateForm (serializers.ModelSerializer):
         fields = ['user', 'first_name', 'last_name', 'birthday']
 
 
+class TaskEventplannerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['id', 'eventplanner', 'name']
 
 class TaskListSerializer(serializers.ModelSerializer):
-    event = serializers.SerializerMethodField()
-    responsible = serializers.SerializerMethodField()
-    supporters = serializers.SerializerMethodField()
-
+    event = TaskEventplannerSerializer()
     class Meta:
         model = Task
         fields = ['id', 'title', 'description', 'verified_by_planner', 'verified_by_participant',
-                  'status', 'deadline_date','deadline_time', 'responsible', 'supporters', 'event']
-
-    def get_event(self, obj):
-        return obj.event.name if obj.event else ''
-
-    def get_responsible(self, obj):
-        return obj.responsible.username if obj.responsible else ''
-
-    def get_supporters(self, obj):
-        if obj:
-            return {' ' + x.username for x in obj.supporters.all()}
-
+                  'status', 'deadline_date','deadline_time', 'responsible', 'event']
 
 
 class TaskFormSerializer(serializers.ModelSerializer):
-    event_name = serializers.SerializerMethodField()
-    responsible = serializers.SerializerMethodField()
-    #supporters = serializers.SerializerMethodField()
-
     class Meta:
         model = Task
         fields = '__all__'
 
-    def get_event_name(self, obj):
-        return obj.event.name if obj.event else ''
 
-    def get_responsible(self, obj):
-        return obj.responsible.username if obj.responsible else ''
 
-    #def get_supporters(self, obj):
-        #if obj:
-            #return {' ' + x.username for x in obj.supporters.all()}
+
 
 class TagFormSerializer(serializers.ModelSerializer):
     class Meta:

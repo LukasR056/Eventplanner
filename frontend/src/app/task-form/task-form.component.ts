@@ -38,10 +38,8 @@ export class TaskFormComponent implements OnInit {
     }
 
 
-
-
     this.userService.retrieveUserOptions().subscribe((result: any[]) => {
-      this.userOptions = result.filter(user =>  (this.taskService.currentEvent.participants ? this.taskService.currentEvent.participants.includes(user.id) :  false) || user.id == this.taskService.currentEvent.eventplanner);
+      this.userOptions = result.filter(user => (this.taskService.currentEvent.participants ? this.taskService.currentEvent.participants.includes(user.id) : false) || user.id == this.taskService.currentEvent.eventplanner);
     });
 
 
@@ -64,22 +62,21 @@ export class TaskFormComponent implements OnInit {
     const task = this.taskFormGroup.value;
     task.event = this.taskService.currentEvent.id;
 
-    if (this.taskService.currentEvent.eventplanner == this.userId && task.responsible == this.userId)
-    {
+    if (this.taskService.currentEvent.eventplanner == this.userId && task.responsible == this.userId) {
       task.verified_by_participant = true;
       task.verified_by_planner = true;
+      task.responsible = this.userId;
     }
-    if(this.taskService.currentEvent.eventplanner == this.userId && task.responsible != this.userId)
-    {
+    if (this.taskService.currentEvent.eventplanner == this.userId && task.responsible != this.userId) {
       task.verified_by_participant = false;
       task.verified_by_planner = true;
     }
-    if(this.taskService.currentEvent.eventplanner != this.userId )
-    {
+    if (this.taskService.currentEvent.eventplanner != this.userId) {
       task.verified_by_participant = true;
-      task.responsible = this.userId;
       task.verified_by_planner = false;
+      task.responsible = this.userId;
     }
+
     console.log(task);
     this.taskService.createTask(task).subscribe((response: any) => {
       this.router.navigate(['/event-detail/' + this.taskService.currentEvent.id]);

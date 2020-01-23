@@ -56,6 +56,7 @@ import {FileUploadModule} from 'ng2-file-upload';
 import {RegistrationComponent} from './registration/registration.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {CheckInvitationComponent} from './check-invitation/check-invitation.component';
+import { CheckTasksComponent } from './check-tasks/check-tasks.component';
 
 
 export function tokenGetter() {
@@ -88,6 +89,7 @@ export function tokenGetter() {
     CheckInvitationComponent,
     CalenderComponent,
     MediainputComponent,
+    CheckTasksComponent,
   ],
   imports: [
     BrowserModule,
