@@ -12,7 +12,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 // tslint:disable:triple-equals
 export class EventListComponent implements OnInit {
 
-  events: any[];
+  events = [];
   username;
   userId;
 

@@ -62,7 +62,7 @@ export class EventFormComponent implements OnInit {
       date: ['', [Validators.required]],
       time: ['', [Validators.required]],
       description: [null],
-      location: ['', [Validators.required], [this.tagValidator()]],
+      location: ['', [Validators.required]], // , [this.tagValidator()]], TODO: WAS IST DAS LUKAS?
       public: [false],
       eventplanner: [null],
       tags: [[]],
@@ -77,7 +77,7 @@ export class EventFormComponent implements OnInit {
       this.http.get('/api/event/' + id + '/get')
         .subscribe((response) => {
           this.eventFormGroup.patchValue(response);
-          //console.log(this.userOptions);
+          // console.log(this.userOptions);
           this.time = this.eventFormGroup.value.time;
           this.time = this.time.substring(0, 5);
 
