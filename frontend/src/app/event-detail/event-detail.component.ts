@@ -42,7 +42,7 @@ export class EventDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userId = Number(localStorage.getItem('user_id'))
+    this.userId = Number(localStorage.getItem('user_id'));
     this.username = localStorage.getItem('username');
     this.forumentryFormGroup = this.fb.group({
       content: [null],
@@ -68,7 +68,6 @@ export class EventDetailComponent implements OnInit {
         this.event = response;
         console.log(this.event);
         this.filterTasks();
-       // this.pictures = response.pictures;
         this.pictures = response.pictures;
         console.log('piiiics: ' + this.pictures);
       });
