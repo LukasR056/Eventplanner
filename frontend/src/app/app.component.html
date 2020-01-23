@@ -1,10 +1,14 @@
 <mat-toolbar>
   ULTIMATE EVENT
+
   <div class="user-settings">
     <button style="float: right" mat-icon-button [matMenuTriggerFor]="menu" >
-  <mat-icon>account_circle</mat-icon>
+      <img src="api/media/{{pictures}}" height="50px"><br>
+
+
   </button>
   <mat-menu #menu="matMenu">
+
   <button routerLink="user-form" mat-menu-item>
     <mat-icon>build</mat-icon>
     <span>Settings</span>
