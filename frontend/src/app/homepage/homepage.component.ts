@@ -14,7 +14,6 @@ import {UserService} from '../service/user.service';
 export class HomepageComponent implements OnInit {
 
   events: Array<any>;
-  events2;
   taskFormGroupStatus;
   tasks: any[];
   user;
@@ -22,7 +21,6 @@ export class HomepageComponent implements OnInit {
   userId: any;
   userTasksEvents: any;
   openEvents = false;
-  tasks2;
 
   constructor(private http: HttpClient, private eventService: EventService, public taskService: TaskService, private fb: FormBuilder,
               private router: Router, private userService: UserService) {
@@ -42,41 +40,34 @@ export class HomepageComponent implements OnInit {
     this.taskService.getTasks()
       .subscribe((response: any[]) => {
         for (const task of response) {
-          if (task.responsible === this.username) {
+          if (task.responsible === this.username && task.verified_by_planner && task.verified_by_participant) {
             this.tasks.push(task);
           }
         }
-        // this.taskFormGroupStatus.patchValue(response);
       });
 
     this.userService.getUserById(this.userId).subscribe(result => {
       this.user = result;
     });
 
-
-    /*this.taskService.getTasks().subscribe((response: any) => {
-      this.tasks2 = response.filter(task =>  task.responsible == Number(this.userId));
-      console.log(this.tasks2)
-
-    });*/
-
-
-    /*this.userService.getUserEventTask(this.userId).subscribe(result => {
+    this.userService.getUserEventTask(this.userId).subscribe(result => {
       this.userTasksEvents = result;
       if (this.userTasksEvents.invited.length > 0) {
         this.openEvents = true;
-        console.log(this.openEvents);
       }
-    });*/
+    });
 
     this.eventService.retrieveEvents().subscribe((result: any[]) => {
       // TODO: EVENTS SORTIEREN UND AUF ANZAHL BESCHRÄNKEN (z.B. 4) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! .slice funktion
+      // Nach Datum sortieren funktioniert noch nicht!!
+
       for (const event of result) {
         if (event.eventplanner === this.username || event.participants.includes(' ' + this.username)) {
           this.events.push(event);
         }
       }
       this.events = this.events.sort((a, b) => b.date - a.date);
+      this.events = this.events.slice(0,3);
     });
 
   }

@@ -11,14 +11,25 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class EventListComponent implements OnInit {
 
-  events: any[];
+  events = [];
+  username;
+  userId;
+  event;
 
   constructor( private eventService: EventService, private router: Router) { }
 
   ngOnInit() {
-    this.eventService.getEvents()
+
+    this.username = localStorage.getItem('username');
+    this.userId = localStorage.getItem('user_id');
+
+    this.eventService.getEventsId()
       .subscribe((response: any[]) => {
-        this.events = response;
+        for (const event of response) {
+          if (event.eventplanner == this.userId || event.participants.some(x => x == this.userId)) {
+            this.events.push(event);
+          }
+        }
       });
   }
 
@@ -36,9 +47,19 @@ export class EventListComponent implements OnInit {
   moveToEventDetail(id: any) {
     this.router.navigate(['/event-detail/' + id]);
   }
-  cancelEvent() {
-    this.router.navigate(['/user-list']);
+  cancelEvent(id: any) {
+
+      if(confirm("Are you sure you want to cancel?" )) {
+        const updateEvent = this.events.filter(event => event.id === id);
+
+        // tslint:disable-next-line:triple-equals
+        updateEvent[0].participants = updateEvent[0].participants.filter(user => user != this.userId);
+        this.eventService.updateEvent(updateEvent[0]).subscribe();
+        window.location.reload();
+      }
+
+    }
+
   }
-}
 
 
