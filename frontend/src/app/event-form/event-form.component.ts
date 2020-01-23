@@ -57,7 +57,7 @@ export class EventFormComponent implements OnInit {
       date: ['', [Validators.required]],
       time: ['', [Validators.required]],
       description: [null],
-      location: ['', [Validators.required]],
+      location: ['', [Validators.required], [this.tagValidator()]],
       public: [null],
       eventplanner: [null],
       tags: [[]],
