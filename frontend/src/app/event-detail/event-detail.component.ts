@@ -68,7 +68,6 @@ export class EventDetailComponent implements OnInit {
         this.event = response;
         console.log(this.event);
         this.filterTasks();
-       // this.pictures = response.pictures;
         this.pictures = response.pictures;
         console.log('piiiics: ' + this.pictures);
       });
