@@ -66,6 +66,7 @@ export class EventFormComponent implements OnInit {
       public: [false],
       eventplanner: [null],
       tags: [[]],
+      tasks: [[]],
       invited: [[]],
       participants: [[]],
       pictures: [[]],
@@ -74,12 +75,15 @@ export class EventFormComponent implements OnInit {
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
+
+
       this.http.get('/api/event/' + id + '/get')
         .subscribe((response) => {
           this.eventFormGroup.patchValue(response);
           // console.log(this.userOptions);
           this.time = this.eventFormGroup.value.time;
           this.time = this.time.substring(0, 5);
+          console.log(response);
 
         });
     } else {
@@ -130,7 +134,6 @@ export class EventFormComponent implements OnInit {
       this.eventService.createEvent(event)
         .subscribe((response: any) => {
           this.router.navigate(['/homepage']);
-
         });
       console.log(event);
     }

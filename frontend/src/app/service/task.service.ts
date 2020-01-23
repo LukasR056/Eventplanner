@@ -8,7 +8,7 @@ export class TaskService {
 
   constructor(private http: HttpClient) {
   }
-  public currentEventid: any;
+  public currentEvent: any;
 
   statusName = {
     o: 'Open',

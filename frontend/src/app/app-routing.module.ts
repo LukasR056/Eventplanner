@@ -18,6 +18,7 @@ import {CalenderComponent} from './calender/calender.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {AuthenticationGuard} from './guard/authentication.guard';
 import {CheckInvitationComponent} from './check-invitation/check-invitation.component';
+import {CheckTasksComponent} from './check-tasks/check-tasks.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'tag-list', component: TagListComponent, canActivate: [AuthenticationGuard] },
   { path: 'registration', component: RegistrationComponent },
   { path: 'check-invitation', component: CheckInvitationComponent, canActivate: [AuthenticationGuard] },
+  { path: 'check-tasks', component: CheckTasksComponent, canActivate: [AuthenticationGuard] },
 ];
 
 @NgModule({
