@@ -11,7 +11,7 @@ import {TaskFormComponent} from './task-form/task-form.component';
 import {ForumentryListComponent} from './forumentry-list/forumentry-list.component';
 import {ForumentryFormComponent} from './forumentry-form/forumentry-form.component';
 import {EventListComponent} from './event-list/event-list.component';
-import {EventFormComponent} from './event-form/event-form.component';
+import {EventFormComponent, DialogOverviewExampleDialog} from './event-form/event-form.component';
 import {UserListComponent} from './user-list/user-list.component';
 import {UserFormComponent} from './user-form/user-form.component';
 import {TagListComponent} from './tag-list/tag-list.component';
@@ -36,6 +36,7 @@ import {
   MatSelectModule,
   MatTableModule, MatButtonToggleModule,
   MatToolbarModule,
+  MatDialogModule,
 } from '@angular/material';
 import {FriendsFormComponent} from './friends-form/friends-form.component';
 import {FriendsListComponent} from './friends-list/friends-list.component';
@@ -88,7 +89,9 @@ export function tokenGetter() {
     CheckInvitationComponent,
     CalenderComponent,
     MediainputComponent,
+    DialogOverviewExampleDialog
   ],
+  entryComponents: [DialogOverviewExampleDialog],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -116,6 +119,7 @@ export function tokenGetter() {
     MatChipsModule,
     MatButtonToggleModule,
     NgxMaterialTimepickerModule,
+    MatDialogModule,
     CalendarModule.forRoot({provide: DateAdapter, useFactory: adapterFactory}),
     JwtModule.forRoot({
       config: {
