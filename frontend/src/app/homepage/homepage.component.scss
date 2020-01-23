@@ -1,11 +1,13 @@
 .event-list {
   flex-direction: column;
-  width: 90%;
-  margin: 2rem auto;
+  width: 65%;
+  float: left;
+  margin: 0px auto 2rem;
+  padding: 0px 1% 3% 3%;
 }
 
 .event-card {
-  max-width: 17%;
+  width: 25%;
   margin: 10px;
   display: inline-block;
 }
@@ -19,10 +21,21 @@
 
 .buttons {
   float: right;
-  margin: 5%;
   align-items: center;
+  width: 15%;
+  margin: 15% 5% 5% 1%;
 }
 
 .task-list {
   padding: 3%;
+  float: bottom;
+}
+
+.event-list-button {
+  display: inline;
+}
+
+.wrapper {
+  float: left;
+  width: 100%;
 }

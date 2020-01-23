@@ -12,7 +12,7 @@
   </mat-card>
 
 
-  <mat-card class="event-card" *ngFor="let event of events" (click)="moveToEventDetail(event.id)" >
+  <mat-card class="event-card" *ngFor="let event of events" (click)="moveToEventDetail(event.id)">
     <mat-card-header>
       <mat-card-title >{{event.name}}</mat-card-title>
     </mat-card-header>
@@ -22,19 +22,24 @@
         Location: {{event.location}}
       </p>
       <p>
-        When: {{event.date}} at {{event.time}}
-      </p>
-      <p>
-        Is it public: {{event.public}}
+        When: {{event.date}} at {{event.time.substring(0,5)}}
       </p>
 
-      <p>
-        pic:    <img src="api/media/{{pictures}}" height="100px">
-      </p>
+
+      This is a
+
+      <strong>
+        <div *ngIf="event.public; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>public</ng-template>
+        <ng-template #elseBlock>private</ng-template>
+      </strong>
+
+      event.
+
 
     </mat-card-content>
     <mat-card-actions style="float: right">
-      <button mat-raised-button color="warn" mat-button (click)="cancelEvent()">CANCEL</button>
+      <button mat-raised-button color="accent" mat-button (click)="cancelEvent(event.id)">CANCEL</button>
     </mat-card-actions>
   </mat-card>
 

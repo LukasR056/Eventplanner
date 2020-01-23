@@ -6,10 +6,15 @@ import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Valida
 import {UserService} from '../service/user.service';
 import {NgxMaterialTimepickerComponent} from 'ngx-material-timepicker';
 import {TagsService} from '../service/tags.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-event-form',
@@ -25,11 +30,15 @@ export class EventFormComponent implements OnInit {
   tagOptions;
   userOptionsNotEmpty = true;
   loggedUser: any;
-  newTagForm;
+
+  animal: string;
+  name: string;
+
 
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,
-              private router: Router, private eventService: EventService, private userService: UserService, private tagService: TagsService, public dialog: MatDialog) {
+              private router: Router, private eventService: EventService, private userService: UserService,
+              public dialog: MatDialog, private tagService: TagsService) {
   }
 
 
@@ -46,10 +55,6 @@ export class EventFormComponent implements OnInit {
       this.tagOptions.sort((a, b) => (a.name > b.name) ? 1 : -1)  ;
     });
 
-    this.newTagForm = this.fb.group({
-      id: [null],
-      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)] , [this.tagValidator()]]
-    });
 
     this.eventFormGroup = this.fb.group({
       id: [null],
@@ -97,6 +102,21 @@ export class EventFormComponent implements OnInit {
 
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.animal = result;
+    });
+  }
+
+
+
+
   createEvent() {
     const event = this.eventFormGroup.value;
     if (event.id) {
@@ -116,15 +136,37 @@ export class EventFormComponent implements OnInit {
     }
   }
 
-  addNewTag() {
-    const test = this.newTagForm.value;
-    this.tagService.createTag(test).subscribe(() => {
-        this.tagService.getTags().subscribe((result) => {
-          this.tagOptions = result;
-        });
-      }
-    );
+}
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'dialog-overview-example-dialog.html',
+})
+export class DialogOverviewExampleDialog implements OnInit{
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private fb: FormBuilder, private tagService: TagsService) {}
+
+  newTagForm;
+  tagOptions;
+
+  ngOnInit() {
+    this.newTagForm = this.fb.group({
+      id: [null],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)] , [this.tagValidator()]]
+    });
+
+    this.tagService.getTags().subscribe((result) => {
+      this.tagOptions = result;
+      this.tagOptions.sort((a, b) => (a.name > b.name) ? 1 : -1)  ;
+    });
   }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 
   tagValidator(): AsyncValidatorFn {
     console.log('im in');
@@ -151,4 +193,15 @@ export class EventFormComponent implements OnInit {
         );
     };
   }
+
+  addNewTag() {
+    const test = this.newTagForm.value;
+    this.tagService.createTag(test).subscribe(() => {
+        this.tagService.getTags().subscribe((result) => {
+          this.tagOptions = result;
+        });
+      }
+    );
+  }
+
 }

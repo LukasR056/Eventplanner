@@ -1,0 +1,26 @@
+<div mat-dialog-content>
+  <p>What tag do you want to add?</p>
+
+  <form [formGroup]="newTagForm">
+    <mat-form-field>
+      <input matInput type="text" formControlName="name" placeholder="Add new tag for an Event!"
+             (keydown.enter)="addNewTag()">
+      <mat-error *ngIf="newTagForm.controls.name.hasError('required')">Name is required</mat-error>
+      <mat-error *ngIf="newTagForm.controls.name.hasError('nameAlreadyExists')">Tag already exists</mat-error>
+      <mat-error *ngIf="newTagForm.controls.name.hasError('minlength')">Tag is too short</mat-error>
+      <mat-error *ngIf="newTagForm.controls.name.hasError('maxlength')">Tag is too long</mat-error>
+    </mat-form-field>
+
+
+  </form>
+
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+
+  <button mat-button color="primary" [mat-dialog-close]="data.tag"
+          [disabled]="!newTagForm.valid" (click)="addNewTag()">
+    Add New Tag
+  </button>
+</div>

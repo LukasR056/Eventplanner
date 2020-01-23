@@ -1,37 +1,52 @@
-<div class="event-list">
+<div class="event-list-buttons">
+  <div class="event-list">
 
-  <div>
-    <h3>My Events <br>MY USERNAME {{username}} WITH ID {{userId}}<br> </h3>
-  <button  mat-button routerLink="../check-invitation" *ngIf="openEvents" >You have been invited to new events!</button>
+    <div>
+      <h3>My Events <br>MY USERNAME {{username}} WITH ID {{userId}}<br> </h3>
+    <button  mat-button routerLink="../check-invitation" *ngIf="openEvents" >You have been invited to new events!</button>
+    </div>
+
+
+    <mat-card class="event-card" *ngFor="let event of events" (click)="moveToEventDetail(event.id)">
+
+      <mat-card-header>
+        <mat-card-title>{{event.name}}</mat-card-title>
+      </mat-card-header>
+      <hr>
+      <mat-card-content>
+        <p>
+          Description: {{event.description}}
+        </p>
+        <p>
+          Location: {{event.location}}
+        </p>
+        <p>
+          When: {{event.date}}
+        </p>
+
+
+        This is a
+
+        <strong>
+        <div *ngIf="event.public; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>public</ng-template>
+        <ng-template #elseBlock>private</ng-template>
+        </strong>
+
+        event.
+
+        <p>
+          Responsible: {{event.eventplanner}}
+        </p>
+        <p>
+          Who else: {{event.invited}}
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+
+
   </div>
-
-
-  <mat-card class="event-card" *ngFor="let event of events">
-    <mat-card-header>
-      <mat-card-title>{{event.name}}</mat-card-title>
-    </mat-card-header>
-    <hr>
-    <mat-card-content>
-      <p>
-        Description: {{event.description}}
-      </p>
-      <p>
-        Location: {{event.location}}
-      </p>
-      <p>
-        When: {{event.date}}  {{event.date}}
-      </p>
-      <p>
-        Is it public {{event.public}}?
-      </p>
-      <p>
-        Responsible: {{event.eventplanner}}
-      </p>
-      <p>
-        Who else: {{event.invited}}
-      </p>
-    </mat-card-content>
-  </mat-card>
 
   <div class="buttons">
     <button mat-button routerLink="../event-list">Show all events</button>
@@ -41,11 +56,14 @@
 
 </div>
 
-<mat-divider></mat-divider>
+
 
 
 <!-- --------------------------------------------------------------------------------------------------------- -->
+<br>
+<div class="wrapper">
 
+  <mat-divider></mat-divider>
 
 <div class="task-list">
 
@@ -60,8 +78,7 @@
           event: {{task.event}}
         </mat-panel-title>
         <mat-panel-description>
-          responsible: {{task.responsible}} <br>
-          deadline: {{task.deadline}}
+          deadline: {{task.deadline_date}} {{task.deadline_time}}
         </mat-panel-description>
       </mat-expansion-panel-header>
 
@@ -78,24 +95,22 @@
       </mat-form-field>
 
       <p>
-        deadline: {{task.deadline}}
+        deadline: {{task.deadline_date}} {{task.deadline_time}}
       </p>
       <p>
         responsible: {{task.responsible}}
       </p>
-      <p>
-        supporters: {{task.supporters}}
-      </p>
 
-      <div class="buttons">
+      <!--<div class="buttons">
         <div class="button-save">
           <button mat-button (click)="saveTask(task, task.value)">Edit Task</button>
         </div>
         <div class="button-delete">
           <button mat-button (click)="deleteEvent(task)">Delete Task</button>
         </div>
-      </div>
+      </div>-->
 
     </mat-expansion-panel>
   </mat-accordion>
+</div>
 </div>

@@ -31,6 +31,7 @@ export class HomepageComponent implements OnInit {
     this.username = localStorage.getItem('username');
     this.userId = localStorage.getItem('user_id');
     this.events = [];
+    this.tasks = [];
 
     this.taskFormGroupStatus = this.fb.group({
       status: [null]
@@ -38,8 +39,11 @@ export class HomepageComponent implements OnInit {
 
     this.taskService.getTasks()
       .subscribe((response: any[]) => {
-        this.tasks = response;
-        this.taskFormGroupStatus.patchValue(response);
+        for (const task of response) {
+          if (task.responsible === this.username && task.verified_by_planner && task.verified_by_participant) {
+            this.tasks.push(task);
+          }
+        }
       });
 
     this.userService.getUserById(this.userId).subscribe(result => {
@@ -50,18 +54,20 @@ export class HomepageComponent implements OnInit {
       this.userTasksEvents = result;
       if (this.userTasksEvents.invited.length > 0) {
         this.openEvents = true;
-        console.log(this.openEvents);
       }
     });
 
     this.eventService.retrieveEvents().subscribe((result: any[]) => {
       // TODO: EVENTS SORTIEREN UND AUF ANZAHL BESCHRÄNKEN (z.B. 4) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! .slice funktion
+      // Nach Datum sortieren funktioniert noch nicht!!
+
       for (const event of result) {
-        if (event.eventplanner === this.username || event.invited.includes(' ' + this.username)) {
+        if (event.eventplanner === this.username || event.participants.includes(' ' + this.username)) {
           this.events.push(event);
         }
       }
       this.events = this.events.sort((a, b) => b.date - a.date);
+      this.events = this.events.slice(0,3);
     });
 
   }
@@ -71,6 +77,14 @@ export class HomepageComponent implements OnInit {
       .subscribe(() => {
         this.ngOnInit();
       });
+  }
+
+  filterTasks(userId, allTasks) {
+    allTasks
+  }
+
+  moveToEventDetail(id: any) {
+    this.router.navigate(['/event-detail/' + id]);
   }
 
   saveTask(task, taskStatus) {

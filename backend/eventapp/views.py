@@ -140,6 +140,17 @@ def task_form_get(request, pk):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def task_form_get_userId(request, pk):
+    try:
+        task = Task.objects.filter(responsible=pk)
+    except Task.DoesNotExist:
+        return Response({'error': 'Task does not exist.'}, status=404)
+
+    serializer = TaskFormSerializer(task)
+    return Response(serializer.data)
+
+
 @api_view(['POST'])
 def task_form_create(request):
     serializer = TaskFormSerializer(data=request.data)
@@ -245,6 +256,16 @@ def event_form_get(request, pk):
     except Event.DoesNotExist:
         return Response({'error': 'Event does not exist'}, status=404)
     serializer = EventFormSerializer(event)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def event_form_get_userId(request, pk):
+    try:
+        event = Event.objects.filter(participants=pk)
+    except Event.DoesNotExist:
+        return Response({'error': 'Event does not exist'}, status=404)
+    serializer = EventFormSerializer(event, many=True)
     return Response(serializer.data)
 
 

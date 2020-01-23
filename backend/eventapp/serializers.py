@@ -99,6 +99,8 @@ class TagFormSerializer(serializers.ModelSerializer):
 class EventListSerializer(serializers.ModelSerializer):
     eventplanner = serializers.SerializerMethodField()
     invited = serializers.SerializerMethodField()
+    participants = serializers.SerializerMethodField()
+
     class Meta:
         model = Event
         fields = ['id', 'name', 'date','time', 'description', 'location', 'public', 'eventplanner', 'invited', 'tasks', 'message','tags','participants', 'pictures']
@@ -109,6 +111,10 @@ class EventListSerializer(serializers.ModelSerializer):
     def get_invited(self, obj):
         if obj:
             return {' ' + x.username for x in obj.invited.all()}
+
+    def get_participants(self, obj):
+        if obj:
+            return {' ' + x.username for x in obj.participants.all()}
 
 
 class EventFormSerializer(serializers.ModelSerializer):

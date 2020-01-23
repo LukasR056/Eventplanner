@@ -47,7 +47,8 @@ urlpatterns = [
     path('task/<int:pk>/update', views.task_form_update),
     path('task/<int:pk>/delete', views.task_delete),
     path('task/<int:pk>/update/status/<str:status>', views.task_form_update_status),
-    #path('task/<int:pk>/details', views.tasks_list_options),
+    path('task/user/<int:pk>/get', views.task_form_get_userId),
+    # path('task/<int:pk>/details', views.tasks_list_options),
 
     path('tag/list', views.tag_form_list),
     path('tag/create', views.tag_form_create),
@@ -71,6 +72,7 @@ urlpatterns = [
     path('event/<int:pk>/get', views.event_form_get),
     path('event/<int:pk>/update', views.event_form_update),
     path('event/<int:pk>/delete', views.event_delete),
+    path('event/user/<int:pk>/get', views.event_form_get_userId),
 
     url(r'^media$', FileUploadView.as_view()),
     path('media/<int:pk>', views.media_download),

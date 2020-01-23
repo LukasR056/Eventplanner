@@ -35,20 +35,6 @@
   <br>
 
   <div style="float: right;">
-    <form [formGroup]="newTagForm">
-      <mat-form-field>
-        <input matInput type="text" formControlName="name" placeholder="Add new tag for an Event!"
-               (keydown.enter)="addNewTag()">
-        <mat-error *ngIf="newTagForm.controls.name.hasError('required')">Name is required</mat-error>
-        <mat-error *ngIf="newTagForm.controls.name.hasError('nameAlreadyExists')">Tag already exists</mat-error>
-        <mat-error *ngIf="newTagForm.controls.name.hasError('minlength')">Tag is too short</mat-error>
-        <mat-error *ngIf="newTagForm.controls.name.hasError('maxlength')">Tag is too long</mat-error>
-      </mat-form-field>
-      <button mat-raised-button color="primary" [disabled]="!newTagForm.valid" (click)="addNewTag()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </form>
-
 
     <mat-form-field>
       <mat-select placeholder="Tags"
@@ -56,8 +42,12 @@
         <mat-option [value]="tagOptions.id" *ngFor="let
       tagOptions of tagOptions">{{tagOptions.name}}</mat-option>
       </mat-select>
+
       <mat-hint align="end">What kind of event is it?</mat-hint>
+
     </mat-form-field>
+
+    <button mat-raised-button (click)="openDialog()"><mat-icon>add</mat-icon></button>
 
   </div>
 
@@ -72,6 +62,10 @@
   <mat-label *ngIf="!userOptionsNotEmpty"> You have already invited all your friends!</mat-label>
 
   <br>
+
+
+
+
 
   <mat-card-actions align="center">
     <button mat-raised-button color="primary" [disabled]="!eventFormGroup.valid" (click)="createEvent()">
