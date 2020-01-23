@@ -1,50 +1,86 @@
+.eventanzeige {
+  float: left;
+  width: 75%;
+}
+
 .task-status {
-  width: 25%;
+  width: 33%;
   float: left;
 }
 
-
-.messengerstatus {
-  width: 25%;
-  float: right;
-  clear:right;
+.add-task-button {
+  width: 100%;
+  margin-bottom: 2vh;
 }
 
-.messengerbox{
+
+.messenger {
+  width: 25%;
+  float: right;
+  clear: right;
+}
+
+.messengerbox {
   height: 75vh;
   overflow-y: scroll;
 }
 
+.message {
+  // overflow: hidden;
+  display: contents;
+  // border-color: white;
+}
+
 /* links rechts */
-.others{
+.others {
   float: left;
   height: 10vh;
+  width: 50%;
   background: #A4E3BC;
   color: #fff;
-  display:inline-block;
+  display: inline-block;
   clear: both;
   padding: 20px;
-  border-radius: 30px;
-  margin-bottom: 2px;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  border-radius: 15px;
   font-family: Helvetica, Arial, sans-serif;
 }
 
 
-.me{
+.me {
   float: right;
   height: 10vh;
+  width: 50%;
   background: #66CDAA;
   color: #fff;
-  display:inline-block;
+  display: inline-block;
   clear: both;
-  padding: 20px;
-  border-radius: 30px;
-  margin-bottom: 2px;
+  padding: 5px 15px;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  border-radius: 15px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.current-date {
+  height: auto;
+  width: fit-content;
+  vertical-align: central;
+  background: #636363;
+  color: #fff;
+  display: block;
+  clear: both;
+  padding: 10px 20px;
+  border-radius: 15px;
+  margin: auto !important;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
   font-family: Helvetica, Arial, sans-serif;
 }
 
 
-.mat-button{
+.mat-button {
   background-color: #A4E3BC; /* Blue background */
   float: right;
   border: none; /* Remove borders */
@@ -56,37 +92,31 @@
 
 /* Darker background on mouse-over */
 .mat-button:hover {
-  background-color: Black;
+  background-color: #749b7f;
+
 }
 
-.newmessgage.matInput{
+.new-message.matInput {
 
 
 }
 
 /* */
 
-.eventanzeige {
-  float: left;
-  width: 75%;
-}
 
-.newmessgage{
+.new-message {
+  float: right;
   height: 10vh;
-  width: 40vh;
+  width: 70%;
   background: #66CDAA;
   color: #fff;
-  display:inline-block;
+  display: inline-block;
   clear: both;
   padding: 20px;
-  border-radius: 30px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
   margin-bottom: 2px;
   font-family: Helvetica, Arial, sans-serif;
-}
-
-
-.messenger{
-  display: block;
 }
 
 .task-margin {;
