@@ -6,7 +6,8 @@
   </div>
 
 
-  <mat-card class="event-card" *ngFor="let event of events2" (click)="moveToEventDetail(event.id)">
+  <mat-card class="event-card" *ngFor="let event of events" (click)="moveToEventDetail(event.id)">
+
     <mat-card-header>
       <mat-card-title>{{event.name}}</mat-card-title>
     </mat-card-header>
@@ -19,10 +20,10 @@
         Location: {{event.location}}
       </p>
       <p>
-        When: {{event.date}}  {{event.date}}
+        When: {{event.date}}
       </p>
       <p>
-        Is it public {{event.public}}?
+        Public? {{event.public}}
       </p>
       <p>
         Responsible: {{event.eventplanner}}
@@ -52,7 +53,7 @@
   <h3>My Tasks</h3>
 
   <mat-accordion>
-    <mat-expansion-panel *ngFor="let task of tasks2">
+    <mat-expansion-panel *ngFor="let task of tasks">
 
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -60,8 +61,7 @@
           event: {{task.event}}
         </mat-panel-title>
         <mat-panel-description>
-          responsible: {{task.responsible}} <br>
-          deadline: {{task.deadline}}
+          deadline: {{task.deadline_date}} {{task.deadline_time}}
         </mat-panel-description>
       </mat-expansion-panel-header>
 
@@ -78,23 +78,20 @@
       </mat-form-field>
 
       <p>
-        deadline: {{task.deadline}}
+        deadline: {{task.deadline_date}} {{task.deadline_time}}
       </p>
       <p>
         responsible: {{task.responsible}}
       </p>
-      <p>
-        supporters: {{task.supporters}}
-      </p>
 
-      <div class="buttons">
+      <!--<div class="buttons">
         <div class="button-save">
           <button mat-button (click)="saveTask(task, task.value)">Edit Task</button>
         </div>
         <div class="button-delete">
           <button mat-button (click)="deleteEvent(task)">Delete Task</button>
         </div>
-      </div>
+      </div>-->
 
     </mat-expansion-panel>
   </mat-accordion>

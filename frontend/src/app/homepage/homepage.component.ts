@@ -33,6 +33,7 @@ export class HomepageComponent implements OnInit {
     this.username = localStorage.getItem('username');
     this.userId = localStorage.getItem('user_id');
     this.events = [];
+    this.tasks = [];
 
     this.taskFormGroupStatus = this.fb.group({
       status: [null]
@@ -40,34 +41,38 @@ export class HomepageComponent implements OnInit {
 
     this.taskService.getTasks()
       .subscribe((response: any[]) => {
-        this.tasks = response;
-        this.taskFormGroupStatus.patchValue(response);
+        for (const task of response) {
+          if (task.responsible === this.username) {
+            this.tasks.push(task);
+          }
+        }
+        // this.taskFormGroupStatus.patchValue(response);
       });
 
     this.userService.getUserById(this.userId).subscribe(result => {
       this.user = result;
     });
 
-    this.taskService.getTasks().subscribe((response: any) => {
+
+    /*this.taskService.getTasks().subscribe((response: any) => {
       this.tasks2 = response.filter(task =>  task.responsible == Number(this.userId));
       console.log(this.tasks2)
 
-    });
+    });*/
 
-    this.eventService.getEventWithUserId(this.userId).subscribe(response => {this.events2 = response;});
 
-    this.userService.getUserEventTask(this.userId).subscribe(result => {
+    /*this.userService.getUserEventTask(this.userId).subscribe(result => {
       this.userTasksEvents = result;
       if (this.userTasksEvents.invited.length > 0) {
         this.openEvents = true;
         console.log(this.openEvents);
       }
-    });
+    });*/
 
     this.eventService.retrieveEvents().subscribe((result: any[]) => {
       // TODO: EVENTS SORTIEREN UND AUF ANZAHL BESCHRÄNKEN (z.B. 4) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! .slice funktion
       for (const event of result) {
-        if (event.eventplanner === this.username || event.invited.includes(' ' + this.username)) {
+        if (event.eventplanner === this.username || event.participants.includes(' ' + this.username)) {
           this.events.push(event);
         }
       }
