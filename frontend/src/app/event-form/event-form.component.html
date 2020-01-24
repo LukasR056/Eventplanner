@@ -1,79 +1,84 @@
-<form [formGroup]="eventFormGroup" class="event-form">
-  <mat-form-field>
-    <input matInput type="text" placeholder="Name" formControlName="name">
-    <mat-hint align="end">The name of the event</mat-hint>
-    <mat-error *ngIf="eventFormGroup.controls.name.hasError('required')">Name is required</mat-error>
-  </mat-form-field>
+<div class="event-form-background">
 
-  <app-date placeholder="Date" formControlName="date" hint="When is the event?"
-            [required]="true"></app-date>
-
-  <div class="24hr-example">
-    <input matInput placeholder="24hr format" aria-label="24hr format" formControlName="time" [ngxTimepicker]="fulltime"
-           [format]="24" [value]=time>
-    <mat-error *ngIf="eventFormGroup.controls.time.hasError('required')">Time is required</mat-error>
-    <ngx-material-timepicker #fulltime></ngx-material-timepicker>
-  </div>
-
-
-  <mat-form-field>
-    <input matInput type="text" placeholder="Description" formControlName="description">
-    <mat-hint align="end">The description of the event</mat-hint>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput type="text" placeholder="Location" formControlName="location">
-    <mat-hint align="end">The location of the event</mat-hint>
-    <mat-error *ngIf="eventFormGroup.controls.location.hasError('required')">Location is required</mat-error>
-  </mat-form-field>
-
-  <mat-checkbox formControlName="public">public</mat-checkbox>
-
-  <br>
-
-  <mat-label> Eventplanner: {{username}} </mat-label>
-  <br>
-
-  <div style="float: right;">
-
+  <form [formGroup]="eventFormGroup" class="event-form">
     <mat-form-field>
-      <mat-select placeholder="Tags"
-                  formControlName="tags" multiple>
-        <mat-option [value]="tagOptions.id" *ngFor="let
-      tagOptions of tagOptions">{{tagOptions.name}}</mat-option>
-      </mat-select>
-
-      <mat-hint align="end">What kind of event is it?</mat-hint>
-
+      <input matInput type="text" placeholder="Name" formControlName="name">
+      <mat-hint align="end">The name of the event</mat-hint>
+      <mat-error *ngIf="eventFormGroup.controls.name.hasError('required')">Name is required</mat-error>
     </mat-form-field>
 
-    <button mat-raised-button (click)="openDialog()"><mat-icon>add</mat-icon></button>
+    <app-date placeholder="Date" formControlName="date" hint="When is the event?"
+              [required]="true"></app-date>
 
-  </div>
+    <div class="24hr-example">
+      <input matInput placeholder="24hr format" aria-label="24hr format" formControlName="time"
+             [ngxTimepicker]="fulltime"
+             [format]="24" [value]=time>
+      <mat-error *ngIf="eventFormGroup.controls.time.hasError('required')">Time is required</mat-error>
+      <ngx-material-timepicker #fulltime></ngx-material-timepicker>
+    </div>
 
-  <mat-form-field *ngIf="userOptionsNotEmpty">
-    <mat-select placeholder="Invite"
-                formControlName="invited" multiple>
-      <mat-option [value]="userOption.id" *ngFor="let
+    <mat-form-field>
+      <input matInput type="text" placeholder="Description" formControlName="description">
+      <mat-hint align="end">The description of the event</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="text" placeholder="Location" formControlName="location">
+      <mat-hint align="end">The location of the event</mat-hint>
+      <mat-error *ngIf="eventFormGroup.controls.location.hasError('required')">Location is required</mat-error>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="public">public</mat-checkbox>
+
+    <br>
+
+    <mat-label> Eventplanner: {{username}} </mat-label>
+    <br>
+
+    <div style="float: right;">
+
+      <mat-form-field style="width: 85%">
+        <mat-select placeholder="Tags"
+                    formControlName="tags" multiple>
+          <mat-option [value]="tagOptions.id" *ngFor="let
+      tagOptions of tagOptions">{{tagOptions.name}}</mat-option>
+        </mat-select>
+
+        <mat-hint align="end">What kind of event is it?</mat-hint>
+
+      </mat-form-field>
+
+      <button mat-icon-button (click)="openDialog()">
+        <mat-icon>add</mat-icon>
+      </button>
+
+    </div>
+
+    <mat-form-field *ngIf="userOptionsNotEmpty">
+      <mat-select placeholder="Invite"
+                  formControlName="invited" multiple>
+        <mat-option [value]="userOption.id" *ngFor="let
       userOption of userOptions">{{userOption.user.username}}</mat-option>
-    </mat-select>
-    <mat-hint align="end">Which of your friends do you want to invite?</mat-hint>
-  </mat-form-field>
-  <mat-label *ngIf="!userOptionsNotEmpty"> You have already invited all your friends!</mat-label>
+      </mat-select>
+      <mat-hint align="end">Which of your friends do you want to invite?</mat-hint>
+    </mat-form-field>
+    <mat-label *ngIf="!userOptionsNotEmpty"> You have already invited all your friends!</mat-label>
 
-  <br>
-  <div>
-    <app-mediainput formControlName="pictures"></app-mediainput>
-  </div>
+    <br>
 
+    <div class="media-input">
+      <app-mediainput formControlName="pictures"></app-mediainput>
+    </div>
 
+    <br>
 
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [disabled]="!eventFormGroup.valid" (click)="createEvent()">
+        <span *ngIf="!eventFormGroup.controls.id.value">Create</span>
+        <span *ngIf="eventFormGroup.controls.id.value">Update</span>
+      </button>
+    </mat-card-actions>
+  </form>
 
-
-  <mat-card-actions align="center">
-    <button mat-raised-button color="primary" [disabled]="!eventFormGroup.valid" (click)="createEvent()">
-      <span *ngIf="!eventFormGroup.controls.id.value">Create</span>
-      <span *ngIf="eventFormGroup.controls.id.value">Update</span>
-    </button>
-  </mat-card-actions>
-</form>
+</div>

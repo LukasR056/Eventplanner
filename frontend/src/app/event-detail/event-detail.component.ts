@@ -145,6 +145,7 @@ export class EventDetailComponent implements OnInit {
         break;
     }
     event.item.data.event = this.event.id;
+    event.item.data.responsible = event.item.data.responsible.id;
     console.log(event.item.data);
     this.taskService.updateTask(event.item.data).subscribe(() => {
     });

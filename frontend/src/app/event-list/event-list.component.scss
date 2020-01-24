@@ -8,14 +8,14 @@
   width: 25%;
   margin: 10px;
   display: inline-block;
-  animation: 1s ease-out 0s 1 areaSlideInFromBottom;
+  animation: 750ms ease-out 0s 1 areaSlideInFromBottom;
 }
 .new-event-card
 {
-  text-align: center;
+  // text-align: center;
   width: 50%;
-  display: inline-block;
-  align-self: flex-end;
+  // display: inline-block;
+  //align-self: flex-end;
 }
 
 .mat-card-header {
