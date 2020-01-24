@@ -1,11 +1,11 @@
 .example-form {
-  min-width: 150px;
+  min-width: 50px;
   max-width: 500px;
-  width: 100%;
+  width: 90%;
 }
 
 .example-full-width {
-  width: 95%;
+  width: 90%;
 }
 
 .event-card{
@@ -31,9 +31,9 @@
 
 .button-add{
   float: right;
-  // display: contents;
   padding: 5px !important;
-  // transform: translate3d(1,1,0) !important;
+  margin-top: 10px !important;
+  margin-right: -20px !important;
   min-width: auto;
   line-height: normal;
   box-shadow: none;

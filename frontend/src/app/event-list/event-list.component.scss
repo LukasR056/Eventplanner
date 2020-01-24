@@ -8,10 +8,44 @@
   width: 25%;
   margin: 10px;
   display: inline-block;
+  animation: 1s ease-out 0s 1 areaSlideInFromBottom;
 }
 .new-event-card
 {
-  width: 25%;
+  text-align: center;
+  width: 50%;
   display: inline-block;
   align-self: flex-end;
+}
+
+.mat-card-header {
+  display: contents;
+}
+
+@keyframes areaSlideInFromTop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.create-event {
+  padding: 20px;
+  width: 50%;
+  margin: auto;
+  animation: 1s ease-out 0s 1 areaSlideInFromTop;
+  background-color: rgba(245, 245, 245, 0.95);
+  border-radius: 0 0 10px 10px;
+  text-align: -webkit-center;
+}
+
+@keyframes areaSlideInFromBottom {
+  0% {
+    transform: translateY(300%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
