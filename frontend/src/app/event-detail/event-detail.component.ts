@@ -8,6 +8,7 @@ import {FormBuilder} from '@angular/forms';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {TaskService} from '../service/task.service';
 import {DatePipe} from '@angular/common';
+import {log} from 'util';
 
 @Component({
   selector: 'app-event-detail',
@@ -31,6 +32,7 @@ export class EventDetailComponent implements OnInit {
   userId: any;
   pictures: number[];
   username: any;
+  private updatedTask: any;
 
   // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
@@ -74,6 +76,7 @@ export class EventDetailComponent implements OnInit {
 
     this.userService.retrieveUserOptions().subscribe((result) => {
       this.userOptions = result;
+      console.log(this.userOptions);
     });
   }
 
@@ -107,6 +110,7 @@ export class EventDetailComponent implements OnInit {
       this.eventTasks = response.filter(task => this.event.tasks.includes(task.id));
       console.log(this.eventTasks);
       this.eventTasks.forEach(task => {
+        task.responsible = task.responsible.id;
         switch (task.status) {
           case 'o':
             this.tasksOpen.push(task);
@@ -131,8 +135,6 @@ export class EventDetailComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
     }
-    // console.log(event.container);
-
     switch (event.container.id) {
       case 'listToDo':
         event.item.data.status = 'o';
@@ -144,12 +146,11 @@ export class EventDetailComponent implements OnInit {
         event.item.data.status = 'd';
         break;
     }
-    event.item.data.event = this.event.id;
-    event.item.data.responsible = event.item.data.responsible.id;
-    console.log(event.item.data);
-    this.taskService.updateTask(event.item.data).subscribe(() => {
+    this.updatedTask = event.item.data;
+    this.updatedTask.event = this.event.id;
+    console.log(this.updatedTask);
+    this.taskService.updateTask(this.updatedTask).subscribe(() => {
     });
-    // console.log(event.item.data);
   }
 
   updateEvent(id: any) {
