@@ -44,6 +44,7 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
   uploader: FileUploader;
   picIsAlreadyThere: boolean;
   picIsAlreadyUploaded: boolean;
+  //entryInDB: boolean;
   onChange = (medias: number[]) => {
     // empty default
   };
@@ -112,6 +113,24 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
         });}
     window.location.reload();
   }
+  deleteAll(index: any, media: any) {
+    if (index, media) {
+      this.medias.splice(index, 1);
+      this.picIsAlreadyUploaded = false;
+      this.onChange(this.medias.map((m) => {
+        return m.id;
+      }));
+    } if (media) {
+        this.mediaService.deleteMedia(media)
+          .subscribe(() => {
+            this.onChange(this.medias.map((m) => {
+              return m.id;
+            }));
+          });
+     // window.location.reload();
+    }
+  }
+
   downloadMedia(media: IMedia): void {
     this.http.get(`${this.resourceUrl}/${media.id}`, {responseType: 'blob'}).subscribe((blob: Blob) => {
       const fileURL = URL.createObjectURL(blob);

@@ -27,10 +27,10 @@
         </button>
       </div>
     </mat-card-header>
-    <p *ngFor="let picture of pictures">
+    <span *ngFor="let picture of pictures">
 
-      pic: <img src="api/media/{{picture}}" height="100px"><br>
-    </p>
+      <img src="api/media/{{picture}}" height="100px"><br>
+    </span>
     <hr>
     <mat-card-content>
 
