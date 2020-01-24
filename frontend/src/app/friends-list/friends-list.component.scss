@@ -40,3 +40,21 @@
   font-size: 20px;
   color: green;
 }
+
+
+
+.friend-area {
+  // float: left;
+  border-radius: 0 0 10px 10px;
+  margin: auto;
+  text-align: -webkit-center;
+  width: 50%;
+  background-color: rgba(245, 245, 245, 0.95);
+}
+
+.friend-requests {
+  border-radius: 0 0 10px 10px;
+  background-color: rgba(245, 245, 245, 0.95);
+  float: right;
+  width: 20%;
+}
