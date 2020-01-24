@@ -27,7 +27,6 @@ export interface IMedia {
   ]
 })
 export class MediainputComponent implements OnInit, ControlValueAccessor {
- // @Input() public parentObj = "second";
   @Input() public parentObj = false;
 
 

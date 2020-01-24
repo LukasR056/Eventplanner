@@ -43,9 +43,9 @@ export class UserFormComponent implements OnInit {
         this.user.id = response.id;
         this.user.first_name = response.first_name;
         this.user.last_name = response.last_name;
-        console.log('sag mir Id Bruda: ' + this.user.id);
-        console.log('sag mir firstname Bruda: ' + this.user.first_name);
-        console.log('sag mir lastname Bruda: ' + this.user.last_name);
+       // console.log('sag mir Id Bruda: ' + this.user.id);
+       // console.log('sag mir firstname Bruda: ' + this.user.first_name);
+       // console.log('sag mir lastname Bruda: ' + this.user.last_name);
         this.userFormGroup.patchValue(response);
 
       });
@@ -64,6 +64,7 @@ export class UserFormComponent implements OnInit {
     this.userService.updateUser(user)
         .subscribe(() => {
           this.router.navigate(['/homepage']);
+          window.location.reload();
         });
     window.location.reload();
     }

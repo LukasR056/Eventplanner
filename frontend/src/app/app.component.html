@@ -2,11 +2,16 @@
   ULTIMATE EVENT
 
   <div class="user-settings">
-    <button style="float: right" mat-icon-button [matMenuTriggerFor]="menu" >
+    <button style="float: right" [matMenuTriggerFor]="menu" >
+      <!-- <span *ngFor="let picture of this.pictures"> </span>-->
+
       <span *ngFor="let picture of this.pictures">
 
-        <img src="api/media/{{picture}}" height="100px"><br>
+        <img src="api/media/{{picture}}" height="65px"><br>
       </span>
+    <!--  <img src="api/media/{{this.pictures}}" height="100px"><br> -->
+
+
 
 
   </button>
