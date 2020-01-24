@@ -175,4 +175,11 @@ export class EventDetailComponent implements OnInit {
         this.router.navigate(['/event-list/']);
       });}
   }
+
+  participateEvent(event: any) {
+    event.participants.push(this.userId);
+    this.eventService.updateEvent(event).subscribe(() => {
+      this.router.navigate(['/event-detail/' + event.id]);
+    });
+  }
 }
