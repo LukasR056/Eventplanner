@@ -12,6 +12,10 @@
   display: inline-block;
 }
 
+.event-card:hover {
+  background-color: antiquewhite;
+}
+
 .mat-button {
   display: block;
   background-color: antiquewhite;
@@ -31,6 +35,10 @@
   width: 50%;
   margin: auto;
   float: bottom;
+}
+
+.mat-card-header {
+  cursor: pointer;
 }
 
 .mat-panel-title {
