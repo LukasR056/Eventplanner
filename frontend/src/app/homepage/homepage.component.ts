@@ -82,7 +82,6 @@ export class HomepageComponent implements OnInit {
       this.events.sort((a, b) => (a.date > b.date) ? 1 : -1);
       this.events = this.events.slice(0, 3);
     });
-
   }
 
   deleteEvent(event: any) {
