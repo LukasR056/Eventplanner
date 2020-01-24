@@ -1,60 +1,63 @@
-<form [formGroup]="taskFormGroup" class="task-form">
-  <mat-form-field>
-    <input matInput type="text" placeholder="Name" formControlName="title">
-    <mat-hint align="end">The title of the task</mat-hint>
-    <!-- <mat-error *ngIf="eventFormGroup.controls.name.hasError('required')">Name is required</mat-error> -->
-  </mat-form-field>
+<div class="task-form-background">
 
-  <mat-form-field>
-    <input matInput type="text" placeholder="Description" formControlName="description">
-    <mat-hint align="end">The description of the task</mat-hint>
-  </mat-form-field>
+  <form [formGroup]="taskFormGroup" class="task-form">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Name" formControlName="title">
+      <mat-hint align="end">The title of the task</mat-hint>
+      <!-- <mat-error *ngIf="eventFormGroup.controls.name.hasError('required')">Name is required</mat-error> -->
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-select placeholder="Status" formControlName="status">
-      <mat-option [value]="status.key" *ngFor="let status of
+    <mat-form-field>
+      <input matInput type="text" placeholder="Description" formControlName="description">
+      <mat-hint align="end">The description of the task</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Status" formControlName="status">
+        <mat-option [value]="status.key" *ngFor="let status of
         taskService.statusName | keyvalue">{{status.value}}</mat-option>
-    </mat-select>
-    <mat-hint align="end">The status of the task</mat-hint>
-  </mat-form-field>
+      </mat-select>
+      <mat-hint align="end">The status of the task</mat-hint>
+    </mat-form-field>
 
-  <app-date placeholder="Date" formControlName="deadline_date" hint="When is the event?"
-            [required]="true"></app-date>
+    <app-date placeholder="Date" formControlName="deadline_date" hint="When is the event?"
+              [required]="true"></app-date>
 
-  <div class="24hr-example">
-    <input matInput placeholder="24hr format" aria-label="24hr format" formControlName="deadline_time"
-           [ngxTimepicker]="fulltime"
-           [format]="24" [value]=deadline_time>
-    <!-- <mat-error *ngIf="eventFormGroup.controls.time.hasError('required')">Time is required</mat-error> -->
-    <ngx-material-timepicker #fulltime></ngx-material-timepicker>
-  </div>
+    <div class="24hr-example">
+      <input matInput placeholder="24hr format" aria-label="24hr format" formControlName="deadline_time"
+             [ngxTimepicker]="fulltime"
+             [format]="24" [value]=deadline_time>
+      <!-- <mat-error *ngIf="eventFormGroup.controls.time.hasError('required')">Time is required</mat-error> -->
+      <ngx-material-timepicker #fulltime></ngx-material-timepicker>
+    </div>
 
-  <br>
+    <br>
 
-  <mat-form-field *ngIf="isLoggedUserEventplanner">
-    <mat-select placeholder="Responsible"
-                formControlName="responsible">
-      <mat-option [value]="userOption.id" *ngFor="let
+    <mat-form-field *ngIf="isLoggedUserEventplanner">
+      <mat-select placeholder="Responsible"
+                  formControlName="responsible">
+        <mat-option [value]="userOption.id" *ngFor="let
       userOption of userOptions">{{userOption.user.username}}</mat-option>
-    </mat-select>
-    <mat-hint align="end">Who is responsible for this task?</mat-hint>
-  </mat-form-field>
+      </mat-select>
+      <mat-hint align="end">Who is responsible for this task?</mat-hint>
+    </mat-form-field>
 
-  <br>
-
-
-  <mat-label *ngIf="!isLoggedUserEventplanner && loggedUser"> {{loggedUser.user.username}}
-    <mat-hint align="end">If you want this task, you are responsible therefore</mat-hint>
-  </mat-label>
+    <br>
 
 
-  <br>
+    <mat-label *ngIf="!isLoggedUserEventplanner && loggedUser"> <strong>{{loggedUser.first_name}}</strong>
+      <mat-hint align="end"> if you want this task, you are responsible for it</mat-hint>
+    </mat-label>
 
-  <mat-card-actions align="center">
-    <button mat-raised-button color="primary" [disabled]="!taskFormGroup.valid" (click)="createTask()">
-      <span *ngIf="!taskFormGroup.controls.id.value">Create</span>
-      <span *ngIf="taskFormGroup.controls.id.value">Update</span>
-    </button>
-  </mat-card-actions>
-</form>
 
+    <br>
+
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" [disabled]="!taskFormGroup.valid" (click)="createTask()">
+        <span *ngIf="!taskFormGroup.controls.id.value">Create</span>
+        <span *ngIf="taskFormGroup.controls.id.value">Update</span>
+      </button>
+    </mat-card-actions>
+  </form>
+
+</div>

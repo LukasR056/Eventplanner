@@ -4,3 +4,28 @@
   width: 20rem;
   margin: 3rem auto;
 }
+
+@keyframes areaSlideInFromTop {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.user-form-background {
+  @media (min width: 401px) {
+  }
+  padding: 20px 80px;
+  width: fit-content;
+  margin: auto;
+  animation: 1500ms ease-out 0s 1 areaSlideInFromTop;
+  background-color: rgba(245, 245, 245, 0.95);
+  border-radius: 0 0 10px 10px;
+}
+
+.media-input {
+  font-family: Roboto,'Helvetica Neue',sans-serif;
+  text-align: -webkit-center;
+}

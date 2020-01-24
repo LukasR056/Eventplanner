@@ -2,6 +2,8 @@
 
   <div style="display: none"
        [ngClass]="{'friend-area-adapted': receivedFriendRequestsCount == 0, 'friend-area': receivedFriendRequestsCount > 0}">
+    <h2>Friends</h2>
+
     <div style="width: 100%; overflow: hidden">
       <form class="example-form">
         <mat-form-field class="example-full-width">
@@ -21,8 +23,6 @@
         </button>
       </form>
     </div>
-
-    <h2>Friends</h2>
 
     <mat-card class="event-card" *ngFor="let friend of friends">
       <button mat-raised-button mat-button class="button-delete" (click)="removeFriend(friend.id)">

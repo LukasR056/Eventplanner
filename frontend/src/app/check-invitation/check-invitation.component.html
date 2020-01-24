@@ -6,13 +6,21 @@
     <hr>
     <mat-card-content>
       <p>
-        Location: {{event.location}}
+        <mat-icon style="vertical-align: middle">navigation</mat-icon> {{event.location}}
       </p>
       <p>
-        When: {{event.date}} at {{event.time}}
+        <mat-icon style="vertical-align: middle">access_time</mat-icon> {{event.date}} at {{event.time.substring(0, 5)}}
       </p>
       <p>
-        Is it public: {{event.public}}
+        This is a
+
+        <strong>
+          <div *ngIf="event.public; then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock>public</ng-template>
+          <ng-template #elseBlock>private</ng-template>
+        </strong>
+
+        event.
       </p>
 
     </mat-card-content>

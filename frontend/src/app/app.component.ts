@@ -23,24 +23,21 @@ export class AppComponent implements OnInit {
       this.isLoggedIn = response;
     });
     this.userId = Number(localStorage.getItem('user_id'));
-    // this.pictures = this.userId.pictures;
-    this.userService.retrieveUserOptions().subscribe((result) => {
-      this.friendOptions = result;
-    });
 
-    this.userService.getUserById(this.userId)
-      .subscribe((response: any) => {
-        this.user = response;
-        this.user.id = response.id;
-        this.pictures = response.pictures;
-
-        // console.log('sag mir Id Bruda: ' + this.user.id);
-        console.log(this.pictures);
-        if (this.pictures.length >= 0) {
-          console.log('works');
-        }
-        this.pictureExist = this.pictures.length!=0;
+    if (this.isLoggedIn) {
+      this.userService.retrieveUserOptions().subscribe((result) => {
+        this.friendOptions = result;
       });
+
+      this.userService.getUserById(this.userId)
+        .subscribe((response: any) => {
+          this.user = response;
+          this.user.id = response.id;
+          this.pictures = response.pictures;
+          this.pictureExist = this.pictures.length != 0;
+        });
+    }
+
   }
 
 }
