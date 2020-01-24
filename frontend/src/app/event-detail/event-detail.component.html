@@ -4,9 +4,28 @@
 
     <mat-card-header>
       <mat-card-title>{{event.name}}</mat-card-title>
-      <button style="width: 20%; background-color: darkorange; color: white" mat-button
-              *ngIf="event.eventplanner==userId" (click)="updateEvent(event.id)">Update
-      </button>
+
+        <button style="width: 20%; background-color: darkorange; color: white" mat-button
+                *ngIf="event.eventplanner==userId" (click)="updateEvent(event.id)">Update
+        </button>
+      <div *ngIf="event.public">
+        <button mat-icon-button shareButton="whatsapp"
+                [description]="'Have you heard about this event?' ">
+          <img src="https://img.icons8.com/color/32/000000/whatsapp.png">
+        </button>
+        <button mat-icon-button shareButton="twitter"
+                [description]="'Have you heard about this event?'">
+          <img src="https://img.icons8.com/color/32/000000/twitter-squared.png">
+        </button>
+        <button mat-icon-button shareButton="email"
+                [description]="'Have you heard about this event?'">
+          <mat-icon>mail</mat-icon>
+        </button>
+
+        <button mat-icon-button shareButton="print">
+          <mat-icon>print</mat-icon>
+        </button>
+      </div>
     </mat-card-header>
     <p *ngFor="let picture of pictures">
 

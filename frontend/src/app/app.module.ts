@@ -58,6 +58,7 @@ import {RegistrationComponent} from './registration/registration.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import {CheckInvitationComponent} from './check-invitation/check-invitation.component';
 import { CheckTasksComponent } from './check-tasks/check-tasks.component';
+import {ShareModule} from '@ngx-share/core';
 
 
 export function tokenGetter() {
@@ -130,7 +131,7 @@ export function tokenGetter() {
     }),
     FileUploadModule,
     MatSidenavModule,
-
+    ShareModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
