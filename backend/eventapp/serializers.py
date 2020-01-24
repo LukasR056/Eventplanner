@@ -55,8 +55,8 @@ class UserCreateForm (serializers.ModelSerializer):
     user = AbstractUserCreateForm()
     class Meta:
         model = Profile
-        fields = ['user', 'first_name', 'last_name', 'birthday']
-        #, 'pictures' TODO: MAX SPÄTER WIEDER IMPLEMENTIEREN
+        fields = ['user', 'first_name', 'last_name', 'birthday', 'pictures']
+
 
 
 class TaskEventplannerSerializer(serializers.ModelSerializer):

@@ -4,6 +4,8 @@ import {FileItem, FileUploader, ParsedResponseHeaders} from 'ng2-file-upload';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from '../service/user.service';
 import {forkJoin} from 'rxjs';
+import {MediaService} from '../service/media.service';
+import {Router} from '@angular/router';
 
 export interface IMedia {
   id?: number;
@@ -25,18 +27,25 @@ export interface IMedia {
   ]
 })
 export class MediainputComponent implements OnInit, ControlValueAccessor {
-  @Input()
+  @Input() public parentObj = false;
+
+
+  constructor(private userService: UserService, private http: HttpClient, elm: ElementRef,
+              private mediaService: MediaService, private router: Router) {
+  }
+  pictures: number[];
+  friendOptions: any;
+  userId: any;
+  user: any;
   accept = '';
   resourceUrl = '/api/media';
   initializing = true;
   medias: IMedia[];
   uploader: FileUploader;
+  picIsAlreadyThere: boolean;
   onChange = (medias: number[]) => {
     // empty default
   };
-
-  constructor(private userService: UserService, private http: HttpClient, elm: ElementRef) {
-  }
 
   ngOnInit() {
     this.uploader = new FileUploader({
@@ -63,15 +72,38 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
         return m.id;
       }));
     };
+    this.userId = Number(localStorage.getItem('user_id'));
+    //this.pictures = this.userId.pictures;
+    this.userService.retrieveUserOptions().subscribe((result) => {
+      this.friendOptions = result;
+    });
+    this.userService.getUserById(this.userId)
+      .subscribe((response: any) => {
+        this.user = response;
+        this.pictures = response.pictures;
+        if (this.pictures.length >= 1 && this.parentObj == false) {
+          this.picIsAlreadyThere = true;
+          console.log('picture länge: ' + this.pictures.length );
+          console.log('parentObj ' + this.parentObj );
+        }
+
+      });
   }
 
-  deleteMedia(index: number): void {
+  deleteMedia(index: any ): void {
     this.medias.splice(index, 1);
     this.onChange(this.medias.map((m) => {
       return m.id;
     }));
   }
 
+  deleteMediafromdb(media: any) {
+    if (confirm('Are you sure you want to delete this event?')) {
+      this.mediaService.deleteMedia(media)
+        .subscribe(() => {
+          this.router.navigate(['/event-list/']);
+        });}
+  }
   downloadMedia(media: IMedia): void {
     this.http.get(`${this.resourceUrl}/${media.id}`, {responseType: 'blob'}).subscribe((blob: Blob) => {
       const fileURL = URL.createObjectURL(blob);
@@ -109,4 +141,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
       this.initializing = false;
     });
   }
+
+
 }

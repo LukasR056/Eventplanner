@@ -10,7 +10,8 @@ from rest_framework.response import Response
 from .models import Task, Event, Forumentry, Tag, Profile, Media, FriendshipRequest
 from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, \
     EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer, AbstractUserForm, \
-    MediaSerializer,UserCreateForm, AbstractUserCreateForm, FriendshipRequestList, FriendshipRequestForm, UserFormUpdate, UserEventTaskSerializers
+    MediaSerializer, UserCreateForm, AbstractUserCreateForm, FriendshipRequestList, FriendshipRequestForm, \
+    UserFormUpdate, UserEventTaskSerializers
 
 
 @api_view(['GET'])
@@ -21,8 +22,6 @@ def abstract_user_form(request, username):
         return Response({'error': 'User does not exist'}, status=404)
     serializer = AbstractUserForm(abstract_user)
     return Response(serializer.data)
-
-
 
 
 @api_view(['GET'])
@@ -40,6 +39,7 @@ def user_form(request, pk):
         return Response({'error': 'User does not exist.'}, status=404)
     serializer = UserForm(user)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 @authentication_classes([])
@@ -62,6 +62,7 @@ def user_form_create(request):
     return Response(serializer.errors, status=400)
 '''
 
+
 @api_view(['PUT'])
 def user_form_update(request, pk):
     try:
@@ -77,11 +78,13 @@ def user_form_update(request, pk):
 
 ''' FRIENDSHIP REQUEST VIEWS '''
 
+
 @api_view(['GET'])
 def friendship_request_list(request):
     requests = FriendshipRequest.objects.all()
     serializers = FriendshipRequestList(requests, many=True)
     return Response(serializers.data)
+
 
 @api_view(['POST'])
 def friendship_request_form_create(request):
@@ -90,6 +93,7 @@ def friendship_request_form_create(request):
         serializer.save()
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
+
 
 @api_view(['PUT'])
 def friendship_request_form_update(request, pk):
@@ -105,6 +109,7 @@ def friendship_request_form_update(request, pk):
 
 
 ''' TAG VIEWS '''
+
 
 @api_view(['GET'])
 def tag_form_list(request):
@@ -158,6 +163,7 @@ def task_form_create(request):
         serializer.save()
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
+
 
 @api_view(['GET', 'PUT'])
 def task_form_update(request, pk):
@@ -225,6 +231,7 @@ def event_list(request):
     events = Event.objects.all()
     serializers = EventListSerializer(events, many=True)
     return Response(serializers.data)
+
 
 @api_view(['GET'])
 def event_listId(request):
@@ -397,7 +404,6 @@ def event_option_list(request):
     return Response(serializer.data)
 
 
-
 '''Fileupload'''
 
 
@@ -429,6 +435,16 @@ def media_download(request, pk):
     return response
 
 
+@api_view(['DELETE'])
+def media_delete(request, pk):
+    try:
+        media = Media.objects.get(pk=pk)
+    except Media.DoesNotExist:
+        return Response({'error': 'Media does not exist'}, status=404)
+    media.delete()
+    return Response(status=204)
+
+
 @swagger_auto_schema(method='GET', responses={200: MediaSerializer()})
 @api_view(['GET'])
 def media_get(request, pk):
@@ -440,6 +456,7 @@ def media_get(request, pk):
     serializer = MediaSerializer(media)
     return Response(serializer.data)
 
+
 @api_view(['GET'])
 def user_form(request, pk):
     try:
@@ -448,6 +465,7 @@ def user_form(request, pk):
         return Response({'error': 'User does not exist.'}, status=404)
     serializer = UserForm(user)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def user_task_event(request, pk):

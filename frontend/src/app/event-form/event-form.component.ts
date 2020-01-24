@@ -30,11 +30,9 @@ export class EventFormComponent implements OnInit {
   tagOptions;
   userOptionsNotEmpty = true;
   loggedUser: any;
-
   animal: string;
   name: string;
-
-
+  public parentProp = true;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,
               private router: Router, private eventService: EventService, private userService: UserService,

@@ -33,6 +33,7 @@ const routes: Routes = [
   { path: 'event-form/:id', component: EventFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'user-list', component: UserListComponent, canActivate: [AuthenticationGuard] },
   { path: 'user-form', component: UserFormComponent, canActivate: [AuthenticationGuard] },
+  { path: 'user-form/:id', component: UserFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'event-detail/:id', component: EventDetailComponent, canActivate: [AuthenticationGuard] },
   { path: 'friends-list', component: FriendsListComponent, canActivate: [AuthenticationGuard] },
   { path: 'homepage', component: HomepageComponent, canActivate: [AuthenticationGuard] },

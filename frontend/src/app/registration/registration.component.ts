@@ -37,7 +37,6 @@ export class RegistrationComponent implements OnInit {
       last_name: ['', Validators.required],
       // 'birthday': ['', Validators.required]
       // TODO: BIRTHDAY IMPLEMENTIEREN
-      pictures: [[]],
     });
   }
 
