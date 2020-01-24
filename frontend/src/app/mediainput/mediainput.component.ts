@@ -43,6 +43,7 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
   medias: IMedia[];
   uploader: FileUploader;
   picIsAlreadyThere: boolean;
+  picIsAlreadyUploaded: boolean;
   onChange = (medias: number[]) => {
     // empty default
   };
@@ -65,6 +66,12 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
     };
     this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
       const uploadedMedia = <IMedia>JSON.parse(response);
+      if (this.parentObj == true) {
+        this.picIsAlreadyUploaded = false;
+      } else {
+      this.picIsAlreadyUploaded = true;
+      }
+      console.log('ispicuploaded? ' + this.picIsAlreadyUploaded );
       this.medias.find(media => !media.id && media.original_file_name === uploadedMedia.original_file_name).id = uploadedMedia.id;
     };
     this.uploader.onCompleteAll = () => {
@@ -98,11 +105,12 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
   }
 
   deleteMediafromdb(media: any) {
-    if (confirm('Are you sure you want to delete this event?')) {
+    if (confirm('Are you sure you want to delete this Picture?')) {
       this.mediaService.deleteMedia(media)
         .subscribe(() => {
           this.router.navigate(['/event-list/']);
         });}
+    window.location.reload();
   }
   downloadMedia(media: IMedia): void {
     this.http.get(`${this.resourceUrl}/${media.id}`, {responseType: 'blob'}).subscribe((blob: Blob) => {

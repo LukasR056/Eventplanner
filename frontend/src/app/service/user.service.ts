@@ -40,6 +40,7 @@ export class UserService {
     localStorage.removeItem('user_id');
     this.isLoggedIn.next(false);
     this.router.navigate(['/login']);
+    window.location.reload();
   }
 
   retrieveUserOptions() {
