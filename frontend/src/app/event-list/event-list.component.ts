@@ -14,9 +14,10 @@ import {DatePipe} from '@angular/common';
 // tslint:disable:triple-equals
 export class EventListComponent implements OnInit {
 
-  events = [];
   username;
   userId;
+  events;
+
 
   constructor(private eventService: EventService, private router: Router, private datepipe: DatePipe) {
   }
@@ -25,6 +26,8 @@ export class EventListComponent implements OnInit {
 
     this.username = localStorage.getItem('username');
     this.userId = localStorage.getItem('user_id');
+
+    this.events = [];
 
     this.eventService.getEventsId()
       .subscribe((response: any[]) => {
@@ -54,10 +57,8 @@ export class EventListComponent implements OnInit {
       // tslint:disable-next-line:triple-equals
       updateEvent[0].participants = updateEvent[0].participants.filter(user => user != this.userId);
       this.eventService.updateEvent(updateEvent[0]).subscribe();
-      window.location.reload();
+      this.ngOnInit();
     }
   }
 
 }
-
-

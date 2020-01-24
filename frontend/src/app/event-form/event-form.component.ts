@@ -78,10 +78,8 @@ export class EventFormComponent implements OnInit {
       this.eventService.getEventWithId(id)
         .subscribe((response) => {
           this.eventFormGroup.patchValue(response);
-          // console.log(this.userOptions);
           this.time = this.eventFormGroup.value.time;
           this.time = this.time.substring(0, 5);
-          console.log(response);
         });
     } else {
       this.time = '00:00';
@@ -105,13 +103,11 @@ export class EventFormComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px',
-      data: {name: this.name, animal: this.animal}
+      width: '40%',
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
+      this.ngOnInit();
     });
   }
 
@@ -132,7 +128,6 @@ export class EventFormComponent implements OnInit {
         .subscribe((response: any) => {
           this.router.navigate(['/homepage']);
         });
-      console.log(event);
     }
   }
 
@@ -157,6 +152,8 @@ export class DialogOverviewExampleDialog implements OnInit{
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)] , [this.tagValidator()]]
     });
 
+    this.tagOptions = [];
+
     this.tagService.getTags().subscribe((result) => {
       this.tagOptions = result;
       this.tagOptions.sort((a, b) => (a.name > b.name) ? 1 : -1)  ;
@@ -169,7 +166,6 @@ export class DialogOverviewExampleDialog implements OnInit{
 
 
   tagValidator(): AsyncValidatorFn {
-    console.log('im in');
     return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
       return this.tagService.getTags()
         .pipe(
@@ -181,12 +177,10 @@ export class DialogOverviewExampleDialog implements OnInit{
             });
 
             if (tagWithSameTitle) {
-              console.log('name same');
               return {
                 nameAlreadyExists: true
               };
             } else {
-              console.log('name not same');
               return null;
             }
           })

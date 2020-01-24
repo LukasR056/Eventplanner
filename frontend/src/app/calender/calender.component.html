@@ -49,6 +49,7 @@
       [refresh]="refresh"
       [activeDayIsOpen]="activeDayIsOpen"
       (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="eventClicked()"
     >
     </mwl-calendar-month-view>
 
@@ -57,6 +58,7 @@
       [viewDate]="viewDate"
       [events]="events1"
       [refresh]="refresh"
+      (eventClicked)="eventClicked()"
     >
     </mwl-calendar-week-view>
 

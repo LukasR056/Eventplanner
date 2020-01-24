@@ -16,9 +16,10 @@
 <div class="event-list">
 
 
-  <mat-card class="event-card" *ngFor="let event of events" (click)="moveToEventDetail(event.id)">
-    <mat-card-header>
-      <mat-card-title>{{event.name}}</mat-card-title>
+
+  <mat-card class="event-card" *ngFor="let event of events">
+    <mat-card-header (click)="moveToEventDetail(event.id)">
+      <mat-card-title >{{event.name}}</mat-card-title>
     </mat-card-header>
     <hr>
     <mat-card-content>
@@ -40,10 +41,12 @@
       event.
 
     </mat-card-content>
-    <mat-card-actions style="float: right">
-      <button mat-raised-button color="accent" mat-button (click)="cancelEvent(event.id)">CANCEL</button>
+
+    <mat-card-actions style="float: right" *ngIf="userId != event.eventplanner">
+
+        <button mat-raised-button color="accent" mat-button (click)="cancelEvent(event.id)">CANCEL</button>
+
     </mat-card-actions>
   </mat-card>
-
 
 </div>
