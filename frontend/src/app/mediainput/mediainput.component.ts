@@ -25,18 +25,24 @@ export interface IMedia {
   ]
 })
 export class MediainputComponent implements OnInit, ControlValueAccessor {
+
+
+  constructor(private userService: UserService, private http: HttpClient, elm: ElementRef) {
+  }
+  pictures: number[];
+  friendOptions: any;
+  userId: any;
+  user: any;
   @Input()
   accept = '';
   resourceUrl = '/api/media';
   initializing = true;
   medias: IMedia[];
   uploader: FileUploader;
+  picIsAlreadyThere: boolean;
   onChange = (medias: number[]) => {
     // empty default
   };
-
-  constructor(private userService: UserService, private http: HttpClient, elm: ElementRef) {
-  }
 
   ngOnInit() {
     this.uploader = new FileUploader({
@@ -63,14 +69,32 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
         return m.id;
       }));
     };
+    this.userId = Number(localStorage.getItem('user_id'));
+    //this.pictures = this.userId.pictures;
+    this.userService.retrieveUserOptions().subscribe((result) => {
+      this.friendOptions = result;
+    });
+    this.userService.getUserById(this.userId)
+      .subscribe((response: any) => {
+        this.user = response;
+        this.pictures = response.pictures;
+        if (this.pictures.length >= 1)
+        {
+          this.picIsAlreadyThere = true;
+        }
+
+      });
   }
 
-  deleteMedia(index: number): void {
+  deleteMedia(index: any ): void {
     this.medias.splice(index, 1);
     this.onChange(this.medias.map((m) => {
       return m.id;
     }));
   }
+
+
+
 
   downloadMedia(media: IMedia): void {
     this.http.get(`${this.resourceUrl}/${media.id}`, {responseType: 'blob'}).subscribe((blob: Blob) => {
@@ -109,4 +133,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
       this.initializing = false;
     });
   }
+
+
 }

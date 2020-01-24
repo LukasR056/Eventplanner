@@ -1,4 +1,4 @@
-<div *ngIf="!initializing">
+<div *ngIf="!initializing" >
     <table class="table" *ngIf="medias?.length">
         <thead>
         <tr>
@@ -9,7 +9,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let media of medias; let i = index;">
+        <tr *ngFor="let media of medias; let i = index">
             <td><strong>{{ media.original_file_name }}</strong></td>
             <td>{{ media.size/1024/1024 | number }}&nbsp;MB</td>
             <td>
@@ -29,5 +29,7 @@
         </tr>
         </tbody>
     </table>
-    <input type="file" [accept]="accept" ng2FileSelect [uploader]="uploader" [multiple]="false"/>
+
+    <input  type="file" [disabled]= "picIsAlreadyThere"   [accept]="accept" ng2FileSelect [uploader]="uploader" [multiple]="false"/>
+<!-- Liste rausholen und dann prüfen ob >=1 [disabled]="media.id == null"-->
 </div>

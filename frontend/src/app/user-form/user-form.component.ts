@@ -65,6 +65,7 @@ export class UserFormComponent implements OnInit {
         .subscribe(() => {
           this.router.navigate(['/homepage']);
         });
+    window.location.reload();
     }
 
 }

@@ -3,7 +3,10 @@
 
   <div class="user-settings">
     <button style="float: right" mat-icon-button [matMenuTriggerFor]="menu" >
-      <img src="api/media/{{pictures}}" height="50px"><br>
+      <span *ngFor="let picture of this.pictures">
+
+        <img src="api/media/{{picture}}" height="100px"><br>
+      </span>
 
 
   </button>

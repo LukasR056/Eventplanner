@@ -13,19 +13,18 @@ import {UserService} from './service/user.service';
 export class AppComponent implements OnInit {
   title = 'frontend';
   pictures: number;
-  userFormGroup: any;
   friendOptions: any;
   userId: any;
   user: any;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
     this.userId = Number(localStorage.getItem('user_id'));
     //this.pictures = this.userId.pictures;
     this.userService.retrieveUserOptions().subscribe((result) => {
-      this.friendOptions = result;
+        this.friendOptions = result;
     });
 
     this.userService.getUserById(this.userId)
@@ -35,6 +34,7 @@ export class AppComponent implements OnInit {
         this.pictures = response.pictures;
         console.log('sag mir Id Bruda: ' + this.user.id);
         console.log('zeig schwanz Bruda: ' + this.pictures );
+        if (this.pictures >= 0) {console.log( 'works');}
       });
 
 
