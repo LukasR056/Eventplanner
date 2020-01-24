@@ -40,6 +40,18 @@
           Birthday: {{friend.birthday}}
         </p>
 
+        <p>
+          {{friend.first_name}} also goes to
+          <span *ngFor="let event of events">
+                <div *ngIf="event.participants.includes(friend.id) || event.eventplanner==friend.id
+                            && event.public == true"
+                     (click)="moveToEventDetail(event.id)">
+                     {{event.name}}
+              </div>
+          </span>
+        </p>
+
+
       </mat-card-content>
     </mat-card>
   </div>

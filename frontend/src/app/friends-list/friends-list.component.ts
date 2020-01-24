@@ -4,6 +4,8 @@ import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {FriendshipRequestService} from '../service/friendship-request.service';
+import { EventService } from '../service/event.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-friends-list',
@@ -26,9 +28,11 @@ export class FriendsListComponent implements OnInit {
   filteredUserList: Observable<any[]>;
   private friendRequestsFormGroup;
   private userFormGroup;
+  events;
 
 
-  constructor(private userService: UserService, private friendshipRequestService: FriendshipRequestService, private fb: FormBuilder) {
+  constructor(private userService: UserService, private friendshipRequestService: FriendshipRequestService,
+              private fb: FormBuilder, private eventService: EventService, private router: Router) {
   }
 
   ngOnInit() {
@@ -91,8 +95,18 @@ export class FriendsListComponent implements OnInit {
         map(value => typeof value === 'string' ? value : value.first_name),
         map(value => value.length >= 1 ? this._filter(value) : [])
       );
+
+    this.eventService.getEventsId()
+      .subscribe((response: any[]) => {
+       this.events = response;
+      });
+
   }
 
+  moveToEventDetail(id: any) {
+    this.router.navigate(['/event-detail/' + id]);
+  }
+  
   displayFn(user?: any): string | undefined {
     return user ? (user.first_name || user.last_name ? (user.first_name + ' ' + user.last_name) : ('@' + user.user.username)) : undefined;
   }
