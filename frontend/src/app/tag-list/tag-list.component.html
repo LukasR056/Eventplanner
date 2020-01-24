@@ -16,10 +16,12 @@
 </form>
 
 <mat-form-field class="chip-list">
-  <mat-chip-list aria-label="Tag selection" [multiple]="true" >
+  <mat-chip-list aria-label="Tag selection" [multiple]="true">
+    <div class="tags">
     <mat-chip *ngFor="let tag of tags" [selectable]="selectable" (click)="changeEvent(tag)" >
       {{tag.name}}
     </mat-chip>
+    </div>
   </mat-chip-list >
 </mat-form-field>
 
