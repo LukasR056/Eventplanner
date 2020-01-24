@@ -23,6 +23,7 @@ export class FriendsListComponent implements OnInit {
   userId: any;
   input = new FormControl();
   userList: any[];
+  pictures: any[];
   filteredUserList: Observable<any[]>;
   private friendRequestsFormGroup;
   private userFormGroup;
