@@ -12,22 +12,61 @@ import {UserService} from '../service/user.service';
 export class UserFormComponent implements OnInit {
   userFormGroup: any;
   friendOptions: any;
+  userId: any;
+  user: any;
+  forumentryFormGroup;
+
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,
               private router: Router, private userService: UserService) {
   }
 
   ngOnInit() {
+    this.userId = Number(localStorage.getItem('user_id'));
+
     this.userService.retrieveUserOptions().subscribe((result) => {
       this.friendOptions = result;
     });
 
     this.userFormGroup = this.fb.group({
-      id: [],
-      name: [],
-      events: [[]],
+      id: [null],
+      user: [this.userId],
+      first_name: [null],
+      last_name: [null],
+      pictures: [[]],
+
     });
 
+    this.userService.getUserById(this.userId)
+      .subscribe((response: any) => {
+        this.user = response;
+        this.user.id = response.id;
+        this.user.first_name = response.first_name;
+        this.user.last_name = response.last_name;
+       // console.log('sag mir Id Bruda: ' + this.user.id);
+       // console.log('sag mir firstname Bruda: ' + this.user.first_name);
+       // console.log('sag mir lastname Bruda: ' + this.user.last_name);
+        this.userFormGroup.patchValue(response);
+
+      });
+
+
   }
+
+  updateProfile(userId: any) {
+    this.router.navigate(['/user-form/' + userId]);
+  }
+
+  updateUser() {
+    // this.userService.getUserById(this.userId)
+    const user = this.userFormGroup.value;
+    console.log(user);
+    this.userService.updateUser(user)
+        .subscribe(() => {
+          this.router.navigate(['/homepage']);
+          window.location.reload();
+        });
+    window.location.reload();
+    }
 
 }

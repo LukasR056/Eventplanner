@@ -1,12 +1,17 @@
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+
 <mat-toolbar style="height: 8vh; padding-left: 5vw; padding-right: 5vw">
   <button mat-button class="logo" routerLink="homepage">
     <span>ULTIMATE EVENT</span>
   </button>
-  <!-- <div style="font-size: x-large;">ULTIMATE EVENT</div> -->
   <div class="user-settings" *ngIf="isLoggedIn">
-    <button mat-icon-button class="grow" [matMenuTriggerFor]="menu">
-      <mat-icon>account_circle</mat-icon>
+    <button class="grow" [matMenuTriggerFor]="menu">
+      <!-- TODO: VERSCHÖNERN
+      <mat-icon>account_circle</mat-icon> -->
+      <span *ngFor="let picture of this.pictures">
+        <img src="api/media/{{picture}}" height="65px"><br>
+      </span>
+
     </button>
     <mat-menu #menu="matMenu">
       <button routerLink="user-form" mat-menu-item>
