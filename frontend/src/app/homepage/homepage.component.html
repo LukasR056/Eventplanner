@@ -7,9 +7,9 @@
   </div>
 
 
-  <mat-card class="event-card" *ngFor="let event of events" (click)="moveToEventDetail(event.id)">
+  <mat-card class="event-card" *ngFor="let event of events">
 
-    <mat-card-header style="display: block">
+    <mat-card-header style="display: block" (click)="moveToEventDetail(event.id)">
       <mat-card-title>{{event.name}}
         <mat-icon class="eventplanner-icons" *ngIf="event.eventplanner == username">star</mat-icon>
       </mat-card-title>
