@@ -26,7 +26,8 @@ export class EventFormComponent implements OnInit {
   userOptionsNotEmpty = true;
   loggedUser: any;
   newTagForm;
-
+  //public parentProp = "Parent data value";
+  public parentProp = true;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,
               private router: Router, private eventService: EventService, private userService: UserService, private tagService: TagsService, public dialog: MatDialog) {

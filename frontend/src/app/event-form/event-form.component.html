@@ -73,8 +73,9 @@
 
   <br>
   <div>
-    <app-mediainput formControlName="pictures"></app-mediainput>
+    <app-mediainput [parentObj]="parentProp" formControlName="pictures"></app-mediainput>
   </div>
+
 
   <mat-card-actions align="center">
     <button mat-raised-button color="primary" [disabled]="!eventFormGroup.valid" (click)="createEvent()">

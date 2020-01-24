@@ -27,6 +27,8 @@ export interface IMedia {
   ]
 })
 export class MediainputComponent implements OnInit, ControlValueAccessor {
+ // @Input() public parentObj = "second";
+  @Input() public parentObj = false;
 
 
   constructor(private userService: UserService, private http: HttpClient, elm: ElementRef,
@@ -36,7 +38,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
   friendOptions: any;
   userId: any;
   user: any;
-  @Input()
   accept = '';
   resourceUrl = '/api/media';
   initializing = true;
@@ -81,9 +82,10 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
       .subscribe((response: any) => {
         this.user = response;
         this.pictures = response.pictures;
-        if (this.pictures.length >= 1)
-        {
+        if (this.pictures.length >= 1 && this.parentObj == false) {
           this.picIsAlreadyThere = true;
+          console.log('picture länge: ' + this.pictures.length );
+          console.log('parentObj ' + this.parentObj );
         }
 
       });
@@ -103,10 +105,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
           this.router.navigate(['/event-list/']);
         });}
   }
-
-
-
-
   downloadMedia(media: IMedia): void {
     this.http.get(`${this.resourceUrl}/${media.id}`, {responseType: 'blob'}).subscribe((blob: Blob) => {
       const fileURL = URL.createObjectURL(blob);

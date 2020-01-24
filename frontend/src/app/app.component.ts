@@ -32,8 +32,8 @@ export class AppComponent implements OnInit {
         this.user = response;
         this.user.id = response.id;
         this.pictures = response.pictures;
-        console.log('sag mir Id Bruda: ' + this.user.id);
-        console.log('zeig schwanz Bruda: ' + this.pictures );
+        //console.log('sag mir Id Bruda: ' + this.user.id);
+        //console.log('zeig schwanz Bruda: ' + this.pictures );
         if (this.pictures >= 0) {console.log( 'works');}
       });
 
