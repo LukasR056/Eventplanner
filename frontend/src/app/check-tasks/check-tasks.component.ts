@@ -44,9 +44,10 @@ export class CheckTasksComponent implements OnInit {
 
     updatedTask.verified_by_planner = true;
     updatedTask.verified_by_participant = true;
-    const eventId = updatedTask.event.id;
-    delete updatedTask.event;
-    updatedTask.event = eventId;
+    updatedTask.event = updatedTask.event.id;
+    updatedTask.responsible = updatedTask.responsible.id;
+
+    console.log(updatedTask);
 
     const indexOfUpdatedTask = this.tasks.indexOf(updatedTask);
     this.tasks.splice(indexOfUpdatedTask, 1);

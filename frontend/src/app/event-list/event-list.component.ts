@@ -2,12 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {EventService} from '../service/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.scss']
+  styleUrls: ['./event-list.component.scss'],
+  providers: [DatePipe]
 })
 // tslint:disable:triple-equals
 export class EventListComponent implements OnInit {
@@ -16,8 +18,7 @@ export class EventListComponent implements OnInit {
   username;
   userId;
 
-
-  constructor(private eventService: EventService, private router: Router) {
+  constructor(private eventService: EventService, private router: Router, private datepipe: DatePipe) {
   }
 
   ngOnInit() {
@@ -34,6 +35,8 @@ export class EventListComponent implements OnInit {
         }
         this.events.sort((a, b) => (a.date > b.date) ? 1 : -1);
       });
+
+
   }
 
   createNewEvent() {

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
@@ -223,6 +225,7 @@ def tag_delete(request, pk):
 @api_view(['GET'])
 def event_list(request):
     events = Event.objects.all()
+    Event.objects.filter(date__lt=datetime.today().date()).delete() ## löscht die Events die vergangen sind
     serializers = EventListSerializer(events, many=True)
     return Response(serializers.data)
 

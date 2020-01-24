@@ -61,8 +61,6 @@ export class HomepageComponent implements OnInit {
     });
 
     this.eventService.retrieveEvents().subscribe((result: any[]) => {
-      // TODO: EVENTS SORTIEREN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! .slice funktion
-      // Nach Datum sortieren funktioniert noch nicht!!
 
       for (const event of result) {
         if (event.eventplanner === this.username || event.participants.includes(' ' + this.username)) {
