@@ -48,11 +48,7 @@ export class EventFormComponent implements OnInit {
       this.loggedUser = result;
     });
 
-    this.tagService.getTags().subscribe((result) => {
-      this.tagOptions = result;
-      this.tagOptions.sort((a, b) => (a.name > b.name) ? 1 : -1)  ;
-    });
-
+    this.allTags();
 
     this.eventFormGroup = this.fb.group({
       id: [null],
@@ -99,13 +95,21 @@ export class EventFormComponent implements OnInit {
 
   }
 
+  allTags() {
+    this.tagService.getTags().subscribe((result) => {
+      this.tagOptions = result;
+      this.tagOptions.sort((a, b) => (a.name > b.name) ? 1 : -1)  ;
+    });
+  }
+
+
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '40%',
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.ngOnInit();
+      this.allTags();
     });
   }
 
