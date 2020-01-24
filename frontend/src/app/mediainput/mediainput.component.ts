@@ -105,11 +105,12 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
   }
 
   deleteMediafromdb(media: any) {
-    if (confirm('Are you sure you want to delete this event?')) {
+    if (confirm('Are you sure you want to delete this Picture?')) {
       this.mediaService.deleteMedia(media)
         .subscribe(() => {
           this.router.navigate(['/event-list/']);
         });}
+    window.location.reload();
   }
   downloadMedia(media: IMedia): void {
     this.http.get(`${this.resourceUrl}/${media.id}`, {responseType: 'blob'}).subscribe((blob: Blob) => {
