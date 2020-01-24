@@ -33,7 +33,9 @@
     </p>
 
     <div *ngIf="userId == event.eventplanner || event.participants.includes(userId); then thenBlock else elseBlock"></div>
-    <ng-template #thenBlock>You are participating in this event.</ng-template>
+    <ng-template #thenBlock><div *ngIf="userId == event.eventplanner; then thenBlock2 else elseBlock2"></div></ng-template>
+                      <ng-template #thenBlock2>You are the event planner.</ng-template>
+                      <ng-template #elseBlock2>You are participating in this event.</ng-template>
     <ng-template #elseBlock><button mat-button (click)="participateEvent(event)" >I'm in!</button></ng-template>
 
 
