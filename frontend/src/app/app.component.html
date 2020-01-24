@@ -5,14 +5,21 @@
     <span>ULTIMATE EVENT</span>
   </button>
   <div class="user-settings" *ngIf="isLoggedIn">
-    <button class="grow" [matMenuTriggerFor]="menu">
-      <!-- TODO: VERSCHÖNERN
-      <mat-icon>account_circle</mat-icon> -->
-      <span *ngFor="let picture of this.pictures">
-        <img src="api/media/{{picture}}" height="65px"><br>
-      </span>
+    <span *ngIf="!pictureExist">
+      <button mat-icon-button class="grow" [matMenuTriggerFor]="menu">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </span>
 
-    </button>
+    <span *ngIf="pictureExist">
+      <span *ngFor="let picture of pictures">
+        <button class="grow" [matMenuTriggerFor]="menu">
+          <!-- TODO: VERSCHÖNERN -->
+          <img src="api/media/{{picture}}" height="65px"><br>
+        </button>
+      </span>
+    </span>
+
     <mat-menu #menu="matMenu">
       <button routerLink="user-form" mat-menu-item>
         <mat-icon>build</mat-icon>

@@ -9,10 +9,11 @@ import {UserService} from './service/user.service';
 export class AppComponent implements OnInit {
   title = 'frontend';
   isLoggedIn = false;
-  pictures: number;
+  pictures: any[];
   friendOptions: any;
   userId: any;
   user: any;
+  private pictureExist: boolean;
 
   constructor(private userService: UserService) {
   }
@@ -32,11 +33,13 @@ export class AppComponent implements OnInit {
         this.user = response;
         this.user.id = response.id;
         this.pictures = response.pictures;
+
         // console.log('sag mir Id Bruda: ' + this.user.id);
-        console.log('picture ID: ' + this.pictures);
-        if (this.pictures >= 0) {
+        console.log(this.pictures);
+        if (this.pictures.length >= 0) {
           console.log('works');
         }
+        this.pictureExist = this.pictures.length!=0;
       });
   }
 
