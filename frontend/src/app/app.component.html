@@ -1,4 +1,4 @@
-<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
 <mat-toolbar style="height: 8vh; padding-left: 5vw; padding-right: 5vw">
   <button mat-button class="logo" routerLink="homepage">
     <span>ULTIMATE EVENT</span>
@@ -27,7 +27,7 @@
 </mat-toolbar>
 
 <mat-drawer-container [hasBackdrop]="true">
-  <mat-drawer style="width: 15vw" #drawer mode="over" position="end" autoFocus="false" (click)="drawer.close()">
+  <mat-drawer class="mat-drawer" #drawer mode="over" position="end" autoFocus="false" (click)="drawer.close()">
     <button routerLink="event-list" mat-menu-item>
       <mat-icon>list_alt</mat-icon>
       <span>My Events</span>

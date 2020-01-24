@@ -1,3 +1,5 @@
+<div class="tag-list-form">
+
 <form class="example-form">
   <mat-form-field class="example-full-width">
     <input type="text" placeholder="Search for new events!" aria-label="Search for new events!" matInput
@@ -14,12 +16,14 @@
 </form>
 
 <mat-form-field class="chip-list">
-  <mat-chip-list  aria-label="Tag selection" [multiple]="true" >
+  <mat-chip-list aria-label="Tag selection" [multiple]="true" >
     <mat-chip *ngFor="let tag of tags" [selectable]="selectable" (click)="changeEvent(tag)" >
       {{tag.name}}
     </mat-chip>
   </mat-chip-list >
 </mat-form-field>
+
+</div>
 
 <br>
 
