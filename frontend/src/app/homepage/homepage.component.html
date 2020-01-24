@@ -1,58 +1,50 @@
-<div class="event-list-buttons">
-  <div class="event-list">
+<div class="event-list">
 
-    <div>
-      <h3>My Events <br>MY USERNAME {{username}} WITH ID {{userId}}<br></h3>
-      <button mat-button routerLink="../check-invitation" *ngIf="openEvents">You have been invited to new events!
-      </button>
-    </div>
-
-
-    <mat-card class="event-card" *ngFor="let event of events" (click)="moveToEventDetail(event.id)">
-
-      <mat-card-header>
-        <mat-card-title>{{event.name}} <mat-icon>edit star</mat-icon></mat-card-title>
-      </mat-card-header>
-      <hr>
-      <mat-card-content>
-        <p>
-          Description: {{event.description}}
-        </p>
-        <p>
-          Location: {{event.location}}
-        </p>
-        <p>
-          When: {{event.date}}
-        </p>
-
-
-        This is a
-
-        <strong>
-          <div *ngIf="event.public; then thenBlock else elseBlock"></div>
-          <ng-template #thenBlock>public</ng-template>
-          <ng-template #elseBlock>private</ng-template>
-        </strong>
-
-        event.
-
-        <p>
-          Responsible: {{event.eventplanner}}
-        </p>
-        <p>
-          Who else: {{event.invited}}
-        </p>
-      </mat-card-content>
-    </mat-card>
-
-
+  <div>
+    <h3>My Events <br>MY USERNAME {{username}} WITH ID {{userId}}<br></h3>
+    <button mat-button routerLink="../check-invitation" *ngIf="openEvents">You have been invited to new events!
+    </button>
   </div>
 
-  <div class="buttons">
-    <button mat-button routerLink="../event-list">Show all events</button>
-    <button mat-button routerLink="../tag-list">Looking for other events?</button>
-    <button mat-button routerLink="../event-form">Create your own event!</button>
-  </div>
+
+  <mat-card class="event-card" *ngFor="let event of events" (click)="moveToEventDetail(event.id)">
+
+    <mat-card-header style="display: block">
+      <mat-card-title>{{event.name}}
+        <mat-icon class="eventplanner-icons" *ngIf="event.eventplanner == username">star</mat-icon>
+      </mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <p>
+        Description: {{event.description}}
+      </p>
+      <p>
+        Location: {{event.location}}
+      </p>
+      <p>
+        When: {{event.date}}
+      </p>
+
+
+      This is a
+
+      <strong>
+        <div *ngIf="event.public; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>public</ng-template>
+        <ng-template #elseBlock>private</ng-template>
+      </strong>
+
+      event.
+
+      <p>
+        Responsible: {{event.eventplanner}}
+      </p>
+      <p>
+        Who else: {{event.invited}}
+      </p>
+    </mat-card-content>
+  </mat-card>
 
 </div>
 
@@ -74,15 +66,20 @@
       <mat-expansion-panel *ngFor="let task of tasks">
 
         <mat-expansion-panel-header>
-          <mat-panel-title>
+          <mat-panel-title class="mat-panel-title">
             <p>
               <strong>{{task.title}}</strong> <br>
               event: {{task.event.name}}
             </p>
           </mat-panel-title>
-          <mat-panel-description>
+          <mat-panel-description class="mat-panel-description-deadline">
             <p>
-              deadline: {{task.deadline_date}} {{task.deadline_time.substring(0, 5)}}
+              Deadline: {{task.deadline_date | date:'dd MMM yyyy'}} {{task.deadline_time.substring(0, 5)}}
+            </p>
+          </mat-panel-description>
+          <mat-panel-description class="mat-panel-description-status">
+            <p>
+              {{taskService.statusName[task.status]}}
             </p>
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -103,7 +100,7 @@
           deadline: {{task.deadline_date}} {{task.deadline_time}}
         </p>
         <p>
-          responsible: {{task.responsible}}
+          responsible: {{task.responsible.username}}
         </p>
 
         <!--<div class="buttons">

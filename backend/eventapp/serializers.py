@@ -64,8 +64,14 @@ class TaskEventplannerSerializer(serializers.ModelSerializer):
         model = Event
         fields = ['id', 'eventplanner', 'name']
 
+class TaskResponsibleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username']
+
 class TaskListSerializer(serializers.ModelSerializer):
     event = TaskEventplannerSerializer()
+    responsible = TaskResponsibleSerializer()
 
     class Meta:
         model = Task

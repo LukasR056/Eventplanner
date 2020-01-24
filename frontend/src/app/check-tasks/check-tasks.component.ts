@@ -25,7 +25,7 @@ export class CheckTasksComponent implements OnInit {
     this.taskService.getTasks().subscribe((response: any[]) => {
 
       //erste condition, wo er beim  Task verantworlich ist und verifiedParticipant false ist| die Tasks wo er als eventplanner dabei ist und dort verifiedPlanner false ist | zum schluss noch alle task wo beide verified nicht true
-      this.tasks = response.filter(task => ((task.responsible == this.userId && !task.verified_by_participant)
+      this.tasks = response.filter(task => ((task.responsible.id == this.userId && !task.verified_by_participant)
         || (task.event.eventplanner == this.userId && !task.verified_by_planner))
         && !(task.verified_by_participant && task.verified_by_planner));
 

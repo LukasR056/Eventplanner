@@ -1,50 +1,65 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Search for new friends!" aria-label="Search for new friends!" matInput
-           [formControl]="input" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
-                      (optionSelected)="getFriendForRequest($event.option.value)"
-                      (keydown.enter)="addFriend(-1,true)">
-      <mat-option *ngFor="let user of filteredUserList | async" [value]="user">
-        {{user.first_name}} {{user.last_name}}
-        @{{user.user.username}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <button mat-raised-button mat-button class="button-add" (click)="addFriend(-1,true)">+</button>
-</form>
+<div style="width: 100%">
 
-<h2>Friends</h2>
+  <div style="display: none"
+       [ngClass]="{'friend-area-adapted': receivedFriendRequestsCount == 0, 'friend-area': receivedFriendRequestsCount > 0}">
+    <form class="example-form">
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Search for new friends!" aria-label="Search for new friends!" matInput
+               [formControl]="input" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                          (optionSelected)="getFriendForRequest($event.option.value)"
+                          (keydown.enter)="addFriend(-1,true)">
+          <mat-option *ngFor="let user of filteredUserList | async" [value]="user">
+            <strong>{{user.first_name}} {{user.last_name}}</strong>
+            @{{user.user.username}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <button mat-icon-button class="button-add" (click)="addFriend(-1,true)">
+        <mat-icon>add</mat-icon>
+      </button>
+    </form>
 
-<mat-card class="event-card" *ngFor="let friend of friends">
-  <button mat-raised-button mat-button class="button-delete" (click)="removeFriend(friend.id)">X</button>
-  <mat-card-header>
-    <mat-card-title class="event-card-title">{{friend.first_name}} {{friend.last_name}}</mat-card-title>
-  </mat-card-header>
-  <hr>
-  <mat-card-content>
-    <p>
-      @{{friend.user.username}}
-    </p>
-    <p>
-      Birthday: {{friend.birthday}}
-    </p>
+    <h2>Friends</h2>
 
-  </mat-card-content>
-</mat-card>
+    <mat-card class="event-card" *ngFor="let friend of friends">
+      <button mat-raised-button mat-button class="button-delete" (click)="removeFriend(friend.id)">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <mat-card-header>
+        <mat-card-title class="event-card-title">{{friend.first_name}} {{friend.last_name}}</mat-card-title>
+      </mat-card-header>
+      <hr>
+      <mat-card-content>
+        <p>
+          @{{friend.user.username}}
+        </p>
+        <p>
+          Birthday: {{friend.birthday}}
+        </p>
 
-<mat-expansion-panel *ngIf="receivedFriendRequestsCount > 0">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      <strong>Friendship requests: {{receivedFriendRequestsCount}}</strong>
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <div *ngFor="let friendRequest of receivedFriendRequests">
-    <p>
-      {{friendRequest.first_name}} {{friendRequest.last_name}} (@{{friendRequest.user.username}})
-      <button mat-raised-button (click)="addFriend(friendRequest.id, false)">accept</button>
-      <button mat-raised-button (click)="declineFriendRequest(friendRequest.id)">decline</button>
-    </p>
-    <hr>
+      </mat-card-content>
+    </mat-card>
   </div>
-</mat-expansion-panel>
+
+  <mat-expansion-panel class="friend-requests" *ngIf="receivedFriendRequestsCount > 0">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <strong>Friendship requests: {{receivedFriendRequestsCount}}</strong>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngFor="let friendRequest of receivedFriendRequests">
+      <p>
+        <strong>{{friendRequest.first_name}} {{friendRequest.last_name}}</strong> (@{{friendRequest.user.username}})
+        <button mat-icon-button class="friend-accept" (click)="addFriend(friendRequest.id, false)">
+          <mat-icon style="color: green">done</mat-icon>
+        </button>
+        <button mat-icon-button class="friend-accept" (click)="declineFriendRequest(friendRequest.id)">
+          <mat-icon style="color: #cb0000">clear</mat-icon>
+        </button>
+      </p>
+      <hr>
+    </div>
+  </mat-expansion-panel>
+
+</div>

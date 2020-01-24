@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {TaskListComponent} from './task-list/task-list.component';
 import {TaskFormComponent} from './task-form/task-form.component';
 import {TagFormComponent} from './tag-form/tag-form.component';
 import {TagListComponent} from './tag-list/tag-list.component';
@@ -23,7 +22,6 @@ import {CheckTasksComponent} from './check-tasks/check-tasks.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full'},
-  { path: 'task-list', component: TaskListComponent, canActivate: [AuthenticationGuard] },
   { path: 'task-form', component: TaskFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'task-form/:id', component: TaskFormComponent, canActivate: [AuthenticationGuard] },
   { path: 'tag-list', component: TagListComponent, canActivate: [AuthenticationGuard] },

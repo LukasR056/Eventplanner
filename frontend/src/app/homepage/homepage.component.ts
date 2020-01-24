@@ -41,7 +41,7 @@ export class HomepageComponent implements OnInit {
     this.taskService.getTasks()
       .subscribe((response: any[]) => {
         for (const task of response) {
-          if (task.responsible === this.userId && task.verified_by_planner && task.verified_by_participant) {
+          if (task.responsible.id === this.userId && task.verified_by_planner && task.verified_by_participant) {
             this.tasks.push(task);
           }
         }
@@ -69,6 +69,7 @@ export class HomepageComponent implements OnInit {
           this.events.push(event);
         }
       }
+      this.events = this.events.sort((a, b) => b.date - a.date);
       this.events = this.events.slice(0, 3);
       this.events.sort((a, b) => (a.date > b.date) ? 1 : -1);
     });
