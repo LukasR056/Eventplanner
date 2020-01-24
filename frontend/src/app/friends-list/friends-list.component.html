@@ -2,23 +2,25 @@
 
   <div style="display: none"
        [ngClass]="{'friend-area-adapted': receivedFriendRequestsCount == 0, 'friend-area': receivedFriendRequestsCount > 0}">
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Search for new friends!" aria-label="Search for new friends!" matInput
-               [formControl]="input" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
-                          (optionSelected)="getFriendForRequest($event.option.value)"
-                          (keydown.enter)="addFriend(-1,true)">
-          <mat-option *ngFor="let user of filteredUserList | async" [value]="user">
-            <strong>{{user.first_name}} {{user.last_name}}</strong>
-            @{{user.user.username}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <button mat-icon-button class="button-add" (click)="addFriend(-1,true)">
-        <mat-icon>add</mat-icon>
-      </button>
-    </form>
+    <div style="width: 100%; overflow: hidden">
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input type="text" placeholder="Search for new friends!" aria-label="Search for new friends!" matInput
+                 [formControl]="input" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                            (optionSelected)="getFriendForRequest($event.option.value)"
+                            (keydown.enter)="addFriend(-1,true)">
+            <mat-option *ngFor="let user of filteredUserList | async" [value]="user">
+              <strong>{{user.first_name}} {{user.last_name}}</strong>
+              @{{user.user.username}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <button mat-icon-button class="button-add" (click)="addFriend(-1,true)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </form>
+    </div>
 
     <h2>Friends</h2>
 
