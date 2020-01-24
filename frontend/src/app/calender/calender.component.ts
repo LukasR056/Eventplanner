@@ -78,7 +78,7 @@ export class CalenderComponent implements OnInit, AfterContentChecked {
      // console.log('ALL ALL ALL ' + this.all);
    }
 });
- 
+
   CalendarView = CalendarView;
   viewDate: Date = new Date();
   refresh: Subject<any> = new Subject();
@@ -126,6 +126,7 @@ export class CalenderComponent implements OnInit, AfterContentChecked {
 
       });
       // console.log(en);
+      this.refresh.next();
     }
       }
 
