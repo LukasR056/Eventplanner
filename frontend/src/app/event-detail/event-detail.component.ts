@@ -105,7 +105,7 @@ export class EventDetailComponent implements OnInit {
   filterTasks() {
     this.taskService.getTasks().subscribe((response: any[]) => {
       this.eventTasks = response.filter(task => this.event.tasks.includes(task.id));
-      // console.log(this.eventTasks);
+      console.log(this.eventTasks);
       this.eventTasks.forEach(task => {
         switch (task.status) {
           case 'o':

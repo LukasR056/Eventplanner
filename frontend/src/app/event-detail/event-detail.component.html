@@ -5,7 +5,7 @@
     <mat-card-header>
       <mat-card-title>{{event.name}}</mat-card-title>
       <button style="width: 20%; background-color: darkorange; color: white" mat-button
-              (click)="updateEvent(event.id)">Update
+              *ngIf="event.eventplanner==userId" (click)="updateEvent(event.id)">Update
       </button>
     </mat-card-header>
     <p *ngFor="let picture of pictures">
@@ -63,7 +63,7 @@
                 <strong>{{task.title}}</strong> <br>
               </mat-panel-title>
               <mat-panel-description class="panel-header-width">
-                Responsible: {{task.responsible}}
+                Responsible: {{task.responsible.username}}
               </mat-panel-description>
             </mat-expansion-panel-header>
             <p>
@@ -94,7 +94,7 @@
                 <strong>{{task.title}}</strong> <br>
               </mat-panel-title>
               <mat-panel-description class="panel-header-width">
-                Responsible: {{task.responsible}}
+                Responsible: {{task.responsible.username}}
               </mat-panel-description>
             </mat-expansion-panel-header>
             <p>
@@ -124,14 +124,14 @@
                 <strong>{{task.title}}</strong> <br>
               </mat-panel-title>
               <mat-panel-description class="panel-header-width">
-                Responsible: {{task.responsible}}
+                Responsible: {{task.responsible.username}}
               </mat-panel-description>
             </mat-expansion-panel-header>
             <p>
               Description: {{task.description}}
             </p>
             <p>
-              Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} {{task.deadline_time.substring(0, 5)}}
+              Deadline: {{task.deadline_date | date:'dd MMM yyyy'}} {{task.deadline_time.substring(0, 5)}}
             </p>
           </mat-expansion-panel>
         </div>

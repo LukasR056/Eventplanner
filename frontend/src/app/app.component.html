@@ -1,7 +1,11 @@
-<mat-toolbar>
-  ULTIMATE EVENT
+<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+<mat-toolbar style="height: 8vh; padding-left: 5vw; padding-right: 5vw">
+  <button mat-button class="logo" routerLink="homepage">
+    <span>ULTIMATE EVENT</span>
+  </button>
+  <!-- <div style="font-size: x-large;">ULTIMATE EVENT</div> -->
   <div class="user-settings" *ngIf="isLoggedIn">
-    <button style="float: right" mat-icon-button [matMenuTriggerFor]="menu">
+    <button mat-icon-button class="grow" [matMenuTriggerFor]="menu">
       <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
@@ -9,19 +13,52 @@
         <mat-icon>build</mat-icon>
         <span>Settings</span>
       </button>
-      <button routerLink="friends-list" mat-menu-item>
-        <mat-icon>favorite</mat-icon>
-        <span>Friends</span>
-      </button>
-      <button routerLink="check-invitation" mat-menu-item>
-        <mat-icon>event</mat-icon>
-        <span> Invitations </span>
-      </button>
       <app-logout></app-logout>
     </mat-menu>
-  </div>
 
-  <button mat-button routerLink="event-list" *ngIf="isLoggedIn">Home</button>
-  <button mat-button routerLink="homepage" *ngIf="isLoggedIn">Homepage</button>
+    <button mat-icon-button class="grow" routerLink="homepage" *ngIf="isLoggedIn">
+      <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button class="grow" (click)="drawer.toggle()">
+      <mat-icon>dehaze</mat-icon>
+    </button>
+
+  </div>
 </mat-toolbar>
-<router-outlet></router-outlet>
+
+<mat-drawer-container [hasBackdrop]="true">
+  <mat-drawer style="width: 15vw" #drawer mode="over" position="end" autoFocus="false" (click)="drawer.close()">
+    <button routerLink="event-list" mat-menu-item>
+      <mat-icon>list_alt</mat-icon>
+      <span>My Events</span>
+    </button>
+    <button routerLink="event-form" mat-menu-item>
+      <mat-icon>create</mat-icon>
+      <span>Create Event</span>
+    </button>
+    <button routerLink="tag-list" mat-menu-item>
+      <mat-icon>search</mat-icon>
+      <span>Search Events</span>
+    </button>
+    <button routerLink="friends-list" mat-menu-item>
+      <mat-icon>favorite</mat-icon>
+      <span>Friends</span>
+    </button>
+    <button routerLink="check-invitation" mat-menu-item>
+      <mat-icon>event</mat-icon>
+      <span>Invitations</span>
+    </button>
+    <button routerLink="check-tasks" mat-menu-item>
+      <mat-icon>assignment_return</mat-icon>
+      <span>Pending Tasks </span>
+    </button>
+    <button routerLink="check-tasks" mat-menu-item>
+      <mat-icon>event_note</mat-icon>
+      <span>Calendar NEED IMPLEMENTATION</span>
+    </button>
+  </mat-drawer>
+  <mat-drawer-content
+    style="height: 92vh; background-image: url('https://cdn.allbuyone.com/media/image/43/a8/a8/allbuyone-eventshop-hero1.jpg')">
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

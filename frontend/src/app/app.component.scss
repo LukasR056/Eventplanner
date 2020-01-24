@@ -1,3 +1,34 @@
-.user-settings{
+.user-settings {
   width: 100%;
+  float: right;
+  text-align: end;
+}
+
+.button-size {
+  font-size: xx-large;
+}
+
+.grow {
+  transform: scale(1.3);
+  margin-left: 20px;
+  transition: all .2s ease-in-out;
+}
+
+.grow:hover {
+  transform: scale(1.6);
+}
+
+.logo {
+  min-width: auto;
+  padding: 5px 10px !important;
+  border-radius: 5px !important;
+  font-size: x-large;
+}
+
+.logo:hover span{
+  display: none;
+}
+
+.logo:hover:after {
+  content: " DASHBOARD ";
 }

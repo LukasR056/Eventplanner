@@ -6,7 +6,6 @@ import {AppComponent} from './app.component';
 import {DateComponent} from './date/date.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {TaskListComponent} from './task-list/task-list.component';
 import {TaskFormComponent} from './task-form/task-form.component';
 import {ForumentryListComponent} from './forumentry-list/forumentry-list.component';
 import {ForumentryFormComponent} from './forumentry-form/forumentry-form.component';
@@ -37,6 +36,7 @@ import {
   MatTableModule, MatButtonToggleModule,
   MatToolbarModule,
   MatDialogModule,
+  MatSidenavModule
 } from '@angular/material';
 import {FriendsFormComponent} from './friends-form/friends-form.component';
 import {FriendsListComponent} from './friends-list/friends-list.component';
@@ -68,7 +68,6 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    TaskListComponent,
     TaskFormComponent,
     ForumentryListComponent,
     ForumentryFormComponent,
@@ -130,6 +129,7 @@ export function tokenGetter() {
       }
     }),
     FileUploadModule,
+    MatSidenavModule,
 
   ],
   providers: [],

@@ -28,7 +28,22 @@
 
 .task-list {
   padding: 3%;
+  width: 50%;
+  margin: auto;
   float: bottom;
+}
+
+.mat-panel-title {
+  width: 45%;
+}
+
+.mat-panel-description-deadline {
+  width: 35%;
+}
+
+
+.mat-panel-description-status {
+  width: 10%;
 }
 
 .event-list-button {
@@ -38,4 +53,9 @@
 .wrapper {
   float: left;
   width: 100%;
+}
+
+.eventplanner-icons {
+  vertical-align: bottom;
+  float: right;
 }
