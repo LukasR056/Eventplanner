@@ -12,4 +12,9 @@ export class MediaService {
 getMedia(media: any) {
   return this.http.get('/api/media/' + media + '/get');
 }
+
+deleteMedia(media: any) {
+  return this.http.delete('/api/media/' + media.id + '/delete');
+}
+
 }

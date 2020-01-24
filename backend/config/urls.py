@@ -75,7 +75,7 @@ urlpatterns = [
     url(r'^media$', FileUploadView.as_view()),
     path('media/<int:pk>', views.media_download),
     path('media/<int:pk>/get', views.media_get),
-    #path('media/<int:pk>/delete', views.media_delete),
+    path('media/<int:pk>/delete', views.media_delete),
 
 
 

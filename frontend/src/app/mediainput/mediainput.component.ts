@@ -4,6 +4,8 @@ import {FileItem, FileUploader, ParsedResponseHeaders} from 'ng2-file-upload';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from '../service/user.service';
 import {forkJoin} from 'rxjs';
+import {MediaService} from '../service/media.service';
+import {Router} from '@angular/router';
 
 export interface IMedia {
   id?: number;
@@ -27,7 +29,8 @@ export interface IMedia {
 export class MediainputComponent implements OnInit, ControlValueAccessor {
 
 
-  constructor(private userService: UserService, private http: HttpClient, elm: ElementRef) {
+  constructor(private userService: UserService, private http: HttpClient, elm: ElementRef,
+              private mediaService: MediaService, private router: Router) {
   }
   pictures: number[];
   friendOptions: any;
@@ -91,6 +94,14 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
     this.onChange(this.medias.map((m) => {
       return m.id;
     }));
+  }
+
+  deleteMediafromdb(media: any) {
+    if (confirm('Are you sure you want to delete this event?')) {
+      this.mediaService.deleteMedia(media)
+        .subscribe(() => {
+          this.router.navigate(['/event-list/']);
+        });}
   }
 
 
