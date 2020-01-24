@@ -71,11 +71,7 @@
             </p>
             <p>
               Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} {{task.deadline_time.substring(0, 5)}}
-              <button mat-button style="float: right; background-color: darkorange; "  (click)="updateTask(task,event)">
-                <mat-icon>edit</mat-icon>
-              </button>
             </p>
-
           </mat-expansion-panel>
         </div>
       </div>
