@@ -28,7 +28,12 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.userService.userGotUpdated.subscribe(response => {
+      if (response == true) {
+        this.userService.userGotUpdated.next(false);
+        window.location.reload();
+      }
+    });
     this.username = localStorage.getItem('username');
     this.userId = Number(localStorage.getItem('user_id'));
     this.events = [];
@@ -65,9 +70,9 @@ export class HomepageComponent implements OnInit {
       for (const event of result) {
         if (event.eventplanner === this.username || event.participants.includes(' ' + this.username)) {
 
-          const year = event.date.slice(0,4);
-          const month = event.date.slice(5,7);
-          const day = event.date.slice(8,10)
+          const year = event.date.slice(0, 4);
+          const month = event.date.slice(5, 7);
+          const day = event.date.slice(8, 10)
           const eventDate = new Date(year, month, day).getTime();
           const today = new Date().getTime();
 

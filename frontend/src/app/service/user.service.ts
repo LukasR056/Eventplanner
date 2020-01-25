@@ -10,6 +10,7 @@ import {EventService} from './event.service';
 })
 export class UserService {
   isLoggedIn = new BehaviorSubject(false);
+  userGotUpdated = new BehaviorSubject(false);
   username: any;
 
   constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router,) {

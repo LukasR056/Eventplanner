@@ -63,9 +63,9 @@ export class UserFormComponent implements OnInit {
     console.log(user);
     this.userService.updateUser(user)
         .subscribe(() => {
+          this.userService.userGotUpdated.next(true);
           this.router.navigate(['/homepage']);
         });
-    window.location.reload();
     }
 
 }
