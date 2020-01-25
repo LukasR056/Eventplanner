@@ -3,14 +3,98 @@
     "model": "eventapp.event",
     "pk": 1,
     "fields": {
-      "name": "Barbecue Party",
-      "date": "2020-03-01",
-      "time": "16:14:12",
+      "name": "Netflix & Chill",
+      "date": "2020-05-01",
+      "time": "18:07:13",
+      "description": "Let's watch some Movies ;)",
+      "location": "@myPlace",
+      "public": false,
+      "eventplanner": 6,
+      "invited": [
+        3
+      ],
+      "participants": [],
+      "pictures": []
+    }
+  },
+  {
+    "model": "eventapp.event",
+    "pk": 2,
+    "fields": {
+      "name": "Good Friday Barbeque",
+      "date": "2020-04-10",
+      "time": "18:12:20",
       "description": "BYOF",
-      "location": "City Park",
-      "public": true,
+      "location": "My Garden",
+      "public": false,
+      "eventplanner": 4,
+      "invited": [
+        5,
+        6
+      ],
+      "participants": [],
+      "pictures": []
+    }
+  },
+  {
+    "model": "eventapp.event",
+    "pk": 3,
+    "fields": {
+      "name": "Beneficial Marathon",
+      "date": "2020-05-23",
+      "time": "18:14:45",
+      "description": "Running for charity",
+      "location": "City of Graz",
+      "public": false,
       "eventplanner": 2,
-      "invited": [],
+      "invited": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "participants": [],
+      "pictures": []
+    }
+  },
+  {
+    "model": "eventapp.event",
+    "pk": 4,
+    "fields": {
+      "name": "USI Party",
+      "date": "2020-07-08",
+      "time": "18:17:03",
+      "description": "Biggest Student's Party",
+      "location": "Graz USI",
+      "public": false,
+      "eventplanner": 3,
+      "invited": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "participants": [],
+      "pictures": []
+    }
+  },
+  {
+    "model": "eventapp.event",
+    "pk": 5,
+    "fields": {
+      "name": "Bachelor Party",
+      "date": "2020-07-07",
+      "time": "18:17:39",
+      "description": "Celebrating Final Exams",
+      "location": "FH JOANNEUM",
+      "public": false,
+      "eventplanner": 5,
+      "invited": [
+        2,
+        4
+      ],
       "participants": [],
       "pictures": []
     }
