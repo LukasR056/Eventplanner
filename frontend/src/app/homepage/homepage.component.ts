@@ -21,19 +21,29 @@ export class HomepageComponent implements OnInit {
   userId: any;
   userTasksEvents: any;
   openEvents = false;
+  openTask = false;
   openTasks: any[];
+  private userGotUpdated;
+
 
   constructor(private http: HttpClient, private eventService: EventService, public taskService: TaskService, private fb: FormBuilder,
               private router: Router, private userService: UserService) {
   }
 
   ngOnInit() {
-    this.userService.userGotUpdated.subscribe(response => {
-      if (response == true) {
+
+    if (this.userService.userGotUpdated != undefined) {
+      this.userService.userGotUpdated.subscribe(response => {
+        this.userGotUpdated = response;
+      });
+
+      if (this.userGotUpdated) {
         this.userService.userGotUpdated.next(false);
         window.location.reload();
       }
-    });
+    }
+
+
     this.username = localStorage.getItem('username');
     this.userId = Number(localStorage.getItem('user_id'));
     this.events = [];
@@ -51,7 +61,11 @@ export class HomepageComponent implements OnInit {
           }
         }
         this.tasks.sort((a, b) => (a.deadline_date > b.deadline_date) ? 1 : -1);
-        this.openTasks = response.filter(task => task.responsible === this.userId && !task.verified_by_participant);
+        // tslint:disable-next-line:max-line-length
+        this.openTasks = response.filter(task => (task.responsible == this.userId && !task.verified_by_participant) || (task.event.eventplanner == this.userId && !task.verified_by_planner));
+        if (this.openTasks.length > 0) {
+          this.openTask = true;
+        }
       });
 
     this.userService.getUserById(this.userId).subscribe(result => {
@@ -72,7 +86,7 @@ export class HomepageComponent implements OnInit {
 
           const year = event.date.slice(0, 4);
           const month = event.date.slice(5, 7);
-          const day = event.date.slice(8, 10)
+          const day = event.date.slice(8, 10);
           const eventDate = new Date(year, month, day).getTime();
           const today = new Date().getTime();
 

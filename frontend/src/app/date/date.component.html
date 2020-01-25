@@ -1,5 +1,6 @@
 <mat-form-field>
-  <input matInput [matDatepicker]="datepicker" [placeholder]="placeholder" [formControl]="date">
+  <input matInput [matDatepicker]="datepicker" [min]="minDate"
+         [placeholder]="placeholder" [formControl]="date">
   <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
   <mat-datepicker #datepicker></mat-datepicker>
   <mat-hint align="end">{{hint}}</mat-hint>

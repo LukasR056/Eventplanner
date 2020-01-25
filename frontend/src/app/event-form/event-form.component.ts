@@ -58,9 +58,9 @@ export class EventFormComponent implements OnInit {
       id: [null],
       name: ['', [Validators.required]],
       date: ['', [Validators.required]],
-      time: ['', [Validators.required]],
-      description: [null],
-      location: ['', [Validators.required]], // , [this.tagValidator()]], TODO: WAS IST DAS LUKAS?
+      time: ['00:00', [Validators.required]],
+      description: ['',[Validators.required]],
+      location: ['', [Validators.required]],
       public: [false],
       eventplanner: [null],
       tags: [[]],

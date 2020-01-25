@@ -24,7 +24,9 @@ export class AppComponent implements OnInit {
     });
     this.userId = Number(localStorage.getItem('user_id'));
 
+
     if (this.isLoggedIn) {
+      console.log(this.isLoggedIn)
       this.userService.retrieveUserOptions().subscribe((result) => {
         this.friendOptions = result;
       });

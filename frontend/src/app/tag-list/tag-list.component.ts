@@ -38,6 +38,8 @@ export class TagListComponent implements OnInit {
     this.eventService.getEventsId()
       .subscribe((response: any[]) => {
         this.events = response;
+        this.showEvents = this.events.filter(event => event.public && this.userId != event.eventplanner && !event.invited.includes(this.userId) && !event.participants.includes(this.userId))
+        this.showEvents.sort((a, b) => (a.date > b.date) ? 1 : -1)
       });
 
     this.filteredTagList = this.input.valueChanges
@@ -63,9 +65,10 @@ export class TagListComponent implements OnInit {
     // console.log(this.userId)
     this.showEvents = this.events.filter(event => event.tags.includes(tag.id)
       && event.public && event.eventplanner != this.userId
-      && !event.participants.includes(Number(this.userId))
-      && !event.invited.includes(Number(this.userId)));
-    // console.log(this.showEvents);
+      && !event.participants.includes(this.userId)
+      && !event.invited.includes(this.userId));
+    this.showEvents.sort((a, b) => (a.date > b.date) ? 1 : -1)
+
   }
 
   eventDetail(id: any) {

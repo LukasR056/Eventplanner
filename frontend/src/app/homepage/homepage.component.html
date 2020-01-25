@@ -55,7 +55,7 @@
 
   <div class="check-object-form-bottom task-list">
 
-    <button mat-button routerLink="../check-tasks" *ngIf="openTasks?.length">You have been invited to new events!
+    <button mat-button routerLink="../check-tasks" *ngIf="openTask">You have new tasks!
     </button>
 
     <h3>My Tasks</h3>
@@ -101,14 +101,14 @@
           responsible: {{task.responsible.username}}
         </p>
 
-        <!--<div class="buttons">
+     <!--   <div class="buttons">
           <div class="button-save">
             <button mat-button (click)="saveTask(task, task.value)">Edit Task</button>
           </div>
           <div class="button-delete">
             <button mat-button (click)="deleteEvent(task)">Delete Task</button>
           </div>
-        </div>-->
+        </div> -->
 
       </mat-expansion-panel>
       <br>

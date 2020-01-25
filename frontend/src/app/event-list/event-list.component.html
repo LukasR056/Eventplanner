@@ -42,9 +42,10 @@
 
     </mat-card-content>
 
-    <mat-card-actions style="float: right" *ngIf="userId != event.eventplanner">
+    <mat-card-actions style="float: right" >
 
-        <button mat-raised-button color="accent" mat-button (click)="cancelEvent(event.id)">CANCEL</button>
+        <button mat-raised-button color="accent" mat-button (click)="cancelEvent(event.id)" *ngIf="userId != event.eventplanner">CANCEL</button>
+        <mat-icon class="eventplanner-icons" *ngIf="event.eventplanner == userId">star</mat-icon>
 
     </mat-card-actions>
   </mat-card>
