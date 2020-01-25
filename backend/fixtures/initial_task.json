@@ -1,110 +1,137 @@
 [
   {
-    "model": "auth.user",
+    "model": "eventapp.task",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$150000$XNGyilyDiIuE$4XzejD/RtrL6A+i+7Zv1bWQVupAtBBbO1HqmYY/bH7g=",
-      "last_login": "2020-01-25T16:14:56.601Z",
-      "is_superuser": true,
-      "username": "admin",
-      "first_name": "",
-      "last_name": "",
-      "email": "",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2020-01-25T15:06:05.374Z",
-      "groups": [],
-      "user_permissions": []
+      "title": "Buy Drinks",
+      "description": "Get Alkohol in order to party",
+      "verified_by_planner": true,
+      "verified_by_participant": false,
+      "status": "d",
+      "deadline_date": "2020-06-18",
+      "deadline_time": "00:00:00",
+      "responsible": 4,
+      "event": 4
     }
   },
   {
-    "model": "auth.user",
+    "model": "eventapp.task",
     "pk": 2,
     "fields": {
-      "password": "pbkdf2_sha256$150000$cuAdJoGK1lkk$szu+7GYhwFAkzuVKEr7DAJ+B6bzJu1KweBckdIS6j0U=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "JD",
-      "first_name": "",
-      "last_name": "",
-      "email": "",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2020-01-25T15:06:57.589Z",
-      "groups": [],
-      "user_permissions": []
+      "title": "Buy Food",
+      "description": "In order to survive the evening get us some food pls",
+      "verified_by_planner": true,
+      "verified_by_participant": false,
+      "status": "i",
+      "deadline_date": "2020-05-20",
+      "deadline_time": "00:00:00",
+      "responsible": 5,
+      "event": 4
     }
   },
   {
-    "model": "auth.user",
+    "model": "eventapp.task",
     "pk": 3,
     "fields": {
-      "password": "pbkdf2_sha256$150000$8v7H5gkKwMoF$ordzKzd7RFlykECet6lLgZvfe9E0R7WkyLptAHu19SE=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "Sue",
-      "first_name": "",
-      "last_name": "",
-      "email": "",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2020-01-25T16:21:40.812Z",
-      "groups": [],
-      "user_permissions": []
+      "title": "Make Pictures",
+      "description": "Let us not forget this evening",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "o",
+      "deadline_date": "2020-06-18",
+      "deadline_time": "00:00:00",
+      "responsible": 3,
+      "event": 4
     }
   },
   {
-    "model": "auth.user",
+    "model": "eventapp.task",
     "pk": 4,
     "fields": {
-      "password": "pbkdf2_sha256$150000$D6ohXkbhJQLB$IyxnsLs5+Ti8+4hChMpg8cWpI4fqaeVNWZfb+XNzgJ8=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "Luke",
-      "first_name": "",
-      "last_name": "",
-      "email": "",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2020-01-25T16:22:09.317Z",
-      "groups": [],
-      "user_permissions": []
+      "title": "Buy Tickets",
+      "description": "Need Tickets for the Party",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "d",
+      "deadline_date": "2020-07-05",
+      "deadline_time": "00:00:00",
+      "responsible": 2,
+      "event": 4
     }
   },
   {
-    "model": "auth.user",
+    "model": "eventapp.task",
     "pk": 5,
     "fields": {
-      "password": "pbkdf2_sha256$150000$y13K4G6mwo5D$3Rpvkb4/tGg2GMvPXve6xWnVIJ5s4+DSswMFIi3Ypp8=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "Jane",
-      "first_name": "",
-      "last_name": "",
-      "email": "",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2020-01-25T16:22:43.787Z",
-      "groups": [],
-      "user_permissions": []
+      "title": "Prepare TV",
+      "description": "prepare TV for later",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "d",
+      "deadline_date": "2020-04-23",
+      "deadline_time": "00:00:00",
+      "responsible": 6,
+      "event": 1
     }
   },
   {
-    "model": "auth.user",
+    "model": "eventapp.task",
     "pk": 6,
     "fields": {
-      "password": "pbkdf2_sha256$150000$5SjMqu1AZlCH$80h6SQaeNgxzQUbkjqc6QG/xhCuKzahIWBfl3Y5zA1o=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "Tom",
-      "first_name": "",
-      "last_name": "",
-      "email": "",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2020-01-25T16:23:14.763Z",
-      "groups": [],
-      "user_permissions": []
+      "title": "Buy Steaks",
+      "description": "Buy food for Party",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "o",
+      "deadline_date": "2020-04-23",
+      "deadline_time": "00:00:00",
+      "responsible": 4,
+      "event": 2
+    }
+  },
+  {
+    "model": "eventapp.task",
+    "pk": 7,
+    "fields": {
+      "title": "Organize Bachelortrip",
+      "description": "Paaaarty",
+      "verified_by_planner": false,
+      "verified_by_participant": true,
+      "status": "i",
+      "deadline_date": "2020-05-16",
+      "deadline_time": "00:00:00",
+      "responsible": 4,
+      "event": 5
+    }
+  },
+  {
+    "model": "eventapp.task",
+    "pk": 8,
+    "fields": {
+      "title": "Get waterbottles",
+      "description": "Buy water for everyone",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "i",
+      "deadline_date": "2020-05-20",
+      "deadline_time": "00:00:00",
+      "responsible": 2,
+      "event": 3
+    }
+  },
+  {
+    "model": "eventapp.task",
+    "pk": 9,
+    "fields": {
+      "title": "Organize Bus",
+      "description": "Organize a busdriver",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "i",
+      "deadline_date": "2020-06-19",
+      "deadline_time": "00:00:00",
+      "responsible": 5,
+      "event": 5
     }
   }
 ]
