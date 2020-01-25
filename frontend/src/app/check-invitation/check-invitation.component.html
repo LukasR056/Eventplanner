@@ -1,4 +1,4 @@
-<div class="check-invitation" *ngIf="events?.length > 0" >
+<div class="check-object-form check-invitation" *ngIf="events?.length > 0" >
   <mat-card class="event-card" *ngFor="let event of events"  >
     <mat-card-header>
       <mat-card-title (click)="moveToEventDetail(event.id)">{{event.name}}</mat-card-title>
@@ -32,4 +32,5 @@
   </mat-card>
 
 </div>
-<h2  *ngIf="!(events?.length > 0)" >You have no open invitations!</h2>
+
+<h2 *ngIf="(events?.length==0)" class="check-object-form">You have no open invitations!</h2>

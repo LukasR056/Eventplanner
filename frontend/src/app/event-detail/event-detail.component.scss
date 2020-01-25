@@ -168,20 +168,13 @@
   }
 }
 
-@keyframes areaSlideInFromBottom {
-  0% {
-    transform: translateY(300%);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
 @keyframes areaButtonSlideInFromBottom {
   0% {
     transform: translateY(1000%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(500%);
     opacity: 0;
   }
   100% {
@@ -232,7 +225,6 @@
 }
 
 .task-board-form {
-  //opacity: 0;
   width: 90%;
   padding: 16px;
   display: flex;
@@ -241,6 +233,6 @@
   margin-right: auto;
   background-color: rgba(245, 245, 245, 0.95);
   border-radius: 10px;
-  animation: 1500ms ease-out 1 areaSlideInFromBottom;
+  animation: 1500ms ease-out 1 areaSlide300InFromBottom;
   box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12)
 }

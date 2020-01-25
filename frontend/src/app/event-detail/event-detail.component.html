@@ -47,13 +47,13 @@
         Is it public: {{event.public}}
       </p>
       <p *ngFor="let user of userOptions">
-        <span *ngIf="event.eventplanner==user.id">Responsible: {{user.user.username}}</span>
+        <span *ngIf="event.eventplanner==user.id">Responsible: <strong>@{{user.user.username}}</strong></span>
       </p>
-      <p>Invited: <span *ngFor="let user of userOptions">
-        <span *ngIf="event.invited.includes(user.id) && event.invited[event.invited.length - 1] != user.id">
-          {{user.user.username}}, </span>
-        <span *ngIf="event.invited.includes(user.id) && event.invited[event.invited.length - 1] == user.id">
-          {{user.user.username}}</span>
+      <p>Participants: <span *ngFor="let user of userOptions">
+        <span *ngIf="event.participants.includes(user.id) && event.participants[event.participants.length - 1] != user.id">
+          <strong>@{{user.user.username}}</strong>, </span>
+        <span *ngIf="event.participants.includes(user.id) && event.participants[event.participants.length - 1] == user.id">
+          <strong>@{{user.user.username}}</strong></span>
       </span>
       </p>
     </mat-card-content>

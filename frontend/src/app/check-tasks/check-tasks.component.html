@@ -1,8 +1,9 @@
-<div *ngIf="tasks?.length > 0" >
+<div *ngIf="tasks?.length > 0" class="check-object-form">
   <mat-accordion *ngFor="let task of tasks">
     <mat-expansion-panel (opened)="logtaskfunc(task)"
                          (closed)="panelOpenState = false">
-      <mat-expansion-panel-header [ngStyle]="{'background-color': (task.event.eventplanner == userId)? 'green' : 'red'}">
+      <mat-expansion-panel-header
+        [ngStyle]="{'background-color': (task.event.eventplanner == userId)? 'green' : 'red'}">
         <mat-panel-title>
           {{task.title}}
         </mat-panel-title>
@@ -10,16 +11,15 @@
           For the event: {{task.event.name}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Date: {{task.deadline_date}}</p>
-      <p>Deadline: {{task.deadline_time}}</p>
-      <p>Who will do it: {{task.responsible}}</p>
+      <p>Deadline: {{task.deadline_date | date: 'dd MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}</p>
+      <p>Responsible: <strong>@{{task.responsible.username}}</strong></p>
       <p>{{task.description}}</p>
 
       <mat-action-row>
-        <button mat-button color="primary" (click)="accepTask(task)">We will do it</button>
-        <button mat-button color="primary" (click)="denyTask(task)">No</button>
-      </mat-action-row>
+        <button mat-button color="warn" (click)="denyTask(task)">No</button>
+        <button mat-button color="primary" (click)="accepTask(task)">I'll do it</button>
 
+      </mat-action-row>
 
     </mat-expansion-panel>
     <br>
@@ -27,7 +27,7 @@
 
 </div>
 
-<div *ngIf="!(tasks?.length > 0)" >
-<mat-label> You do not have any tasks open! </mat-label>
+<div *ngIf="!(tasks?.length > 0)" class="check-object-form">
+  <mat-label> You do not have any tasks open!</mat-label>
 
 </div>
