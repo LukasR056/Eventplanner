@@ -5,10 +5,10 @@
     <input type="text" placeholder="Search for new events!" aria-label="Search for new events!" matInput
            [formControl]="input" [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
-                      (optionSelected)="changeEvent($event.option.value)">
+                      (optionSelected)="changeEventPerName($event.option.value)">
                    <!--   (keydown.enter)="addFriend(-1,true)"> -->
-      <mat-option *ngFor="let user of filteredTagList | async" [value]="user">
-        {{user.name}}
+      <mat-option *ngFor="let event of filteredEventList | async" [value]="event">
+        {{event.name}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
@@ -17,7 +17,7 @@
 
 <mat-form-field class="chip-list">
   <mat-chip-list aria-label="Tag selection" [multiple]="true" >
-    <mat-chip *ngFor="let tag of tags" [selectable]="selectable" (click)="changeEvent(tag)" >
+    <mat-chip *ngFor="let tag of tags" [selectable]="selectable" (click)="changeEventPerTag(tag)" >
       {{tag.name}}
     </mat-chip>
   </mat-chip-list >
