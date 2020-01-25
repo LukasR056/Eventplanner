@@ -1,0 +1,18 @@
+[
+  {
+    "model": "eventapp.event",
+    "pk": 1,
+    "fields": {
+      "name": "Barbecue Party",
+      "date": "2020-03-01",
+      "time": "16:14:12",
+      "description": "BYOF",
+      "location": "City Park",
+      "public": true,
+      "eventplanner": 2,
+      "invited": [],
+      "participants": [],
+      "pictures": []
+    }
+  }
+]

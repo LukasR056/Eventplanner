@@ -1,0 +1,95 @@
+[
+  {
+    "model": "eventapp.profile",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "first_name": "",
+      "last_name": "",
+      "birthday": "2020-01-25",
+      "active": true,
+      "friends": [],
+      "pictures": []
+    }
+  },
+  {
+    "model": "eventapp.profile",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "first_name": "John",
+      "last_name": "Doe",
+      "birthday": "1997-01-25",
+      "active": true,
+      "friends": [
+        5,
+        6
+      ],
+      "pictures": []
+    }
+  },
+  {
+    "model": "eventapp.profile",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "first_name": "Susan",
+      "last_name": "Alby",
+      "birthday": "1980-01-25",
+      "active": true,
+      "friends": [
+        4,
+        6
+      ],
+      "pictures": []
+    }
+  },
+  {
+    "model": "eventapp.profile",
+    "pk": 4,
+    "fields": {
+      "user": 4,
+      "first_name": "Lukas",
+      "last_name": "Abram",
+      "birthday": "2000-01-25",
+      "active": true,
+      "friends": [
+        3
+      ],
+      "pictures": []
+    }
+  },
+  {
+    "model": "eventapp.profile",
+    "pk": 5,
+    "fields": {
+      "user": 5,
+      "first_name": "Jannet",
+      "last_name": "Geek",
+      "birthday": "1995-01-25",
+      "active": true,
+      "friends": [
+        2,
+        6
+      ],
+      "pictures": []
+    }
+  },
+  {
+    "model": "eventapp.profile",
+    "pk": 6,
+    "fields": {
+      "user": 6,
+      "first_name": "Tomas",
+      "last_name": "Dunlop",
+      "birthday": "2020-01-25",
+      "active": true,
+      "friends": [
+        2,
+        3,
+        5
+      ],
+      "pictures": []
+    }
+  }
+]
