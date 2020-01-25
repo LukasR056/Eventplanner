@@ -35,24 +35,32 @@
     <mat-card-content>
 
       <p>
-        Description: {{event.description}}
+        <mat-icon style="vertical-align: middle">description</mat-icon> {{event.description}}
       </p>
       <p>
-        Location: {{event.location}}
+        <mat-icon style="vertical-align: middle">navigation</mat-icon> {{event.location}}
       </p>
       <p>
-        When: {{event.datetime}}
+        <mat-icon style="vertical-align: middle">access_time</mat-icon> {{event.date}} at {{event.time.substring(0, 5)}}
       </p>
-      <p>
-        Is it public: {{event.public}}
-      </p>
+      This is a
+
+      <strong>
+        <div *ngIf="event.public; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>public</ng-template>
+        <ng-template #elseBlock>private</ng-template>
+      </strong>
+
+      event.
       <p *ngFor="let user of userOptions">
-        <span *ngIf="event.eventplanner==user.id">Responsible: <strong>@{{user.user.username}}</strong></span>
+        <span *ngIf="event.eventplanner==user.id us">Responsible: <strong>@{{user.user.username}}</strong></span>
       </p>
       <p>Participants: <span *ngFor="let user of userOptions">
-        <span *ngIf="event.participants.includes(user.id) && event.participants[event.participants.length - 1] != user.id">
+        <span
+          *ngIf="event.participants.includes(user.id) && event.participants[event.participants.length - 1] != user.id">
           <strong>@{{user.user.username}}</strong>, </span>
-        <span *ngIf="event.participants.includes(user.id) && event.participants[event.participants.length - 1] == user.id">
+        <span
+          *ngIf="event.participants.includes(user.id) && event.participants[event.participants.length - 1] == user.id">
           <strong>@{{user.user.username}}</strong></span>
       </span>
       </p>
@@ -167,7 +175,7 @@
 </div>
 
 <!-----------------------Anzeigen aller Messages -------------------------------->
-<div class="messenger-form-background">
+<div class="messenger-form-background" *ngIf="event.eventplanner==userId || event.participants.includes(userId)">
   <div class="messengerbox" #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <mat-card class="message" *ngFor="let forumentry of forumentries; let i = index">
       <mat-card-content>
@@ -209,14 +217,18 @@
 
 
   <div class="new-message">
-    New Message
-    <form [formGroup]="forumentryFormGroup" class="forumentry-form">
-      <mat-form-field>
-        <input matInput type="text" placeholder="Content" formControlName="content">
-      </mat-form-field>
-    </form>
-    <button mat-button (click)="createForumentry()">
-      Send
-    </button>
+    <div style="float: left; width: 100%">
+
+      <div style="width: 100%">New Message</div>
+      <form [formGroup]="forumentryFormGroup" class="new-message-content">
+        <mat-form-field style="display: block">
+          <textarea matInput type="text" placeholder="Content" formControlName="content"></textarea>
+        </mat-form-field>
+      </form>
+      <button mat-icon-button [disableRipple]="true" (click)="createForumentry()" class="new-message-button">
+        <mat-icon style="vertical-align: bottom">send</mat-icon>
+      </button>
+
+    </div>
   </div>
 </div>

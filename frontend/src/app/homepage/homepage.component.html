@@ -17,13 +17,13 @@
     <hr>
     <mat-card-content>
       <p>
-        Description: {{event.description}}
+        <mat-icon style="vertical-align: middle">description</mat-icon> {{event.description}}
       </p>
       <p>
-        Location: {{event.location}}
+        <mat-icon style="vertical-align: middle">navigation</mat-icon> {{event.location}}
       </p>
       <p>
-        When: {{event.date}}
+        <mat-icon style="vertical-align: middle">access_time</mat-icon> {{event.date}} at {{event.time.substring(0, 5)}}
       </p>
 
 
@@ -40,8 +40,8 @@
       <p>
         Responsible: {{event.eventplanner}}
       </p>
-      <p>
-        Who else: {{event.participants}}
+      <p *ngIf="event.participants.length!=0">
+        Participants: {{event.participants}}
       </p>
     </mat-card-content>
   </mat-card>

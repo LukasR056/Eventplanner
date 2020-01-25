@@ -28,7 +28,7 @@
 /* links rechts */
 .others {
   float: left;
-  height: 10vh;
+  height: fit-content;
   width: 50%;
   background: #A4E3BC;
   color: #fff;
@@ -44,13 +44,13 @@
 
 .me {
   float: right;
-  height: 10vh;
+  height: fit-content;
   width: 50%;
   background: #66CDAA;
   color: #fff;
   display: inline-block;
   clear: both;
-  padding: 5px 15px;
+  padding: 0 15px;
   margin: 5px 10px !important;
   border-radius: 15px;
   font-family: Helvetica, Arial, sans-serif;
@@ -98,7 +98,7 @@
 
 .new-message {
   float: right;
-  height: 10vh;
+  height: fit-content;
   width: 70%;
   background: #66CDAA;
   color: #fff;
@@ -109,6 +109,27 @@
   border-bottom-left-radius: 15px;
   margin-bottom: 2px;
   font-family: Helvetica, Arial, sans-serif;
+}
+
+.new-message-content {
+  width: 80%;
+  //max-width: 70%;
+  float: left;
+  overflow: hidden;
+}
+
+.new-message-button {
+  width: fit-content;
+  max-width: 20%;
+  border-radius: 50%;
+  float: left;
+  margin-left: 3%;
+  // position: unset !important;
+  background-color: transparent !important;
+}
+
+.new-message-button:hover {
+  cursor: pointer;
 }
 
 .task-margin {;
@@ -184,7 +205,8 @@
 }
 
 .messenger-form-background {
-  @media (min width: 401px) {
+  @media (min width: 850px) {
+    // TODO: DANACH UNTERHALB ANZEIGEN
   }
   width: 25%;
   margin-top: 20px;
@@ -210,6 +232,7 @@
 
 .add-task-button {
   width: 30%;
+  min-width: fit-content;
   float: none;
   margin: 20px 35% 2vh;
   background-color: rgba(245, 245, 245, 0.95);
