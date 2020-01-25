@@ -21,11 +21,9 @@
                     <button type="button" class="btn btn-primary" (click)="downloadMedia(media)">
                         Download
                     </button>
-                    <button type="button" *ngIf="parentObj" class="btn btn-danger" (click)="deleteMedia(i)">
-                        Entfernen
-                    </button>
-                  <button type="button" class="btn btn-primary" (click)="deleteMediafromdb(media)">
-                    Endültig löschen
+
+                  <button type="button" class="btn btn-primary" (click)="deleteAll(i, media)">
+                     löschen
                   </button>
                 </div>
             </td>
