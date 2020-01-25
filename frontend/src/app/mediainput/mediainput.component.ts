@@ -97,22 +97,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
 
       });
   }
-
-  deleteMedia(index: any ): void {
-    this.medias.splice(index, 1);
-    this.onChange(this.medias.map((m) => {
-      return m.id;
-    }));
-  }
-
-  deleteMediafromdb(media: any) {
-    if (confirm('Are you sure you want to delete this Picture?')) {
-      this.mediaService.deleteMedia(media)
-        .subscribe(() => {
-          this.router.navigate(['/event-list/']);
-        });}
-    window.location.reload();
-  }
   deleteAll(index: any, media: any) {
 
       this.medias.splice(index, 1);
@@ -124,9 +108,9 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
       console.log('uploaded?' + this.picIsAlreadyUploaded)
       this.mediaService.deleteMedia(media)
         .subscribe(() => {
-          this.router.navigate(['/event-list/']);
+          window.location.reload();
+
         });
-      window.location.reload();
   }
 
   downloadMedia(media: IMedia): void {
