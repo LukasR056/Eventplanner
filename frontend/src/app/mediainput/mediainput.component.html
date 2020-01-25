@@ -31,6 +31,6 @@
         </tbody>
     </table>
 
-    <input  type="file" [disabled]= "picIsAlreadyThere || picIsAlreadyUploaded"   [accept]="accept" ng2FileSelect [uploader]="uploader" [multiple]="false"/>
+    <input  type="file" [disabled]= "picIsAlreadyThere || picIsAlreadyUploaded || tooManyPics"   [accept]="accept" ng2FileSelect [uploader]="uploader" [multiple]="false"/>
 <!-- Liste rausholen und dann prüfen ob >=1 [disabled]="media.id == null"-->
 </div>

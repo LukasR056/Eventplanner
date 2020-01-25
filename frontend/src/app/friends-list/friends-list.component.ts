@@ -63,6 +63,7 @@ export class FriendsListComponent implements OnInit {
       });
 
       this.friends = response.filter(user => user.friends.includes(this.userId));
+
       // this.friendRequests = response.filter(user => this.userFormGroup.value.friend_requests.forEach()
       // user.friends.includes(this.userId));
 

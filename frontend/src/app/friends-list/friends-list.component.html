@@ -40,8 +40,9 @@
           Birthday: {{friend.birthday}}
         </p>
 
+        <span *ngIf="friend.pictures.length != 0">
           <img src="api/media/{{friend.pictures}}" height="100px"><br>
-
+        </span>
 
       </mat-card-content>
     </mat-card>

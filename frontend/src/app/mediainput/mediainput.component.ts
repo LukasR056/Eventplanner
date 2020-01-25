@@ -28,7 +28,7 @@ export interface IMedia {
 })
 export class MediainputComponent implements OnInit, ControlValueAccessor {
   @Input() public parentObj = false;
-
+  @Input() public tooManyPics = false;
 
   constructor(private userService: UserService, private http: HttpClient, elm: ElementRef,
               private mediaService: MediaService, private router: Router) {
