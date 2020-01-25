@@ -1,9 +1,10 @@
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
 
 <mat-toolbar style="height: 8vh; padding-left: 5vw; padding-right: 5vw">
-  <button mat-button class="logo" routerLink="homepage">
+  <button *ngIf="isLoggedIn" mat-button class="logo" routerLink="homepage">
     <span>ULTIMATE EVENT</span>
   </button>
+  <mat-label *ngIf="!isLoggedIn">ULTIMATE EVENT</mat-label>
   <div class="user-settings" *ngIf="isLoggedIn">
     <button class="grow" [matMenuTriggerFor]="menu">
       <!-- TODO: VERSCHÖNERN
