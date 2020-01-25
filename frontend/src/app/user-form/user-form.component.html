@@ -1,31 +1,37 @@
-<form [formGroup]="userFormGroup" class="user-form">
-  <mat-form-field>
-    <input matInput type="text" placeholder="Firstname" formControlName="first_name" required>
-    <mat-hint align="end">The firstname of the user</mat-hint>
-    <mat-error *ngIf="userFormGroup.controls.first_name.hasError('required')">Firstname is required</mat-error>
-  </mat-form-field>
+<div class="standard-form-background">
 
-  <mat-form-field>
-    <input matInput type="text" placeholder="Lastname" formControlName="last_name">
-    <mat-hint align="end">The lastname of the user</mat-hint>
-  </mat-form-field>
+  <form [formGroup]="userFormGroup" class="user-form">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Firstname" formControlName="first_name" required>
+      <mat-hint align="end">The firstname of the user</mat-hint>
+      <mat-error *ngIf="userFormGroup.controls.first_name.hasError('required')">First name is required</mat-error>
+    </mat-form-field>
 
+    <mat-form-field>
+      <input matInput type="text" placeholder="Lastname" formControlName="last_name" required>
+      <mat-hint align="end">The lastname of the user</mat-hint>
+      <mat-error *ngIf="userFormGroup.controls.last_name.hasError('required')">Last name is required</mat-error>
+    </mat-form-field>
 
-<!--
-  <app-date placeholder="Birth" formControlName="birthday" hint="The birth of the User"
-            [required]="true"></app-date>
--->
+    <!--
+      <app-date placeholder="Birth" formControlName="birthday" hint="The birth of the User"
+                [required]="true"></app-date>
+    -->
+    <br>
 
-  <div>
-    <app-mediainput formControlName="pictures"  ></app-mediainput>
-  </div>
+    <div class="media-input">
+      <app-mediainput formControlName="pictures"></app-mediainput>
+    </div>
 
-  <mat-card-actions align="center">
-    <button mat-raised-button color="primary" (click)="updateUser()">
-      <span> Update </span>
-    </button>
-  </mat-card-actions>
+    <br>
 
-  <!-- [disabled]="!userFormGroup.valid" -->
-  <br/>
-</form>
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary" (click)="updateUser()">
+        <span> Update </span>
+      </button>
+    </mat-card-actions>
+
+    <!-- [disabled]="!userFormGroup.valid" -->
+  </form>
+
+</div>

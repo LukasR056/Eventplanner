@@ -1,9 +1,6 @@
 .event-list {
   flex-direction: column;
-  width: 65%;
-  float: left;
-  margin: 0px auto 2rem;
-  padding: 0px 1% 3% 3%;
+  padding: 1% 3%;
 }
 
 .event-card {
@@ -27,8 +24,7 @@
 }
 
 .task-list {
-  padding: 3%;
-  width: 50%;
+  padding: 1% 3%;
   margin: auto;
   float: bottom;
 }

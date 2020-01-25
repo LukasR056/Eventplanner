@@ -12,7 +12,7 @@ export class TaskService {
 
   statusName = {
     o: 'Open',
-    p: 'In Progress',
+    i: 'In Progress',
     d: 'Done'
   };
 

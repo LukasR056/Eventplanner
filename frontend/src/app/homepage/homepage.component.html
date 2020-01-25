@@ -1,4 +1,4 @@
-<div class="event-list">
+<div class="check-object-form event-list">
 
   <div>
     <h3>My Events <br>MY USERNAME {{username}} WITH ID {{userId}}<br></h3>
@@ -41,7 +41,7 @@
         Responsible: {{event.eventplanner}}
       </p>
       <p>
-        Who else: {{event.invited}}
+        Who else: {{event.participants}}
       </p>
     </mat-card-content>
   </mat-card>
@@ -53,9 +53,7 @@
 <br>
 <div class="wrapper">
 
-  <mat-divider></mat-divider>
-
-  <div class="task-list">
+  <div class="check-object-form-bottom task-list">
 
     <button mat-button routerLink="../check-tasks" *ngIf="openTask">You have new tasks!
     </button>
@@ -113,6 +111,9 @@
         </div>-->
 
       </mat-expansion-panel>
+      <br>
     </mat-accordion>
+
   </div>
+
 </div>

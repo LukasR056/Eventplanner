@@ -11,5 +11,6 @@ backend/eventapp/migrations/
 venv
 .idea
 .idea/
+backend/.idea/
 _pycache_
 db.sqlite3

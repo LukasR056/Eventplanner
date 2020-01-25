@@ -1,69 +1,80 @@
-<form [formGroup]="registrationUserFormGroup" class="class-form">
-  <mat-form-field>
-    <input matInput type="text" placeholder="Username" formControlName="username" class="input-layout">
-    <mat-hint align="end">This will be your username</mat-hint>
-    <mat-error *ngIf="registrationUserFormGroup.controls.username.hasError('required')">Username is required</mat-error>
-  </mat-form-field>
+<div class="standard-form-background">
 
-  <br>
+  <form [formGroup]="registrationUserFormGroup" class="class-form">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Username" formControlName="username" class="input-layout">
+      <mat-hint align="end">This will be your username</mat-hint>
+      <mat-error *ngIf="registrationUserFormGroup.controls.username.hasError('required')">Username is required
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput type="password" placeholder="Password" formControlName="password" class="input-layout" val>
-    <mat-hint align="end">Please enter a secure password</mat-hint>
-    <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('required')">Password is required</mat-error>
-    <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('hasCapitalChar')">
-      At least one character needs to be upper case</mat-error>
-    <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('hasLowerChar')">
-      At least one character needs to be lower case</mat-error>
-    <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('minlength')">
-      Password requires a minimum length of eight characters</mat-error>
-    <!-- <mat-error></mat-error> TODO: VALIDATOR FÜR PASSWORD SECURITY!!! -->
-  </mat-form-field>
+    <br>
 
-  <br>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password" formControlName="password" class="input-layout" val>
+      <mat-hint align="end">Please enter a secure password</mat-hint>
+      <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('required')">Password is required
+      </mat-error>
+      <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('hasCapitalChar')">
+        At least one character needs to be upper case
+      </mat-error>
+      <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('hasLowerChar')">
+        At least one character needs to be lower case
+      </mat-error>
+      <mat-error *ngIf="registrationUserFormGroup.controls.password.hasError('minlength')">
+        Password requires a minimum length of eight characters
+      </mat-error>
+      <!-- <mat-error></mat-error> TODO: VALIDATOR FÜR PASSWORD SECURITY!!! -->
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput type="password" placeholder="Password confirmation" formControlName="confirm_password"
-           class="input-layout">
-    <mat-hint align="end">Please confirm your secure password</mat-hint>
-    <mat-error *ngIf="registrationUserFormGroup.controls.confirm_password.hasError('required')">Password confirmation is
-      required
-    </mat-error>
-    <mat-error *ngIf="registrationUserFormGroup.controls.confirm_password.hasError('NoPasswordMatch')">Passwords do not
-      match
-    </mat-error>
-    <!-- <mat-error></mat-error> TODO: VALIDATOR FÜR PASSWORD SECURITY!!! -->
-  </mat-form-field>
-</form>
-<form [formGroup]="registrationProfileFormGroup" class="class-form">
-  <mat-form-field>
-    <input matInput placeholder="First name" formControlName="first_name">
-    <mat-hint align="end">Please enter your first name</mat-hint>
-    <mat-error *ngIf="registrationProfileFormGroup.controls.first_name.hasError('required')">First name is required
-    </mat-error>
-  </mat-form-field>
+    <br>
 
-  <br>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password confirmation" formControlName="confirm_password"
+             class="input-layout">
+      <mat-hint align="end">Please confirm your secure password</mat-hint>
+      <mat-error *ngIf="registrationUserFormGroup.controls.confirm_password.hasError('required')">Password confirmation
+        is
+        required
+      </mat-error>
+      <mat-error *ngIf="registrationUserFormGroup.controls.confirm_password.hasError('NoPasswordMatch')">Passwords do
+        not
+        match
+      </mat-error>
+      <!-- <mat-error></mat-error> TODO: VALIDATOR FÜR PASSWORD SECURITY!!! -->
+    </mat-form-field>
+  </form>
+  <form [formGroup]="registrationProfileFormGroup" class="class-form">
+    <mat-form-field>
+      <input matInput placeholder="First name" formControlName="first_name">
+      <mat-hint align="end">Please enter your first name</mat-hint>
+      <mat-error *ngIf="registrationProfileFormGroup.controls.first_name.hasError('required')">First name is required
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Last name" formControlName="last_name">
-    <mat-hint align="end">Please enter your last name</mat-hint>
-    <mat-error *ngIf="registrationProfileFormGroup.controls.last_name.hasError('required')">Last name is required
-    </mat-error>
-  </mat-form-field>
+    <br>
 
-  <!-- <mat-form-field>
-    <input matInput type="date" placeholder="Birthday" formControlName="birthday" class="input-layout">
-    <mat-hint align="end">Please enter your birthday</mat-hint>
-    <mat-error *ngIf="registrationProfileFormGroup.controls.birthday.hasError('required')">Date is required</mat-error>
-  </mat-form-field> -->
+    <mat-form-field>
+      <input matInput placeholder="Last name" formControlName="last_name">
+      <mat-hint align="end">Please enter your last name</mat-hint>
+      <mat-error *ngIf="registrationProfileFormGroup.controls.last_name.hasError('required')">Last name is required
+      </mat-error>
+    </mat-form-field>
 
-  <br>
+    <!-- <mat-form-field>
+      <input matInput type="date" placeholder="Birthday" formControlName="birthday" class="input-layout">
+      <mat-hint align="end">Please enter your birthday</mat-hint>
+      <mat-error *ngIf="registrationProfileFormGroup.controls.birthday.hasError('required')">Date is required</mat-error>
+    </mat-form-field> -->
 
-  <mat-card-actions align="center">
-    <button mat-raised-button color="primary"
-            [disabled]="!registrationUserFormGroup.valid || !registrationProfileFormGroup.valid" (click)="register()">
-      Register
-    </button>
-  </mat-card-actions>
-</form>
+    <br>
+
+    <mat-card-actions align="center">
+      <button mat-raised-button color="primary"
+              [disabled]="!registrationUserFormGroup.valid || !registrationProfileFormGroup.valid" (click)="register()">
+        Register
+      </button>
+    </mat-card-actions>
+  </form>
+
+</div>

@@ -1,4 +1,4 @@
-<div class="check-invitation" *ngIf="events?.length > 0" >
+<div class="check-object-form check-invitation" *ngIf="events?.length > 0" >
   <mat-card class="event-card" *ngFor="let event of events"  >
     <mat-card-header>
       <mat-card-title (click)="moveToEventDetail(event.id)">{{event.name}}</mat-card-title>
@@ -6,13 +6,21 @@
     <hr>
     <mat-card-content>
       <p>
-        Location: {{event.location}}
+        <mat-icon style="vertical-align: middle">navigation</mat-icon> {{event.location}}
       </p>
       <p>
-        When: {{event.date}} at {{event.time}}
+        <mat-icon style="vertical-align: middle">access_time</mat-icon> {{event.date}} at {{event.time.substring(0, 5)}}
       </p>
       <p>
-        Is it public: {{event.public}}
+        This is a
+
+        <strong>
+          <div *ngIf="event.public; then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock>public</ng-template>
+          <ng-template #elseBlock>private</ng-template>
+        </strong>
+
+        event.
       </p>
 
     </mat-card-content>
@@ -24,4 +32,5 @@
   </mat-card>
 
 </div>
-<h2  *ngIf="!(events?.length > 0)" >You have no open invitations!</h2>
+
+<h2 *ngIf="(events?.length==0)" class="check-object-form">You have no open invitations!</h2>

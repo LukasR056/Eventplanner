@@ -21,11 +21,9 @@
                     <button type="button" class="btn btn-primary" (click)="downloadMedia(media)">
                         Download
                     </button>
-                    <button type="button" *ngIf="parentObj" class="btn btn-danger" (click)="deleteMedia(i)">
-                        Entfernen
-                    </button>
-                  <button type="button" class="btn btn-primary" (click)="deleteMediafromdb(media)">
-                    Endültig löschen
+
+                  <button type="button" class="btn btn-primary" (click)="deleteAll(i, media)">
+                     löschen
                   </button>
                 </div>
             </td>
@@ -33,6 +31,6 @@
         </tbody>
     </table>
 
-    <input  type="file" [disabled]= "picIsAlreadyThere"   [accept]="accept" ng2FileSelect [uploader]="uploader" [multiple]="false"/>
+    <input  type="file" [disabled]= "picIsAlreadyThere || picIsAlreadyUploaded"   [accept]="accept" ng2FileSelect [uploader]="uploader" [multiple]="false"/>
 <!-- Liste rausholen und dann prüfen ob >=1 [disabled]="media.id == null"-->
 </div>

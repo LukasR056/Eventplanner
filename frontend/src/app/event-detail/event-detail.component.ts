@@ -47,10 +47,10 @@ export class EventDetailComponent implements OnInit {
     this.userId = Number(localStorage.getItem('user_id'));
     this.username = localStorage.getItem('username');
     this.forumentryFormGroup = this.fb.group({
-      content: [null],
-      user: [this.userId],
-      event: [this.id2],
-    }
+        content: [null],
+        user: [this.userId],
+        event: [this.id2],
+      }
     );
     const id = this.route.snapshot.paramMap.get('id');
     this.tasksOpen = [];
@@ -68,10 +68,9 @@ export class EventDetailComponent implements OnInit {
     this.eventService.getEventWithId(id)
       .subscribe((response: any) => {
         this.event = response;
-        console.log(this.event);
+        // console.log(this.event);
         this.filterTasks();
         this.pictures = response.pictures;
-        console.log('piiiics: ' + this.pictures);
       });
 
     this.userService.retrieveUserOptions().subscribe((result) => {
@@ -107,8 +106,9 @@ export class EventDetailComponent implements OnInit {
 
   filterTasks() {
     this.taskService.getTasks().subscribe((response: any[]) => {
-      this.eventTasks = response.filter(task => this.event.tasks.includes(task.id));
-      console.log(this.eventTasks);
+      console.log(response);
+      this.eventTasks = response.filter(task => this.event.tasks.includes(task.id)
+        && task.verified_by_planner && task.verified_by_participant);
       this.eventTasks.forEach(task => {
         task.responsible = task.responsible.id;
         switch (task.status) {
@@ -168,11 +168,13 @@ export class EventDetailComponent implements OnInit {
     this.taskService.currentEvent = event;
     this.router.navigate(['/task-form/' + task.id]);
   }
+
   deleteEvent(event: any) {
     if (confirm('Are you sure you want to delete this event?')) {
-    this.eventService.deleteEvent(event)
-      .subscribe(() => {
-        this.router.navigate(['/event-list/']);
-      });}
+      this.eventService.deleteEvent(event)
+        .subscribe(() => {
+          this.router.navigate(['/event-list/']);
+        });
+    }
   }
 }

@@ -30,7 +30,12 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.userService.userGotUpdated.subscribe(response => {
+      if (response == true) {
+        this.userService.userGotUpdated.next(false);
+        window.location.reload();
+      }
+    });
     this.username = localStorage.getItem('username');
     this.userId = Number(localStorage.getItem('user_id'));
     this.events = [];

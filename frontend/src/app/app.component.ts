@@ -9,10 +9,11 @@ import {UserService} from './service/user.service';
 export class AppComponent implements OnInit {
   title = 'frontend';
   isLoggedIn = false;
-  pictures: number;
+  pictures: any[];
   friendOptions: any;
   userId: any;
   user: any;
+  private pictureExist: boolean;
 
   constructor(private userService: UserService) {
   }
@@ -22,23 +23,22 @@ export class AppComponent implements OnInit {
       this.isLoggedIn = response;
     });
     this.userId = Number(localStorage.getItem('user_id'));
-    console.log(this.userId);
-    // this.pictures = this.userId.pictures;
-    this.userService.retrieveUserOptions().subscribe((result) => {
-      this.friendOptions = result;
-    });
 
-    this.userService.getUserById(this.userId)
-      .subscribe((response: any) => {
-        this.user = response;
-        this.user.id = response.id;
-        this.pictures = response.pictures;
-        // console.log('sag mir Id Bruda: ' + this.user.id);
-        console.log('picture ID: ' + this.pictures);
-        if (this.pictures >= 0) {
-          console.log('works');
-        }
+
+    if (this.isLoggedIn) {
+      this.userService.retrieveUserOptions().subscribe((result) => {
+        this.friendOptions = result;
       });
+
+      this.userService.getUserById(this.userId)
+        .subscribe((response: any) => {
+          this.user = response;
+          this.user.id = response.id;
+          this.pictures = response.pictures;
+          this.pictureExist = this.pictures.length != 0;
+        });
+    }
+
   }
 
 }

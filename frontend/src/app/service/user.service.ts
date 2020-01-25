@@ -10,6 +10,7 @@ import {EventService} from './event.service';
 })
 export class UserService {
   isLoggedIn = new BehaviorSubject(false);
+  userGotUpdated = new BehaviorSubject(false);
   username: any;
 
   constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router,) {
@@ -40,6 +41,7 @@ export class UserService {
     localStorage.removeItem('user_id');
     this.isLoggedIn.next(false);
     this.router.navigate(['/login']);
+    window.location.reload();
   }
 
   retrieveUserOptions() {
