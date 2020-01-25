@@ -14,11 +14,12 @@ import {FriendshipRequestService} from '../service/friendship-request.service';
 export class RegistrationComponent implements OnInit {
   registrationUserFormGroup;
   registrationProfileFormGroup;
-  friendRequest: {request_sent: boolean, user: number};
+  friendRequest: { request_sent: boolean, user: number };
 
   constructor(private fb: FormBuilder, private http: HttpClient, private userService: UserService, private router: Router,
               private jwtHelperService: JwtHelperService, private friendshipRequestService: FriendshipRequestService,
-              @Attribute('validateEquals') public validateEquals: string) { }
+              @Attribute('validateEquals') public validateEquals: string) {
+  }
 
   ngOnInit() {
     this.registrationUserFormGroup = this.fb.group({

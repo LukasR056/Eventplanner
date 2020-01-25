@@ -33,6 +33,7 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
   constructor(private userService: UserService, private http: HttpClient, elm: ElementRef,
               private mediaService: MediaService, private router: Router) {
   }
+
   pictures: number[];
   friendOptions: any;
   userId: any;
@@ -66,13 +67,13 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
       });
     };
     this.uploader.onSuccessItem = (item: FileItem, response: string, status: number, headers: ParsedResponseHeaders) => {
-      const uploadedMedia = <IMedia>JSON.parse(response);
+      const uploadedMedia = <IMedia> JSON.parse(response);
       if (this.parentObj == true) {
         this.picIsAlreadyUploaded = false;
       } else {
-      this.picIsAlreadyUploaded = true;
+        this.picIsAlreadyUploaded = true;
       }
-      console.log('ispicuploaded? ' + this.picIsAlreadyUploaded );
+      console.log('ispicuploaded? ' + this.picIsAlreadyUploaded);
       this.medias.find(media => !media.id && media.original_file_name === uploadedMedia.original_file_name).id = uploadedMedia.id;
     };
     this.uploader.onCompleteAll = () => {
@@ -91,32 +92,33 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
         this.pictures = response.pictures;
         if (this.pictures.length >= 1 && this.parentObj == false) {
           this.picIsAlreadyThere = true;
-          console.log('picture länge: ' + this.pictures.length );
-          console.log('parentObj ' + this.parentObj );
+          console.log('picture länge: ' + this.pictures.length);
+          console.log('parentObj ' + this.parentObj);
         }
 
       });
   }
+
   deleteAll(index: any, media: any) {
 
-      this.medias.splice(index, 1);
-      this.picIsAlreadyUploaded = false;
-      this.onChange(this.medias.map((m) => {
-        return m.id;
-      }));
-      this.picIsAlreadyUploaded = false;
-      console.log('uploaded?' + this.picIsAlreadyUploaded)
-      this.mediaService.deleteMedia(media)
-        .subscribe(() => {
-          window.location.reload();
+    this.medias.splice(index, 1);
+    this.picIsAlreadyUploaded = false;
+    this.onChange(this.medias.map((m) => {
+      return m.id;
+    }));
+    this.picIsAlreadyUploaded = false;
+    console.log('uploaded?' + this.picIsAlreadyUploaded);
+    this.mediaService.deleteMedia(media)
+      .subscribe(() => {
+        window.location.reload();
 
-        });
+      });
   }
 
   downloadMedia(media: IMedia): void {
     this.http.get(`${this.resourceUrl}/${media.id}`, {responseType: 'blob'}).subscribe((blob: Blob) => {
       const fileURL = URL.createObjectURL(blob);
-      const a = <HTMLAnchorElement>document.createElement('a');
+      const a = <HTMLAnchorElement> document.createElement('a');
       a.href = fileURL;
       a.download = media.original_file_name;
       document.body.appendChild(a);

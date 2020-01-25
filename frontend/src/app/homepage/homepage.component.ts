@@ -23,6 +23,7 @@ export class HomepageComponent implements OnInit {
   openEvents = false;
   openTask = false;
   openTasks: any[];
+  private userGotUpdated;
 
 
   constructor(private http: HttpClient, private eventService: EventService, public taskService: TaskService, private fb: FormBuilder,
@@ -30,12 +31,19 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.userGotUpdated.subscribe(response => {
-      if (response == true) {
+
+    if (this.userService.userGotUpdated != undefined) {
+      this.userService.userGotUpdated.subscribe(response => {
+        this.userGotUpdated = response;
+      });
+
+      if (this.userGotUpdated) {
         this.userService.userGotUpdated.next(false);
         window.location.reload();
       }
-    });
+    }
+
+
     this.username = localStorage.getItem('username');
     this.userId = Number(localStorage.getItem('user_id'));
     this.events = [];

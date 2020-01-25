@@ -35,4 +35,3 @@ export class EventService {
     return this.http.delete('/api/event/' + event.id + '/delete');
   }
 }
-
