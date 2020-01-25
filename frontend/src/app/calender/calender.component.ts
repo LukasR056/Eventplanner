@@ -25,6 +25,8 @@ interface eventInterface {
   styleUrls: ['./calender.component.scss']
 })
 export class CalenderComponent implements AfterContentChecked {
+    username: string;
+    userId: number;
 
   constructor(private http: HttpClient, private eventService: EventService, private router: Router) {
   }
@@ -39,14 +41,21 @@ export class CalenderComponent implements AfterContentChecked {
   all = [];
   allInterface: eventInterface;
   clicked = false;
+  filteredEvents: any[];
 
   events = this.eventService.getEvents().subscribe((response: any[]) => {
-    (response.forEach(eventx => {
+
+    this.username = localStorage.getItem('username');
+    this.userId = Number(localStorage.getItem('user_id'));
+
+    this.filteredEvents = response.filter(event => event.eventplanner == this.username || event.participants.includes(' ' + this.username) );
+
+    this.filteredEvents.forEach(eventx => {
       this.eventNames.push(eventx.name);
       this.eventDates.push(eventx.date);
       this.eventAll = {id: eventx.id, name: eventx.name, date: eventx.date};
       this.eventAllList.push(this.eventAll);
-    }));
+    });
 
     for (let ev of this.eventAllList) {
       this.allInterface = {id: ev.id, name: ev.name, date: ev.date};

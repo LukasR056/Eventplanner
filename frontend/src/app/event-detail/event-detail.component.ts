@@ -58,10 +58,6 @@ export class EventDetailComponent implements OnInit {
     this.tasksDone = [];
 
 
-    //this.forumentryService.getForumentries()
-    //.subscribe((response: any[]) => {
-    //this.forumentries = response;
-    //});
 
     this.loadForumEntries(id);
 
@@ -167,6 +163,41 @@ export class EventDetailComponent implements OnInit {
   updateTask(task: any, event: any) {
     this.taskService.currentEvent = event;
     this.router.navigate(['/task-form/' + task.id]);
+  }
+
+  deleteTask(task: any)
+  {
+
+
+
+
+
+
+
+
+    switch (task.status) {
+      case 'o':
+        const indexOfcanceledTaskOpen = this.tasksOpen.indexOf(task);
+        this.tasksOpen.splice(indexOfcanceledTaskOpen, 1);
+        task.event = task.id
+        this.taskService.deleteTask(task).subscribe();
+        break;
+      case 'i':
+        const indexOfcanceledTaskInProgress = this.tasksInProgress.indexOf(task);
+        this.tasksInProgress.splice(indexOfcanceledTaskInProgress, 1);
+        task.event = task.id
+        this.taskService.deleteTask(task).subscribe();
+        break;
+      case 'd':
+        const indexOfcanceledTask = this.tasksDone.indexOf(task);
+        this.tasksDone.splice(indexOfcanceledTask, 1);
+        task.event = task.id
+        this.taskService.deleteTask(task).subscribe();
+        break;
+    }
+
+
+
   }
 
   deleteEvent(event: any) {

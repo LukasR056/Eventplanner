@@ -8,6 +8,11 @@
       <button style="width: 20%; background-color: darkorange; color: white" mat-button
               *ngIf="event.eventplanner==userId" (click)="updateEvent(event.id)">Update
       </button>
+
+      <button style="width: 20%; background-color: red; color: white" mat-button
+              *ngIf="event.eventplanner==userId" (click)="deleteEvent(event)">Delete
+      </button>
+
       <div *ngIf="event.public">
         <button mat-icon-button shareButton="whatsapp"
                 [description]="'Have you heard about this event?' ">
@@ -26,6 +31,7 @@
           <mat-icon>print</mat-icon>
         </button>
       </div>
+
     </mat-card-header>
     <span *ngFor="let picture of pictures">
 
@@ -95,6 +101,14 @@
               <p>
                 Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} {{task.deadline_time.substring(0, 5)}}
               </p>
+              <mat-action-row *ngIf="event.eventplanner==userId">
+                <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
+                  <mat-icon  >build</mat-icon>
+                </button>
+                <button  mat-mini-fab color="warn"  (click)="deleteTask(task,event)">
+                  <mat-icon>delete_forever</mat-icon>
+                </button>
+              </mat-action-row>
             </mat-expansion-panel>
           </div>
         </div>
@@ -126,6 +140,14 @@
               <p>
                 Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} {{task.deadline_time.substring(0, 5)}}
               </p>
+              <mat-action-row *ngIf="event.eventplanner==userId">
+                <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
+                  <mat-icon  >build</mat-icon>
+                </button>
+                <button  mat-mini-fab color="warn"  (click)="deleteTask(task,event)">
+                  <mat-icon>delete_forever</mat-icon>
+                </button>
+              </mat-action-row>
             </mat-expansion-panel>
           </div>
         </div>
@@ -156,6 +178,14 @@
               <p>
                 Deadline: {{task.deadline_date | date:'dd MMM yyyy'}} {{task.deadline_time.substring(0, 5)}}
               </p>
+              <mat-action-row *ngIf="event.eventplanner==userId">
+                <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
+                <mat-icon  >build</mat-icon>
+                </button>
+                <button  mat-mini-fab color="warn"  (click)="deleteTask(task,event)">
+                <mat-icon>delete_forever</mat-icon>
+                </button>
+              </mat-action-row>
             </mat-expansion-panel>
           </div>
         </div>
