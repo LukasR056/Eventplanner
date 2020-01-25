@@ -79,10 +79,10 @@ export class EventFormComponent implements OnInit {
           this.eventFormGroup.patchValue(response);
           this.time = this.eventFormGroup.value.time;
           this.time = this.time.substring(0, 5);
-          if (response.pictures.length >= 10) {
+          if (this.eventFormGroup.value.pictures.length >= 10) {
             this.eventPicNumber = true;
           }
-          console.log('Laenge' + response.pictures.length);
+          console.log('Laenge' +  this.eventFormGroup.value.pictures.length);
         });
     } else {
       this.time = '00:00';
