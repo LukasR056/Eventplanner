@@ -12,6 +12,8 @@ import {FriendshipRequestService} from '../service/friendship-request.service';
   styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent implements OnInit {
+  minDate = new Date(1900, 0, 1);
+  maxDate = new Date();
   registrationUserFormGroup;
   registrationProfileFormGroup;
   friendRequest: { request_sent: boolean, user: number };
@@ -36,8 +38,7 @@ export class RegistrationComponent implements OnInit {
     this.registrationProfileFormGroup = this.fb.group({
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
-      // 'birthday': ['', Validators.required]
-      // TODO: BIRTHDAY IMPLEMENTIEREN
+      birthday: ['', Validators.required],
     });
   }
 

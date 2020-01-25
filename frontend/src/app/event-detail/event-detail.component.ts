@@ -64,7 +64,7 @@ export class EventDetailComponent implements OnInit {
     this.eventService.getEventWithId(id)
       .subscribe((response: any) => {
         this.event = response;
-        // console.log(this.event);
+        console.log(this.event);
         this.filterTasks();
         this.pictures = response.pictures;
       });
@@ -165,33 +165,24 @@ export class EventDetailComponent implements OnInit {
     this.router.navigate(['/task-form/' + task.id]);
   }
 
-  deleteTask(task: any)
-  {
-
-
-
-
-
-
-
-
+  deleteTask(task: any) {
     switch (task.status) {
       case 'o':
         const indexOfcanceledTaskOpen = this.tasksOpen.indexOf(task);
         this.tasksOpen.splice(indexOfcanceledTaskOpen, 1);
-        task.event = task.id
+        task.event = task.id;
         this.taskService.deleteTask(task).subscribe();
         break;
       case 'i':
         const indexOfcanceledTaskInProgress = this.tasksInProgress.indexOf(task);
         this.tasksInProgress.splice(indexOfcanceledTaskInProgress, 1);
-        task.event = task.id
+        task.event = task.id;
         this.taskService.deleteTask(task).subscribe();
         break;
       case 'd':
         const indexOfcanceledTask = this.tasksDone.indexOf(task);
         this.tasksDone.splice(indexOfcanceledTask, 1);
-        task.event = task.id
+        task.event = task.id;
         this.taskService.deleteTask(task).subscribe();
         break;
     }

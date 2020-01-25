@@ -17,13 +17,16 @@
     <hr>
     <mat-card-content>
       <p>
-        <mat-icon style="vertical-align: middle">description</mat-icon> {{event.description}}
+        <mat-icon style="vertical-align: middle">description</mat-icon>
+        {{event.description}}
       </p>
       <p>
-        <mat-icon style="vertical-align: middle">navigation</mat-icon> {{event.location}}
+        <mat-icon style="vertical-align: middle">navigation</mat-icon>
+        {{event.location}}
       </p>
       <p>
-        <mat-icon style="vertical-align: middle">access_time</mat-icon> {{event.date}} at {{event.time.substring(0, 5)}}
+        <mat-icon style="vertical-align: middle">access_time</mat-icon>
+        {{event.date}} at {{event.time.substring(0, 5)}}
       </p>
 
 
@@ -55,10 +58,9 @@
 
   <div class="check-object-form-bottom task-list">
 
-    <button mat-button routerLink="../check-tasks" *ngIf="openTask">You have new tasks!
-    </button>
-
     <h3>My Tasks</h3>
+
+    <button mat-button routerLink="../check-tasks" *ngIf="openTask">You have new tasks!</button>
 
     <mat-accordion>
       <mat-expansion-panel *ngFor="let task of tasks">
@@ -101,14 +103,14 @@
           responsible: {{task.responsible.username}}
         </p>
 
-     <!--   <div class="buttons">
-          <div class="button-save">
-            <button mat-button (click)="saveTask(task, task.value)">Edit Task</button>
-          </div>
-          <div class="button-delete">
-            <button mat-button (click)="deleteEvent(task)">Delete Task</button>
-          </div>
-        </div> -->
+        <!--   <div class="buttons">
+             <div class="button-save">
+               <button mat-button (click)="saveTask(task, task.value)">Edit Task</button>
+             </div>
+             <div class="button-delete">
+               <button mat-button (click)="deleteEvent(task)">Delete Task</button>
+             </div>
+           </div> -->
 
       </mat-expansion-panel>
       <br>

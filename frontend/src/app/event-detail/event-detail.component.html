@@ -1,4 +1,9 @@
-<div class="eventanzeige">
+<div class="check-object-form event-list" style="text-align: center"
+     *ngIf="event ? event.eventplanner != userId && !event.participants.includes(userId) : false">
+  <h3>You have not yet participated in this event and are therefore not authorized to see details!</h3>
+</div>
+
+<div class="eventanzeige" *ngIf="event ? event.eventplanner==userId || event.participants.includes(userId) : false">
 
   <mat-card class="event-card" *ngIf="event">
 
@@ -41,13 +46,16 @@
     <mat-card-content>
 
       <p>
-        <mat-icon style="vertical-align: middle">description</mat-icon> {{event.description}}
+        <mat-icon style="vertical-align: middle">description</mat-icon>
+        {{event.description}}
       </p>
       <p>
-        <mat-icon style="vertical-align: middle">navigation</mat-icon> {{event.location}}
+        <mat-icon style="vertical-align: middle">navigation</mat-icon>
+        {{event.location}}
       </p>
       <p>
-        <mat-icon style="vertical-align: middle">access_time</mat-icon> {{event.date}} at {{event.time.substring(0, 5)}}
+        <mat-icon style="vertical-align: middle">access_time</mat-icon>
+        {{event.date}} at {{event.time.substring(0, 5)}}
       </p>
       This is a
 
@@ -59,9 +67,9 @@
 
       event.
       <p *ngFor="let user of userOptions">
-        <span *ngIf="event.eventplanner==user.id us">Responsible: <strong>@{{user.user.username}}</strong></span>
+        <span *ngIf="event.eventplanner==user.id">Responsible: <strong>@{{user.user.username}}</strong></span>
       </p>
-      <p>Participants: <span *ngFor="let user of userOptions">
+      <p *ngIf="event.participants.length!=0">Participants: <span *ngFor="let user of userOptions">
         <span
           *ngIf="event.participants.includes(user.id) && event.participants[event.participants.length - 1] != user.id">
           <strong>@{{user.user.username}}</strong>, </span>
@@ -111,9 +119,9 @@
               </p>
               <mat-action-row *ngIf="event.eventplanner==userId">
                 <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
-                  <mat-icon  >build</mat-icon>
+                  <mat-icon>build</mat-icon>
                 </button>
-                <button  mat-mini-fab color="warn"  (click)="deleteTask(task,event)">
+                <button mat-mini-fab color="warn" (click)="deleteTask(task)">
                   <mat-icon>delete_forever</mat-icon>
                 </button>
               </mat-action-row>
@@ -150,9 +158,9 @@
               </p>
               <mat-action-row *ngIf="event.eventplanner==userId">
                 <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
-                  <mat-icon  >build</mat-icon>
+                  <mat-icon>build</mat-icon>
                 </button>
-                <button  mat-mini-fab color="warn"  (click)="deleteTask(task,event)">
+                <button mat-mini-fab color="warn" (click)="deleteTask(task)">
                   <mat-icon>delete_forever</mat-icon>
                 </button>
               </mat-action-row>
@@ -188,10 +196,10 @@
               </p>
               <mat-action-row *ngIf="event.eventplanner==userId">
                 <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
-                <mat-icon  >build</mat-icon>
+                  <mat-icon>build</mat-icon>
                 </button>
-                <button  mat-mini-fab color="warn"  (click)="deleteTask(task,event)">
-                <mat-icon>delete_forever</mat-icon>
+                <button mat-mini-fab color="warn" (click)="deleteTask(task)">
+                  <mat-icon>delete_forever</mat-icon>
                 </button>
               </mat-action-row>
             </mat-expansion-panel>
@@ -205,7 +213,7 @@
 </div>
 
 <!-----------------------Anzeigen aller Messages -------------------------------->
-<div class="messenger-form-background" *ngIf="event.eventplanner==userId || event.participants.includes(userId)">
+<div class="messenger-form-background" *ngIf="event ? event.eventplanner==userId || event.participants.includes(userId) : false">
   <div class="messengerbox" #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <mat-card class="message" *ngFor="let forumentry of forumentries; let i = index">
       <mat-card-content>

@@ -10,6 +10,8 @@ import {UserService} from '../service/user.service';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
+  minDate = new Date(1900, 0, 1);
+  maxDate = new Date();
   userFormGroup: any;
   friendOptions: any;
   userId: any;

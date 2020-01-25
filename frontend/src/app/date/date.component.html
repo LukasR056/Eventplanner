@@ -1,5 +1,5 @@
 <mat-form-field>
-  <input matInput [matDatepicker]="datepicker" [min]="minDate"
+  <input matInput [matDatepicker]="datepicker" [min]="minDate" [max]="maxDate"
          [placeholder]="placeholder" [formControl]="date">
   <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
   <mat-datepicker #datepicker></mat-datepicker>

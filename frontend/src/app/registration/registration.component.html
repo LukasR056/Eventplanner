@@ -64,10 +64,13 @@
         </mat-error>
       </mat-form-field>
 
+      <app-date placeholder="Birthday" formControlName="birthday" hint="When are you born?"
+                [required]="true" [minDate]="minDate" [maxDate]="maxDate">
+        <mat-error *ngIf="registrationProfileFormGroup.controls.birthday.hasError('required')">Date is required</mat-error>
+      </app-date>
       <!-- <mat-form-field>
         <input matInput type="date" placeholder="Birthday" formControlName="birthday" class="input-layout">
         <mat-hint align="end">Please enter your birthday</mat-hint>
-        <mat-error *ngIf="registrationProfileFormGroup.controls.birthday.hasError('required')">Date is required</mat-error>
       </mat-form-field> -->
 
       <br>
