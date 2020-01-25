@@ -114,21 +114,19 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
     window.location.reload();
   }
   deleteAll(index: any, media: any) {
-    if (index, media) {
+
       this.medias.splice(index, 1);
       this.picIsAlreadyUploaded = false;
       this.onChange(this.medias.map((m) => {
         return m.id;
       }));
-    } if (media) {
-        this.mediaService.deleteMedia(media)
-          .subscribe(() => {
-            this.onChange(this.medias.map((m) => {
-              return m.id;
-            }));
-          });
-     // window.location.reload();
-    }
+      this.picIsAlreadyUploaded = false;
+      console.log('uploaded?' + this.picIsAlreadyUploaded)
+      this.mediaService.deleteMedia(media)
+        .subscribe(() => {
+          this.router.navigate(['/event-list/']);
+        });
+      window.location.reload();
   }
 
   downloadMedia(media: IMedia): void {
