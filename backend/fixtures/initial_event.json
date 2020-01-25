@@ -26,7 +26,7 @@
       "time": "18:12:20",
       "description": "BYOF",
       "location": "My Garden",
-      "public": false,
+      "public": true,
       "eventplanner": 4,
       "invited": [
         5,
@@ -45,7 +45,7 @@
       "time": "18:14:45",
       "description": "Running for charity",
       "location": "City of Graz",
-      "public": false,
+      "public": true,
       "eventplanner": 2,
       "invited": [
         2,
@@ -67,7 +67,7 @@
       "time": "18:17:03",
       "description": "Biggest Student's Party",
       "location": "Graz USI",
-      "public": false,
+      "public": true,
       "eventplanner": 3,
       "invited": [
         2,
@@ -89,7 +89,7 @@
       "time": "18:17:39",
       "description": "Celebrating Final Exams",
       "location": "FH JOANNEUM",
-      "public": false,
+      "public": true,
       "eventplanner": 5,
       "invited": [
         2,
