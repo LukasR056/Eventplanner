@@ -1,0 +1,54 @@
+[
+  {
+    "model": "eventapp.tag",
+    "pk": 1,
+    "fields": {
+      "name": "TV",
+      "events": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "eventapp.tag",
+    "pk": 2,
+    "fields": {
+      "name": "Hang Out",
+      "events": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "eventapp.tag",
+    "pk": 3,
+    "fields": {
+      "name": "Sports",
+      "events": [
+        3
+      ]
+    }
+  },
+  {
+    "model": "eventapp.tag",
+    "pk": 4,
+    "fields": {
+      "name": "Food",
+      "events": [
+        2
+      ]
+    }
+  },
+  {
+    "model": "eventapp.tag",
+    "pk": 5,
+    "fields": {
+      "name": "Party",
+      "events": [
+        2,
+        4,
+        5
+      ]
+    }
+  }
+]

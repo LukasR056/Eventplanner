@@ -1,0 +1,137 @@
+[
+  {
+    "model": "eventapp.task",
+    "pk": 1,
+    "fields": {
+      "title": "Buy Drinks",
+      "description": "Get Alkohol in order to party",
+      "verified_by_planner": true,
+      "verified_by_participant": false,
+      "status": "d",
+      "deadline_date": "2020-06-18",
+      "deadline_time": "00:00:00",
+      "responsible": 4,
+      "event": 4
+    }
+  },
+  {
+    "model": "eventapp.task",
+    "pk": 2,
+    "fields": {
+      "title": "Buy Food",
+      "description": "In order to survive the evening get us some food pls",
+      "verified_by_planner": true,
+      "verified_by_participant": false,
+      "status": "i",
+      "deadline_date": "2020-05-20",
+      "deadline_time": "00:00:00",
+      "responsible": 5,
+      "event": 4
+    }
+  },
+  {
+    "model": "eventapp.task",
+    "pk": 3,
+    "fields": {
+      "title": "Make Pictures",
+      "description": "Let us not forget this evening",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "o",
+      "deadline_date": "2020-06-18",
+      "deadline_time": "00:00:00",
+      "responsible": 3,
+      "event": 4
+    }
+  },
+  {
+    "model": "eventapp.task",
+    "pk": 4,
+    "fields": {
+      "title": "Buy Tickets",
+      "description": "Need Tickets for the Party",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "d",
+      "deadline_date": "2020-07-05",
+      "deadline_time": "00:00:00",
+      "responsible": 2,
+      "event": 4
+    }
+  },
+  {
+    "model": "eventapp.task",
+    "pk": 5,
+    "fields": {
+      "title": "Prepare TV",
+      "description": "prepare TV for later",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "d",
+      "deadline_date": "2020-04-23",
+      "deadline_time": "00:00:00",
+      "responsible": 6,
+      "event": 1
+    }
+  },
+  {
+    "model": "eventapp.task",
+    "pk": 6,
+    "fields": {
+      "title": "Buy Steaks",
+      "description": "Buy food for Party",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "o",
+      "deadline_date": "2020-04-23",
+      "deadline_time": "00:00:00",
+      "responsible": 4,
+      "event": 2
+    }
+  },
+  {
+    "model": "eventapp.task",
+    "pk": 7,
+    "fields": {
+      "title": "Organize Bachelortrip",
+      "description": "Paaaarty",
+      "verified_by_planner": false,
+      "verified_by_participant": true,
+      "status": "i",
+      "deadline_date": "2020-05-16",
+      "deadline_time": "00:00:00",
+      "responsible": 4,
+      "event": 5
+    }
+  },
+  {
+    "model": "eventapp.task",
+    "pk": 8,
+    "fields": {
+      "title": "Get waterbottles",
+      "description": "Buy water for everyone",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "i",
+      "deadline_date": "2020-05-20",
+      "deadline_time": "00:00:00",
+      "responsible": 2,
+      "event": 3
+    }
+  },
+  {
+    "model": "eventapp.task",
+    "pk": 9,
+    "fields": {
+      "title": "Organize Bus",
+      "description": "Organize a busdriver",
+      "verified_by_planner": true,
+      "verified_by_participant": true,
+      "status": "i",
+      "deadline_date": "2020-06-19",
+      "deadline_time": "00:00:00",
+      "responsible": 5,
+      "event": 5
+    }
+  }
+]

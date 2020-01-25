@@ -33,6 +33,7 @@ export class EventFormComponent implements OnInit {
   animal: string;
   name: string;
   public parentProp = true;
+  public eventPicNumber = false;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,
               private router: Router, private eventService: EventService, private userService: UserService,
@@ -78,6 +79,10 @@ export class EventFormComponent implements OnInit {
           this.eventFormGroup.patchValue(response);
           this.time = this.eventFormGroup.value.time;
           this.time = this.time.substring(0, 5);
+          if (this.eventFormGroup.value.pictures.length >= 10) {
+            this.eventPicNumber = true;
+          }
+          console.log('Laenge' +  this.eventFormGroup.value.pictures.length);
         });
     } else {
       this.time = '00:00';
