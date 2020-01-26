@@ -111,5 +111,8 @@ export class TaskFormComponent implements OnInit {
 
     }
 
+
+    alert('Your task was created successfully. Now the event planner just needs to verify your task.')
+
   }
 }
