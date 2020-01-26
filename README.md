@@ -20,30 +20,44 @@ All events will be recorded in a calendar.
 Additionally, user can upload a profile picutre in the settings tab, which is also  
 visible for users their friends with.
 
+## Django
+
 ### Install
 
-1. Install the following Python packages using pip and requirements.txt  
+Install the following Python packages using pip and requirements.txt  
 
-venv\Scripts\pip.exe install -r requirements.txt
+`venv\Scripts\pip.exe install -r requirements.txt`
 
-2. Create and fill database
+### Setup
 
-run: cmd < fixtures/LoadData.txt
+Create and fill database
 
-4. Run App
+run: `cmd < fixtures/LoadData.txt`
 
-python manage.py runserver
+All User share the same Password: `Pa55w.rd`
 
-### Angular
+Usernames: 
+- admin
+- JD
+- Jane
+- Luke
+- Sue
+- Tom
 
- 1. Install all required packages using package.json
+### Run the Application
 
- npm install
+`python manage.py runserver`
 
- 2. Run the development server
+## Angular
 
- ng serve
+ ### Install all required packages using package.json
 
- 3.  Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+`npm install`
 
-4. Have fun with our Eventplanner
+ ### Run the development server
+
+ `ng serve`
+
+ ### Start the Application
+ 
+ Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
