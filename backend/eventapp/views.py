@@ -13,7 +13,7 @@ from .models import Task, Event, Forumentry, Tag, Profile, Media, FriendshipRequ
 from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, \
     EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer, AbstractUserForm, \
     MediaSerializer, UserCreateForm, AbstractUserCreateForm, FriendshipRequestList, FriendshipRequestForm, \
-    UserFormUpdate, UserEventTaskSerializers
+    UserFormUpdate, UserEventTaskSerializers, UserListName
 
 
 @api_view(['GET'])
@@ -478,3 +478,11 @@ def user_task_event(request, pk):
         return Response({'error': 'User does not exist.'}, status=404)
     serializer = UserEventTaskSerializers(user)
     return Response(serializer.data)
+
+@api_view(['GET'])
+@authentication_classes([])
+@permission_classes([])
+def user_list_name(request):
+    users = Profile.objects.all()
+    serializers = UserListName(users, many=True)
+    return Response(serializers.data)

@@ -8,13 +8,14 @@
     </mat-form-field>
 
     <app-date placeholder="Date" formControlName="date" hint="When is the event?"
-              [required]="true"></app-date>
+              [required]="true"  ></app-date>
 
     <div class="24hr-example">
       <input matInput placeholder="24hr format" aria-label="24hr format" formControlName="time"
              [ngxTimepicker]="fulltime"
              [format]="24" [value]=time>
       <mat-error *ngIf="eventFormGroup.controls.time.hasError('required')">Time is required</mat-error>
+      <mat-hint align="end" style="float: right;font-size: small;">What time should it be ready?</mat-hint>
       <ngx-material-timepicker #fulltime></ngx-material-timepicker>
     </div>
 

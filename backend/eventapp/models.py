@@ -1,6 +1,5 @@
 import datetime
 
-from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser, User
 from django.db import models
 from django.db.models.signals import post_save
@@ -56,7 +55,6 @@ class Event(models.Model):
     # pictures = models.OneToOneField('Media', blank=True, on_delete=models.CASCADE)
     pictures = models.ManyToManyField('Media', blank=True)
 
-    # https://stackoverflow.com/questions/13918968/multiple-many-to-many-relations-to-the-same-model-in-django
 
     def __str__(self):
         return self.name

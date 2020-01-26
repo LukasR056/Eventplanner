@@ -29,6 +29,7 @@ from eventapp.views import FileUploadView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/list/', views.user_list),
+    path('user/list/name', views.user_list_name),
     path('user/options', views.user_list),
     path('user/<int:pk>/get', views.user_form),
     path('user/<int:pk>/gettaskevent', views.user_task_event),

@@ -1,8 +1,8 @@
 <mat-form-field>
-  <input matInput [matDatepicker]="datepicker" [min]="minDate" [max]="maxDate"
-         [placeholder]="placeholder" [formControl]="date">
+  <input matInput  [matDatepicker]="datepicker" [min]="minDate" [max]="maxDate"
+         [placeholder]="placeholder" [formControl]="date" readonly>
   <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-  <mat-datepicker #datepicker></mat-datepicker>
+  <mat-datepicker #datepicker disabled="false" ></mat-datepicker>
   <mat-hint align="end">{{hint}}</mat-hint>
   <mat-error *ngIf="this.date.hasError('required')">Is required</mat-error>
 </mat-form-field>

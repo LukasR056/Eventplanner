@@ -1,10 +1,12 @@
 import {Attribute, Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators, AsyncValidatorFn} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import {UserService} from '../service/user.service';
 import {Router} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {FriendshipRequestService} from '../service/friendship-request.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-registration',
@@ -18,6 +20,7 @@ export class RegistrationComponent implements OnInit {
   registrationProfileFormGroup;
   friendRequest: { request_sent: boolean, user: number };
 
+
   constructor(private fb: FormBuilder, private http: HttpClient, private userService: UserService, private router: Router,
               private jwtHelperService: JwtHelperService, private friendshipRequestService: FriendshipRequestService,
               @Attribute('validateEquals') public validateEquals: string) {
@@ -25,7 +28,7 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.registrationUserFormGroup = this.fb.group({
-      username: ['', Validators.required],
+      username: ['', Validators.required, [this.nameValidator()]],
       password: ['', Validators.compose([Validators.required,
         this.passwordPatternValidator(/[A-Z]/, {hasCapitalChar: true}),
         this.passwordPatternValidator(/[a-z]/, {hasLowerChar: true}),
@@ -81,5 +84,32 @@ export class RegistrationComponent implements OnInit {
       control.get('confirm_password').setErrors({NoPasswordMatch: true});
     }
   }
+
+
+  nameValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+      return this.userService.getUsersName()
+        .pipe(
+          map((user: any) => {
+            // const currentId = this.newTagForm.controls.id.value; nach dem Return in Zeile 135: (currentId || t.id !== currentId) &&
+            const currentName = this.registrationUserFormGroup.controls.username.value;
+            const userWithSameUsername = user.find((t) => {
+              return t.user.username.toLowerCase() === currentName.toLowerCase();
+            });
+
+            if (userWithSameUsername) {
+              return {
+                nameAlreadyExists: true
+              };
+            } else {
+              return null;
+            }
+          })
+        );
+    };
+  }
+
+
+
 
 }
