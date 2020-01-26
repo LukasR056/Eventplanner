@@ -1,47 +1,64 @@
 # Ultimate Event
-This is an Angular/Django Eventplanner Application by students of the FH JOANNEUM. 
+This is an Angular/Django Eventplanner Application by students of the FH JOANNEUM.
 
 # Requirements
 
-* Python 2.2.7
+* Python 3.8
 * IntelliJ or Pycharm as IDE
 * Django Server
 
 # Project
 
-This is an Eventplanner Application which allows you to plan important Events in Advance. 
+The goal of this project is to plan events within an
+intuitive and clean environment.
+Events can either be public or private.
+If it is a public event, other users are free to join.
+Furthermore tasks can assigned to other participants.
+Taks are shown in three different columns: “To Do”, “In Progress”
+and “Done” – similar to a KANBAN-board.
+All events will be recorded in a calendar.
+Additionally, user can upload a profile picutre in the settings tab, which is also
+visible for users their friends with.
+It may happen that events of the testdata will disappear because all events which are in the past will be automatically deleted.
 
-### Install for Windows
+## Django
 
-1. Install the following Python packages using pip and requirements.txt  
+### Install
 
-venv\Scripts\pip.exe install -r requirements.txt
+Install the following Python packages using pip and requirements.txt
 
-2. Create database and fill database
+`venv\Scripts\pip.exe install -r requirements.txt`
 
-python manage.py migrate --run-syncdb
-python manage.py loaddata fixtures/initial_user
-python manage.py loaddata fixtures/initial_profile
-python manage.py loaddata fixtures/initial_friendship_request
-python manage.py loaddata fixtures/initial_event
-python manage.py loaddata fixtures/initial_Tag
-python manage.py loaddata fixtures/initial_task
-python manage.py loaddata fixtures/initial_forumentry
+### Setup
 
-4. Run App
+Create and fill database
 
-python manage.py runserver
+run: `cmd < fixtures/LoadData.txt`
 
-### Angular
+All User share the same Password: `Pa55w.rd`
 
- 1. Install all required packages using package.json
+Usernames:
+- admin
+- JD
+- Jane
+- Luke
+- Sue
+- Tom
 
- npm install
+### Run the Application
 
- 2. Run the development server
+`python manage.py runserver`
 
- ng serve
+## Angular
 
- 3.  Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+ ### Install all required packages using package.json
 
-4. Have fun with our Eventplanner
+`npm install`
+
+ ### Run the development server
+
+ `ng serve`
+
+ ### Start the Application
+
+ Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
