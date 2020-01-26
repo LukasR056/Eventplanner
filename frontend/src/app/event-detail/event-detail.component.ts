@@ -35,7 +35,7 @@ export class EventDetailComponent implements OnInit {
   private updatedTask: any;
 
   pictureId;
-  // close = false;
+  close = false;
 
   // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
@@ -186,11 +186,11 @@ export class EventDetailComponent implements OnInit {
     });
   }
 
-  /*bigPicture(pictureId) {
+  bigPicture(pictureId) {
     if (this.pictureId == pictureId) {
       this.close = !this.close;
     } else {
       this.pictureId = pictureId;
     }
-  }*/
+  }
 }
