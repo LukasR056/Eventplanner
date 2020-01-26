@@ -28,6 +28,7 @@ export class TaskFormComponent implements OnInit {
   ngOnInit() {
     this.userId = Number(localStorage.getItem('user_id'));
 
+
     this.userService.getUserById(this.userId).subscribe(response => {
       this.loggedUser = response;
     });
@@ -48,10 +49,10 @@ export class TaskFormComponent implements OnInit {
       description: [null],
       verified_by_planner: [null],
       verified_by_participant: [null],
-      status: ['',  [Validators.required]],
-      deadline_date: ['', [Validators.required], ],
+      status: ['', [Validators.required]],
+      deadline_date: ['', [Validators.required],],
       deadline_time: ['00:00', [Validators.required]],
-      responsible: [[],[Validators.required]],
+      responsible: [this.userId, [Validators.required]],
       event: [null],
     });
 
@@ -61,8 +62,8 @@ export class TaskFormComponent implements OnInit {
         .subscribe((response) => {
           this.taskFormGroup.patchValue(response);
           this.deadline_time = this.taskFormGroup.value.deadline_time;
-          this.deadline_time.substring(0,5);
-          this.taskFormGroup.value.deadline_time.substring(0,5);
+          this.deadline_time.substring(0, 5);
+          this.taskFormGroup.value.deadline_time.substring(0, 5);
           this.oldTask = this.taskFormGroup.value;
         });
     } else {
