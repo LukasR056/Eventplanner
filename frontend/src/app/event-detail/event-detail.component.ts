@@ -34,6 +34,9 @@ export class EventDetailComponent implements OnInit {
   username: any;
   private updatedTask: any;
 
+  pictureId;
+  // close = false;
+
   // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
 
@@ -71,7 +74,7 @@ export class EventDetailComponent implements OnInit {
         console.log(this.event);
         this.filterTasks();
         this.pictures = response.pictures;
-        console.log('piiiics: ' + this.pictures);
+        this.pictureId = this.pictures[0];
       });
 
     this.userService.retrieveUserOptions().subscribe((result) => {
@@ -182,4 +185,12 @@ export class EventDetailComponent implements OnInit {
       this.router.navigate(['/event-detail/' + event.id]);
     });
   }
+
+  /*bigPicture(pictureId) {
+    if (this.pictureId == pictureId) {
+      this.close = !this.close;
+    } else {
+      this.pictureId = pictureId;
+    }
+  }*/
 }

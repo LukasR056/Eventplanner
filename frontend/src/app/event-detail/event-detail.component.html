@@ -26,11 +26,38 @@
           <mat-icon>print</mat-icon>
         </button>
       </div>
-    </mat-card-header>
-    <p *ngFor="let picture of pictures">
+    </mat-card-header><br><br>
 
-      pic: <img src="api/media/{{picture}}" height="100px"><br>
-    </p>
+    <!-- Gallery BEGIN --------------------------------------------------------------------------------->
+
+
+    <div *ngFor="let picture of pictures" class="pictures">
+
+      <img src="api/media/{{picture}}" height="100px">
+
+    </div>
+
+
+    <!--
+
+    <div *ngFor="let picture of pictures" class="pictures">
+
+          <img src="api/media/{{picture}}" height="50px" (click)="bigPicture(picture)" class="picture-small">
+
+      </div>
+
+    <br><br>
+
+
+        <img src="api/media/{{pictureId}}" height="300px" class="picture" *ngIf="close">
+
+
+    <br><br>
+-->
+
+
+    <!-- Gallery END --------------------------------------------------------------------------------->
+
 
     <div *ngIf="userId == event.eventplanner || event.participants.includes(userId); then thenBlock else elseBlock"></div>
     <ng-template #thenBlock><div *ngIf="userId == event.eventplanner; then thenBlock2 else elseBlock2"></div></ng-template>

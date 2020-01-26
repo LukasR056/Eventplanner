@@ -64,19 +64,7 @@ export class HomepageComponent implements OnInit {
 
       for (const event of result) {
         if (event.eventplanner === this.username || event.participants.includes(' ' + this.username)) {
-
-          const year = event.date.slice(0,4);
-          const month = event.date.slice(5,7);
-          const day = event.date.slice(8,10)
-          const eventDate = new Date(year, month, day).getTime();
-          const today = new Date().getTime();
-
-          if (eventDate < today) {
-            this.deleteEvent(event);
-          } else {
             this.events.push(event);
-          }
-
         }
       }
       this.events.sort((a, b) => (a.date > b.date) ? 1 : -1);
