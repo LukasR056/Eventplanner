@@ -1,9 +1,9 @@
-<div mat-dialog-content style="margin: auto;">
-  <p>What tag do you want to add?</p>
+<div mat-dialog-content style="text-align: center">
+  <p>What tag do you want to add?</p> <br>
 
   <form [formGroup]="newTagForm">
     <mat-form-field>
-      <input matInput type="text" formControlName="name" placeholder="Add new tag for an Event!"
+      <input matInput type="text" formControlName="name" placeholder="Add your new tag!"
              (keydown.enter)="addNewTag()">
       <mat-error *ngIf="newTagForm.controls.name.hasError('required')">Name is required</mat-error>
       <mat-error *ngIf="newTagForm.controls.name.hasError('nameAlreadyExists')">Tag already exists</mat-error>
@@ -16,10 +16,14 @@
 
 
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
 
-  <button mat-button color="primary" [mat-dialog-close]="" [disabled]="!newTagForm.valid" (click)="addNewTag()">
-    Add New Tag
-  </button>
+<div style="float: right">
+  <div mat-dialog-actions>
+
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+
+    <button mat-button color="primary" [mat-dialog-close]="" [disabled]="!newTagForm.valid" (click)="addNewTag()">
+      Add New Tag
+    </button>
+  </div>
 </div>
