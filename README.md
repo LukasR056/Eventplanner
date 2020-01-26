@@ -9,7 +9,7 @@ This is an Angular/Django Eventplanner Application by students of the FH JOANNEU
 
 # Project
 
-The goal of this project is to plan events or even projects within an
+The goal of this project is to plan events within an
 intuitive and clean environment. 
 Events can either be public or private.
 If it is a public event, other users are free to join. 
