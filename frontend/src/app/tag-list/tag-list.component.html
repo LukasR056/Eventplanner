@@ -2,7 +2,8 @@
 
   <form class="example-form">
     <mat-form-field class="example-full-width">
-      <input style="width: 200px" type="text" placeholder="Search for new events!" aria-label="Search for new events!" matInput
+      <input style="width: 200px" type="text" placeholder="Search for new events!" aria-label="Search for new events!"
+             matInput
              [formControl]="input" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
                         (optionSelected)="changeEventPerName($event.option.value)">
@@ -49,9 +50,11 @@
         For more information, click on the EVENT!
       </p>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button (click)="participateEvent(event)">I'm in!</button>
-    </mat-card-actions>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" style="background-color: #A4E3BC"  (click)="participateEvent(event)">I'm in!
+        </button>
+      </mat-card-actions>
+
   </mat-card>
 
 </div>
