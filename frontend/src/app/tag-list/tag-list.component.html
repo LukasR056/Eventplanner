@@ -33,31 +33,25 @@
 
 <div class="event-list">
 
-  <<<<<<< HEAD
   <mat-card class="check-object-form event-card" *ngFor="let event of showEvents">
-    <mat-card-header>
-      <mat-card-title (click)="eventDetail(event.id)">{{event.name}}</mat-card-title>
-      =======
-      <mat-card class="event-card" *ngFor="let event of showEvents">
-        <mat-card-header (click)="eventDetail(event.id)">
-          <mat-card-title>{{event.name}}</mat-card-title>
-          >>>>>>> tasks
-        </mat-card-header>
-        <hr>
-        <mat-card-content>
-          <p>
-            Location: {{event.location}}
-          </p>
-          <p>
-            When: {{event.date}} at {{event.time}}
-          </p>
-          <p>
-            For more information, click on the EVENT!
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-button (click)="participateEvent(event)">I'm in!</button>
-        </mat-card-actions>
-      </mat-card>
+    <mat-card-header (click)="eventDetail(event.id)">
+      <mat-card-title>{{event.name}}</mat-card-title>
+    </mat-card-header>
+    <hr>
+    <mat-card-content>
+      <p>
+        Location: {{event.location}}
+      </p>
+      <p>
+        When: {{event.date}} at {{event.time}}
+      </p>
+      <p>
+        For more information, click on the EVENT!
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="participateEvent(event)">I'm in!</button>
+    </mat-card-actions>
+  </mat-card>
 
 </div>
