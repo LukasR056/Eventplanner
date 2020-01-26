@@ -2,7 +2,7 @@
 
   <div>
     <h3>My Events <br>MY USERNAME {{username}} WITH ID {{userId}}<br></h3>
-    <button mat-button routerLink="../check-invitation" *ngIf="openEvents">You have been invited to new events!
+    <button mat-button routerLink="../check-invitation" *ngIf="openEvents" style="white-space: normal">You have been invited to new events!
     </button>
   </div>
 
@@ -41,7 +41,7 @@
       event.
 
       <p>
-        Responsible: {{event.eventplanner}}
+        Responsible: <strong>@{{event.eventplanner}}</strong>
       </p>
       <p *ngIf="event.participants.length!=0">
         Participants: {{event.participants}}
@@ -69,14 +69,9 @@
           <mat-panel-title class="mat-panel-title">
             <p>
               <strong>{{task.title}}</strong> <br>
-              event: {{task.event.name}}
+              {{task.event.name}}
             </p>
           </mat-panel-title>
-          <mat-panel-description class="mat-panel-description-deadline">
-            <p>
-              Deadline: {{task.deadline_date | date:'dd MMM yyyy'}} {{task.deadline_time.substring(0, 5)}}
-            </p>
-          </mat-panel-description>
           <mat-panel-description class="mat-panel-description-status">
             <p>
               {{taskService.statusName[task.status]}}
@@ -85,23 +80,20 @@
         </mat-expansion-panel-header>
 
         <p>
-          Description: {{task.description}}
+          <mat-icon style="vertical-align: middle">description</mat-icon> {{task.description}}
         </p>
-
-        The status of this task: {{taskService.statusName[task.status]}} <br><br>
+        <p>
+          Deadline: {{task.deadline_date | date: 'dd MMM yyyy'}} at {{task.deadline_time.substring(0,5)}}
+        </p>
+        <p>
+          Responsible: <strong>@{{task.responsible.username}}</strong>
+        </p>
         <mat-form-field>
           <mat-select [(ngModel)]="task.status">
             <mat-option [value]="status.key" *ngFor="let status of taskService.statusName | keyvalue"
                         (click)="updateStatus(task, status.key)">{{status.value}}</mat-option>
           </mat-select>
         </mat-form-field>
-
-        <p>
-          deadline: {{task.deadline_date}} {{task.deadline_time}}
-        </p>
-        <p>
-          responsible: {{task.responsible.username}}
-        </p>
 
         <!--   <div class="buttons">
              <div class="button-save">

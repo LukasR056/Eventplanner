@@ -107,15 +107,15 @@
                 <mat-panel-title class="panel-header-width">
                   <strong>{{task.title}}</strong> <br>
                 </mat-panel-title>
-                <mat-panel-description class="panel-header-width" *ngFor="let user of userOptions">
-                  <span *ngIf="user.id==task.responsible">Responsible: {{user.user.username}}</span>
-                </mat-panel-description>
               </mat-expansion-panel-header>
               <p>
-                Description: {{task.description}}
+                <mat-icon style="vertical-align: middle">description</mat-icon> {{task.description}}
               </p>
               <p>
-                Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} {{task.deadline_time.substring(0, 5)}}
+                Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
+              </p>
+              <p *ngFor="let user of userOptions">
+                <span *ngIf="user.id==task.responsible">Responsible: <strong>@{{user.user.username}}</strong></span>
               </p>
               <mat-action-row *ngIf="event.eventplanner==userId">
                 <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
@@ -146,15 +146,15 @@
                 <mat-panel-title class="panel-header-width">
                   <strong>{{task.title}}</strong> <br>
                 </mat-panel-title>
-                <mat-panel-description class="panel-header-width" *ngFor="let user of userOptions">
-                  <span *ngIf="user.id==task.responsible">Responsible: {{user.user.username}}</span>
-                </mat-panel-description>
               </mat-expansion-panel-header>
               <p>
-                Description: {{task.description}}
+                <mat-icon style="vertical-align: middle">description</mat-icon> {{task.description}}
               </p>
               <p>
-                Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} {{task.deadline_time.substring(0, 5)}}
+                Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
+              </p>
+              <p *ngFor="let user of userOptions">
+                <span *ngIf="user.id==task.responsible">Responsible: <strong>@{{user.user.username}}</strong></span>
               </p>
               <mat-action-row *ngIf="event.eventplanner==userId">
                 <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
@@ -184,16 +184,18 @@
                 <mat-panel-title class="panel-header-width">
                   <strong>{{task.title}}</strong> <br>
                 </mat-panel-title>
-                <mat-panel-description class="panel-header-width" *ngFor="let user of userOptions">
-                  <span *ngIf="user.id==task.responsible">Responsible: {{user.user.username}}</span>
-                </mat-panel-description>
               </mat-expansion-panel-header>
               <p>
-                Description: {{task.description}}
+                <mat-icon style="vertical-align: middle">description</mat-icon> {{task.description}}
               </p>
               <p>
-                Deadline: {{task.deadline_date | date:'dd MMM yyyy'}} {{task.deadline_time.substring(0, 5)}}
+                Deadline: {{task.deadline_date | date:'dd MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
               </p>
+
+              <p *ngFor="let user of userOptions">
+                <span *ngIf="user.id==task.responsible">Responsible: <strong>@{{user.user.username}}</strong></span>
+              </p>
+
               <mat-action-row *ngIf="event.eventplanner==userId">
                 <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
                   <mat-icon>build</mat-icon>
