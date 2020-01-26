@@ -10,6 +10,7 @@ import {EventService} from './event.service';
 })
 export class UserService {
   isLoggedIn = new BehaviorSubject(false);
+  profilePicLoaded = new BehaviorSubject(false);
   userGotUpdated = new BehaviorSubject(false);
   username: any;
 
@@ -28,6 +29,7 @@ export class UserService {
       const decodedTokenUserId = this.jwtHelperService.decodeToken(res.token).user_id;
       localStorage.setItem('user_id', decodedTokenUserId);
       this.isLoggedIn.next(true);
+      this.profilePicLoaded.next(true);
       this.router.navigate(['homepage']);
     }, () => {
       alert('wrong username or password');

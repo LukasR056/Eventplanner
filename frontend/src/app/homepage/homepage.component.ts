@@ -32,6 +32,12 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.userService.profilePicLoaded.subscribe(response => {
+      if (response == true) {
+        this.userService.profilePicLoaded.next(false);
+        window.location.reload();
+      }
+    });
 
     if (this.userService.userGotUpdated != undefined) {
       this.userService.userGotUpdated.subscribe(response => {
