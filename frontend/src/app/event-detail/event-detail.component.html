@@ -36,11 +36,12 @@
 
     <!-- Gallery BEGIN --------------------------------------------------------------------------------->
 
+    <div style="text-align: center">
+      <div *ngFor="let picture of pictures" class="pictures">
 
-    <div *ngFor="let picture of pictures" class="pictures">
+        <img src="api/media/{{picture}}" height="50px" (click)="bigPicture(picture)" class="picture-small">
 
-      <img src="api/media/{{picture}}" height="50px" (click)="bigPicture(picture)" class="picture-small">
-
+      </div>
     </div>
 
     <br><br>

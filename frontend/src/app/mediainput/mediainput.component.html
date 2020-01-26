@@ -1,36 +1,51 @@
-<div *ngIf="!initializing" >
-    <table class="table" *ngIf="medias?.length">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Process</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let media of medias; let i = index">
-            <td><strong>{{ media.original_file_name }}</strong></td>
-            <td>{{ media.size/1024/1024 | number }}&nbsp;MB</td>
-            <td>
-                <span *ngIf="!media.id">Uploading...</span>
-                <span *ngIf="media.id">Uploaded</span>
-            </td>
-            <td>
-                <div class="btn-group">
-                    <button mat-raised-button class="btn btn-primary" (click)="downloadMedia(media)">
-                        Download
-                    </button>
+<div *ngIf="!initializing">
+  <table class="table" *ngIf="medias?.length">
+    <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let media of medias; let i = index">
+      <td><strong>{{ media.original_file_name }}</strong></td>
 
-                  <button mat-raised-button class="btn btn-primary" (click)="deleteAll(i, media)">
-                     Delete
-                  </button>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    </tr>
+    </tbody>
+  </table>
 
-    <input  type="file" [disabled]= "picIsAlreadyThere || picIsAlreadyUploaded || tooManyPics"   [accept]="accept"
-            ng2FileSelect [uploader]="uploader" [multiple]="false" accept="image/*"/>
+  <br>
+
+  <table class="table" *ngIf="medias?.length">
+    <thead>
+    <tr>
+      <th>Size</th>
+      <th>Process</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let media of medias; let i = index">
+      <td>{{ media.size / 1024 / 1024 | number }}&nbsp;MB</td>
+      <td>
+        <span *ngIf="!media.id">Uploading...</span>
+        <span *ngIf="media.id">Uploaded</span>
+      </td>
+      <td>
+        <div class="btn-group">
+          <button mat-icon-button (click)="downloadMedia(media)">
+            <mat-icon>cloud_download</mat-icon>
+          </button>
+
+          <button mat-icon-button (click)="deleteAll(i, media)">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <input type="file" [disabled]="picIsAlreadyThere || picIsAlreadyUploaded || tooManyPics" [accept]="accept"
+         ng2FileSelect [uploader]="uploader" [multiple]="false" accept="image/*"/>
+
 </div>

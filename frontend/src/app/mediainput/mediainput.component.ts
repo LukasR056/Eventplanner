@@ -26,6 +26,7 @@ export interface IMedia {
     }
   ]
 })
+// tslint:disable:triple-equals
 export class MediainputComponent implements OnInit, ControlValueAccessor {
   @Input() public parentObj = false;
   @Input() public tooManyPics = false;
@@ -46,7 +47,7 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
   picIsAlreadyThere: boolean;
   picIsAlreadyUploaded: boolean;
   onChange = (medias: number[]) => {
-  };
+  }
 
   ngOnInit() {
     this.uploader = new FileUploader({
@@ -80,7 +81,7 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
       }));
     };
     this.userId = Number(localStorage.getItem('user_id'));
-    //this.pictures = this.userId.pictures;
+    // this.pictures = this.userId.pictures;
     this.userService.retrieveUserOptions().subscribe((result) => {
       this.friendOptions = result;
     });
@@ -108,7 +109,7 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
     console.log('uploaded?' + this.picIsAlreadyUploaded);
     this.mediaService.deleteMedia(media)
       .subscribe(() => {
-        window.location.reload();
+        // window.location.reload();
 
       });
   }
