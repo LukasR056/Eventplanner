@@ -18,11 +18,15 @@ export class CheckInvitationComponent implements OnInit {
   }
 
   ngOnInit() {
+    //den eingeloggten User bekommen
     this.username = localStorage.getItem('username');
-    this.userId = localStorage.getItem('user_id');
+    this.userId = Number(localStorage.getItem('user_id'));
+    // Alle Events laden und diese dann Filtern ob sich der User bei den Eingeladenen Personen dabei ist und zugelich auch nicht der Eventplanner vom Event ist
     this.eventService.getEventsId()
       .subscribe((response: any[]) => {
-        this.events = response.filter(event => event.invited.includes(Number(this.userId)));
+        this.events = response.filter(event => event.invited.includes(this.userId) && event.eventplanner != this.userId );
+
+        //Falls er keine Einladungen hat, wird im frontend was anderes angezeigt. Deshalb hier ein Flag
         if (this.events.length === 0) {
           this.invitationsNotEmpty = false;
         }
@@ -30,37 +34,35 @@ export class CheckInvitationComponent implements OnInit {
 
   }
 
+  // Möchte der User beitereten so wird diese Funktion aufgerufen.
+  //Dabei wird zuerst das Event geholt und anschließend der User von der invited Liste zu der participant hinzugefügt
+  //Anschließend wird das Event noch upgedated und auf das Eventdetail weitergeleitet
   invite(id: any) {
-    const updateEvent = this.events.filter(event => event.id === id);
+    const updateEvent = this.events.find(event => event.id === id);
     // Bei !== kommt nicht der gewünschte Output raus bei !=, deshalb das folgende Kommentar
     // tslint:disable-next-line:triple-equals
-    updateEvent[0].invited = updateEvent[0].invited.filter(user => user != this.userId);
-    updateEvent[0].participants.push(Number(this.userId));
-    console.log(updateEvent[0]);
-    this.eventService.updateEvent(updateEvent[0]).subscribe(() => {
-      this.router.navigate(['/event-detail/' + updateEvent[0].id]);
-
+    updateEvent.invited = updateEvent.invited.filter(user => user != this.userId);
+    updateEvent.participants.push(Number(this.userId));
+    console.log(updateEvent);
+    this.eventService.updateEvent(updateEvent).subscribe(() => {
+      this.router.navigate(['/event-detail/' + updateEvent.id]);
     });
   }
 
+  // um mehr Informationen über das Event zu bekommen, weiterleitung
   moveToEventDetail(id: any) {
     this.router.navigate(['/event-detail/' + id]);
   }
 
+  //möchte der User nicht teilnehmen so wird er von der invited List entfernt und zusätzlich von der angezeigten Liste entfernt
   cancel(id: any) {
-    const updateEvent = this.events.filter(event => event.id === id);
+    const updateEvent = this.events.find(event => event.id === id);
     // Bei !== kommt nicht der gewünschte Output raus bei !=, deshalb das folgende Kommentar
     // tslint:disable-next-line:triple-equals
-    updateEvent[0].invited = updateEvent[0].invited.filter(user => user != this.userId);
-    this.eventService.updateEvent(updateEvent[0]).subscribe(() => {
-      this.eventService.getEventsId()
-        .subscribe((response: any[]) => {
-          this.events = response.filter(event => event.invited.includes(Number(this.userId)));
-          if (this.events.length === 0) {
-            this.invitationsNotEmpty = false;
-          }
-        });
-
+    updateEvent.invited = updateEvent.invited.filter(user => user != this.userId);
+    this.eventService.updateEvent(updateEvent).subscribe(() => {
+      const indexOfcanceledEvnet = this.events.indexOf(updateEvent);
+      this.events.splice(indexOfcanceledEvnet, 1);
     });
   }
 }

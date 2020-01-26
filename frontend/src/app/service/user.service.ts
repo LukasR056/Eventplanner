@@ -64,6 +64,10 @@ export class UserService {
     return this.http.get('/api/user/list/');
   }
 
+  getUsersName() {
+    return this.http.get('/api/user/list/name');
+  }
+
   createUser(user: any) {
     return this.http.post('/api/user/create', user);
   }

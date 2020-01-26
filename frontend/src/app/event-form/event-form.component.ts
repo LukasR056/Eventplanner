@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {EventService} from '../service/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Validators} from '@angular/forms';
+import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Validators, ValidatorFn} from '@angular/forms';
 import {UserService} from '../service/user.service';
 import {NgxMaterialTimepickerComponent} from 'ngx-material-timepicker';
 import {TagsService} from '../service/tags.service';
@@ -49,9 +49,10 @@ export class EventFormComponent implements OnInit {
       this.loggedUser = result;
     });
 
+
     this.tagService.getTags().subscribe((result) => {
       this.tagOptions = result;
-      this.tagOptions.sort((a, b) => (a.name > b.name) ? 1 : -1)  ;
+      this.tagOptions.sort((a, b) => (a.name > b.name) ? 1 : -1);
     });
 
 
@@ -60,7 +61,7 @@ export class EventFormComponent implements OnInit {
       name: ['', [Validators.required]],
       date: ['', [Validators.required]],
       time: ['00:00', [Validators.required]],
-      description: ['',[Validators.required]],
+      description: ['', [Validators.required]],
       location: ['', [Validators.required]],
       public: [false],
       eventplanner: [null],
@@ -82,7 +83,7 @@ export class EventFormComponent implements OnInit {
           if (this.eventFormGroup.value.pictures.length >= 10) {
             this.eventPicNumber = true;
           }
-          console.log('Laenge' +  this.eventFormGroup.value.pictures.length);
+          console.log('Laenge' + this.eventFormGroup.value.pictures.length);
         });
     } else {
       this.time = '00:00';
@@ -115,10 +116,12 @@ export class EventFormComponent implements OnInit {
   }
 
 
-
-
   createEvent() {
     const event = this.eventFormGroup.value;
+    console.log(Date.parse(event.date))
+    console.log(Date.now());
+    //Date.parse(event.date) > Date.now()? 'event ist größesr' : 'event ist nicht größesr'
+
     if (event.id) {
       this.eventService.updateEvent(event)
         .subscribe(() => {
@@ -134,17 +137,20 @@ export class EventFormComponent implements OnInit {
     }
   }
 
+
+
 }
 
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: 'dialog-overview-example-dialog.html',
 })
-export class DialogOverviewExampleDialog implements OnInit{
+export class DialogOverviewExampleDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private fb: FormBuilder, private tagService: TagsService) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private fb: FormBuilder, private tagService: TagsService) {
+  }
 
   newTagForm;
   tagOptions;
@@ -152,14 +158,14 @@ export class DialogOverviewExampleDialog implements OnInit{
   ngOnInit() {
     this.newTagForm = this.fb.group({
       id: [null],
-      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)] , [this.tagValidator()]]
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)], [this.tagValidator()]]
     });
 
     this.tagOptions = [];
 
     this.tagService.getTags().subscribe((result) => {
       this.tagOptions = result;
-      this.tagOptions.sort((a, b) => (a.name > b.name) ? 1 : -1)  ;
+      this.tagOptions.sort((a, b) => (a.name > b.name) ? 1 : -1);
     });
   }
 
@@ -190,6 +196,8 @@ export class DialogOverviewExampleDialog implements OnInit{
         );
     };
   }
+
+
 
   addNewTag() {
     const test = this.newTagForm.value;

@@ -48,10 +48,10 @@ export class TaskFormComponent implements OnInit {
       description: [null],
       verified_by_planner: [null],
       verified_by_participant: [null],
-      status: [null],
-      deadline_date: ['', [Validators.required]],
-      deadline_time: ['', [Validators.required]],
-      responsible: [null],
+      status: ['',  [Validators.required]],
+      deadline_date: ['', [Validators.required], ],
+      deadline_time: ['00:00', [Validators.required]],
+      responsible: [[],[Validators.required]],
       event: [null],
     });
 
@@ -61,8 +61,8 @@ export class TaskFormComponent implements OnInit {
         .subscribe((response) => {
           this.taskFormGroup.patchValue(response);
           this.deadline_time = this.taskFormGroup.value.deadline_time;
-          this.deadline_time = this.deadline_time.substring(0, 5);
-          console.log(response);
+          this.deadline_time.substring(0,5);
+          this.taskFormGroup.value.deadline_time.substring(0,5);
           this.oldTask = this.taskFormGroup.value;
         });
     } else {

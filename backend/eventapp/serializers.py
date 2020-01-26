@@ -28,6 +28,12 @@ class UserList(serializers.ModelSerializer):
         model = Profile
         fields = '__all__'
 
+class UserListName(serializers.ModelSerializer):
+    user = AbstractUserForm(read_only=True)
+    class Meta:
+        model = Profile
+        fields = ['user']
+
 
 class UserForm (serializers.ModelSerializer):
     user = AbstractUserForm(read_only=True)

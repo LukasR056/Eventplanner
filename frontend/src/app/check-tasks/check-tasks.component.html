@@ -2,14 +2,18 @@
   <mat-accordion *ngFor="let task of tasks">
     <mat-expansion-panel (opened)="logtaskfunc(task)"
                          (closed)="panelOpenState = false">
-      <mat-expansion-panel-header
-        [ngStyle]="{'background-color': (task.event.eventplanner == userId)? 'green' : 'red'}">
-        <mat-panel-title>
-          {{task.title}}
+      <mat-expansion-panel-header>
+        <mat-panel-title >
+         <strong> {{task.title}} </strong>
         </mat-panel-title>
-        <mat-panel-description>
-          For the event: {{task.event.name}}
+        <mat-panel-description *ngIf="task.event.eventplanner==userId">
+          For my event "{{task.event.name}}"
+          <mat-icon>star</mat-icon>
         </mat-panel-description>
+        <mat-panel-description *ngIf="task.event.eventplanner!=userId">
+          For the event "{{task.event.name}}"
+        </mat-panel-description>
+
       </mat-expansion-panel-header>
       <p>Deadline: {{task.deadline_date | date: 'dd MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}</p>
       <p>Responsible: <strong>@{{task.responsible.username}}</strong></p>
@@ -17,14 +21,14 @@
 
       <mat-action-row>
         <button mat-button color="warn" (click)="denyTask(task)">No</button>
-        <button mat-button color="primary" (click)="accepTask(task)">I'll do it</button>
+        <button mat-button *ngIf="task.event.eventplanner!=userId"  color="primary" (click)="accepTask(task)">I'll do it</button>
+        <button mat-button *ngIf="task.event.eventplanner==userId"  color="primary" (click)="accepTask(task)">Yes do it</button>
 
       </mat-action-row>
 
     </mat-expansion-panel>
     <br>
   </mat-accordion>
-
 </div>
 
 <h2 *ngIf="!(tasks?.length > 0)" class="check-object-form">
