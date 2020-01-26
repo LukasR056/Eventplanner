@@ -3,6 +3,16 @@
   text-align: -webkit-center;
 }
 
+.example-form {
+  min-width: 50px;
+  max-width: 400px;
+  width: 90%;
+}
+
+.example-full-width {
+  width: 90%;
+}
+
 @keyframes areaSlideInFromTop {
   0% {
     transform: translateY(-100%);

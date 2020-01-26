@@ -26,7 +26,6 @@ export class AppComponent implements OnInit {
 
 
     if (this.isLoggedIn) {
-      console.log(this.isLoggedIn)
       this.userService.retrieveUserOptions().subscribe((result) => {
         this.friendOptions = result;
       });

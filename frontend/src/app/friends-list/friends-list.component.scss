@@ -1,17 +1,50 @@
+@media only screen and (max-width: 750px) {
+  .example-full-width {
+    width: 80%;
+  }
+
+  .friend-area {
+    width: 65%;
+    margin-left: 5%;
+  }
+
+  .friend-area-adapted {
+    width: 90%;
+    margin-left: 5%;
+  }
+}
+
+@media only screen and (min-width: 750px) {
+  .example-full-width {
+    width: 90%;
+  }
+
+  .friend-area {
+    width: 50%;
+    margin-left: 20%;
+  }
+
+  .friend-area-adapted {
+    width: 50%;
+    margin-left: 25%;
+  }
+}
+
 .example-form {
   min-width: 50px;
   max-width: 500px;
-  width: 90%;
+  width: 80%;
 }
 
 .example-full-width {
-  width: 90%;
+
 }
 
 .event-card{
   width: auto;
   margin: 10px;
   display: inline-block;
+  vertical-align: top;
 }
 
 .event-card-title{
@@ -55,9 +88,7 @@
   float: left;
   animation: 1s ease-out 0s 1 areaSlideInFromTop;
   border-radius: 0 0 10px 10px;
-  margin-left: 20%;
   text-align: -webkit-center;
-  width: 50%;
   background-color: rgba(245, 245, 245, 0.95);
 }
 
@@ -66,9 +97,7 @@
   float: left;
   animation: 1s ease-out 0s 1 areaSlideInFromTop;
   border-radius: 0 0 10px 10px;
-  margin-left: 25%;
   text-align: -webkit-center;
-  width: 50%;
   background-color: rgba(245, 245, 245, 0.95);
 }
 

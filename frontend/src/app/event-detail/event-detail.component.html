@@ -1,9 +1,12 @@
 <div class="check-object-form event-list" style="text-align: center"
-     *ngIf="event ? event.eventplanner != userId && !event.participants.includes(userId) : false">
-  <h3>You have not yet participated in this event and are therefore not authorized to see details!</h3>
+     *ngIf="event ? event.eventplanner != userId && !event.participants.includes(userId) && !event.public : false">
+  <h3>This is a private event and you are therefore not authorized to see details!</h3>
 </div>
 
-<div class="eventanzeige" *ngIf="event ? event.eventplanner==userId || event.participants.includes(userId) : false">
+<div class="eventanzeige"
+     *ngIf="event ? event.eventplanner==userId || event.participants.includes(userId) || event.public : false"
+     [ngStyle]="{'float': (event ? event.eventplanner==userId || event.participants.includes(userId) || event.public : false) ? 'none' : null,
+      'margin': (event ? event.eventplanner==userId || event.participants.includes(userId) || event.public : false) ? 'auto' : null}">
 
   <mat-card class="event-card" *ngIf="event">
 
@@ -37,22 +40,22 @@
         </button>
       </div>
 
-    </mat-card-header><br><br>
+    </mat-card-header>
+    <br><br>
 
     <!-- Gallery BEGIN --------------------------------------------------------------------------------->
 
 
-
     <div *ngFor="let picture of pictures" class="pictures">
 
-          <img src="api/media/{{picture}}" height="50px" (click)="bigPicture(picture)" class="picture-small">
+      <img src="api/media/{{picture}}" height="50px" (click)="bigPicture(picture)" class="picture-small">
 
-      </div>
+    </div>
 
     <br><br>
 
 
-        <img src="api/media/{{pictureId}}" height="300px" class="picture" *ngIf="close">
+    <img src="api/media/{{pictureId}}" height="300px" class="picture" *ngIf="close">
 
 
     <br><br>
@@ -60,15 +63,19 @@
 
     <!-- Gallery END --------------------------------------------------------------------------------->
 
-
-    <div *ngIf="userId == event.eventplanner || event.participants.includes(userId); then thenBlock else elseBlock"></div>
-    <ng-template #thenBlock><div *ngIf="userId == event.eventplanner; then thenBlock2 else elseBlock2"></div></ng-template>
-                      <ng-template #thenBlock2>You are the event planner.</ng-template>
-                      <ng-template #elseBlock2>You are participating in this event.</ng-template>
-    <ng-template #elseBlock><button mat-button (click)="participateEvent(event)" >I'm in!</button></ng-template>
-
-
     <hr>
+
+    <div
+      *ngIf="userId == event.eventplanner || event.participants.includes(userId); then participationThenBlock else participationElseBlock"></div>
+    <ng-template #participationThenBlock>
+      <div *ngIf="userId == event.eventplanner; then participationThenBlock2 else participationElseBlock2"></div>
+    </ng-template>
+    <ng-template #participationThenBlock2>You are the event planner.</ng-template>
+    <ng-template #participationElseBlock2>You are participating in this event.</ng-template>
+    <ng-template #participationElseBlock>
+      <button mat-button (click)="participateEvent(event)">I'm in!</button>
+    </ng-template>
+
 
     <mat-card-content>
 
@@ -108,133 +115,140 @@
     </mat-card-content>
   </mat-card>
 
-  <button class="add-task-button" mat-button (click)="createTask(event)">Create new Task</button>
+  <div *ngIf="event ? event.eventplanner==userId || event.participants.includes(userId) : false">
+
+    <button class="add-task-button" mat-button (click)="createTask(event)">Create new Task</button>
 
 
-  <!--All Tasks -->
+    <!--All Tasks -->
 
-  <!-- ------------------------------------------------------------------------------------------------------------- -->
+    <!-- ------------------------------------------------------------------------------------------------------------- -->
 
-  <div class="task-board-form">
+    <div class="task-board-form">
 
-    <div class="task-status">
-      <div class="task-status-inner">
-        <div class="task-status-text">To Do</div>
-        <div cdkDropList id="listToDo" [cdkDropListData]="tasksOpen" (cdkDropListDropped)="saveDroppedItem($event)"
-             [cdkDropListConnectedTo]="['listInProgress', 'listDone']"
-             class="drop-list-height">
-          <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksOpen"
-               [cdkDragDisabled]="userId!=task.responsible && userId!=event.eventplanner">
-            <mat-expansion-panel class="task-margin">
-              <mat-expansion-panel-header
-                [ngStyle]="{'background-color': (userId!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
-                <!-- WÜRDE AUCH GEHEN ABER GIBT KOMISCHEN HOVER ZURÜCK
-                <mat-expansion-panel-header [ngClass]="{'task-not-dragable': (username!=task.responsible)}"> -->
+      <div class="task-status">
+        <div class="task-status-inner">
+          <div class="task-status-text">To Do</div>
+          <div cdkDropList id="listToDo" [cdkDropListData]="tasksOpen" (cdkDropListDropped)="saveDroppedItem($event)"
+               [cdkDropListConnectedTo]="['listInProgress', 'listDone']"
+               class="drop-list-height">
+            <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksOpen"
+                 [cdkDragDisabled]="userId!=task.responsible && userId!=event.eventplanner">
+              <mat-expansion-panel class="task-margin">
+                <mat-expansion-panel-header
+                  [ngStyle]="{'background-color': (userId!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
+                  <!-- WÜRDE AUCH GEHEN ABER GIBT KOMISCHEN HOVER ZURÜCK
+                  <mat-expansion-panel-header [ngClass]="{'task-not-dragable': (username!=task.responsible)}"> -->
 
-                <mat-panel-title class="panel-header-width">
-                  <strong>{{task.title}}</strong> <br>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <p>
-                <mat-icon style="vertical-align: middle">description</mat-icon> {{task.description}}
-              </p>
-              <p>
-                Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
-              </p>
-              <p *ngFor="let user of userOptions">
-                <span *ngIf="user.id==task.responsible">Responsible: <strong>@{{user.user.username}}</strong></span>
-              </p>
-              <mat-action-row *ngIf="event.eventplanner==userId">
-                <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
-                  <mat-icon>build</mat-icon>
-                </button>
-                <button mat-mini-fab color="warn" (click)="deleteTask(task)">
-                  <mat-icon>delete_forever</mat-icon>
-                </button>
-              </mat-action-row>
-            </mat-expansion-panel>
+                  <mat-panel-title class="panel-header-width">
+                    <strong>{{task.title}}</strong> <br>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>
+                  <mat-icon style="vertical-align: middle">description</mat-icon>
+                  {{task.description}}
+                </p>
+                <p>
+                  Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
+                </p>
+                <p *ngFor="let user of userOptions">
+                  <span *ngIf="user.id==task.responsible">Responsible: <strong>@{{user.user.username}}</strong></span>
+                </p>
+                <mat-action-row *ngIf="event.eventplanner==userId">
+                  <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
+                    <mat-icon>build</mat-icon>
+                  </button>
+                  <button mat-mini-fab color="warn" (click)="deleteTask(task)">
+                    <mat-icon>delete_forever</mat-icon>
+                  </button>
+                </mat-action-row>
+              </mat-expansion-panel>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="task-status">
-      <div class="task-status-inner">
-        <div class="task-status-text">In Progress</div>
-        <div cdkDropList id="listInProgress" [cdkDropListData]="tasksInProgress"
-             (cdkDropListDropped)="saveDroppedItem($event)"
-             [cdkDropListConnectedTo]="['listToDo', 'listDone']"
-             class="drop-list-height">
-          <div *ngFor="let task of tasksInProgress" cdkDrag [cdkDragData]="task"
-               [cdkDragDisabled]="userId!=task.responsible && userId!=event.eventplanner">
-            <mat-expansion-panel class="task-margin">
-              <mat-expansion-panel-header
-                [ngStyle]="{'background-color': (userId!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
-                <mat-panel-title class="panel-header-width">
-                  <strong>{{task.title}}</strong> <br>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <p>
-                <mat-icon style="vertical-align: middle">description</mat-icon> {{task.description}}
-              </p>
-              <p>
-                Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
-              </p>
-              <p *ngFor="let user of userOptions">
-                <span *ngIf="user.id==task.responsible">Responsible: <strong>@{{user.user.username}}</strong></span>
-              </p>
-              <mat-action-row *ngIf="event.eventplanner==userId">
-                <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
-                  <mat-icon>build</mat-icon>
-                </button>
-                <button mat-mini-fab color="warn" (click)="deleteTask(task)">
-                  <mat-icon>delete_forever</mat-icon>
-                </button>
-              </mat-action-row>
-            </mat-expansion-panel>
+      <div class="task-status">
+        <div class="task-status-inner">
+          <div class="task-status-text">In Progress</div>
+          <div cdkDropList id="listInProgress" [cdkDropListData]="tasksInProgress"
+               (cdkDropListDropped)="saveDroppedItem($event)"
+               [cdkDropListConnectedTo]="['listToDo', 'listDone']"
+               class="drop-list-height">
+            <div *ngFor="let task of tasksInProgress" cdkDrag [cdkDragData]="task"
+                 [cdkDragDisabled]="userId!=task.responsible && userId!=event.eventplanner">
+              <mat-expansion-panel class="task-margin">
+                <mat-expansion-panel-header
+                  [ngStyle]="{'background-color': (userId!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
+                  <mat-panel-title class="panel-header-width">
+                    <strong>{{task.title}}</strong> <br>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>
+                  <mat-icon style="vertical-align: middle">description</mat-icon>
+                  {{task.description}}
+                </p>
+                <p>
+                  Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
+                </p>
+                <p *ngFor="let user of userOptions">
+                  <span *ngIf="user.id==task.responsible">Responsible: <strong>@{{user.user.username}}</strong></span>
+                </p>
+                <mat-action-row *ngIf="event.eventplanner==userId">
+                  <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
+                    <mat-icon>build</mat-icon>
+                  </button>
+                  <button mat-mini-fab color="warn" (click)="deleteTask(task)">
+                    <mat-icon>delete_forever</mat-icon>
+                  </button>
+                </mat-action-row>
+              </mat-expansion-panel>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="task-status">
-      <div class="task-status-inner">
-        <div class="task-status-text">Done</div>
-        <div cdkDropList id="listDone" [cdkDropListData]="tasksDone" (cdkDropListDropped)="saveDroppedItem($event)"
-             [cdkDropListConnectedTo]="['listToDo', 'listInProgress']"
-             class="drop-list-height">
-          <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksDone"
-               [cdkDragDisabled]="userId!=task.responsible && userId!=event.eventplanner">
-            <mat-expansion-panel class="task-margin">
-              <mat-expansion-panel-header
-                [ngStyle]="{'background-color': (userId!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
-                <mat-panel-title class="panel-header-width">
-                  <strong>{{task.title}}</strong> <br>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <p>
-                <mat-icon style="vertical-align: middle">description</mat-icon> {{task.description}}
-              </p>
-              <p>
-                Deadline: {{task.deadline_date | date:'dd MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
-              </p>
+      <div class="task-status">
+        <div class="task-status-inner">
+          <div class="task-status-text">Done</div>
+          <div cdkDropList id="listDone" [cdkDropListData]="tasksDone" (cdkDropListDropped)="saveDroppedItem($event)"
+               [cdkDropListConnectedTo]="['listToDo', 'listInProgress']"
+               class="drop-list-height">
+            <div cdkDrag [cdkDragData]="task" *ngFor="let task of tasksDone"
+                 [cdkDragDisabled]="userId!=task.responsible && userId!=event.eventplanner">
+              <mat-expansion-panel class="task-margin">
+                <mat-expansion-panel-header
+                  [ngStyle]="{'background-color': (userId!=task.responsible && userId!=event.eventplanner) ? '#9b9b9b' : null }">
+                  <mat-panel-title class="panel-header-width">
+                    <strong>{{task.title}}</strong> <br>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <p>
+                  <mat-icon style="vertical-align: middle">description</mat-icon>
+                  {{task.description}}
+                </p>
+                <p>
+                  Deadline: {{task.deadline_date | date:'dd MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
+                </p>
 
-              <p *ngFor="let user of userOptions">
-                <span *ngIf="user.id==task.responsible">Responsible: <strong>@{{user.user.username}}</strong></span>
-              </p>
+                <p *ngFor="let user of userOptions">
+                  <span *ngIf="user.id==task.responsible">Responsible: <strong>@{{user.user.username}}</strong></span>
+                </p>
 
-              <mat-action-row *ngIf="event.eventplanner==userId">
-                <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
-                  <mat-icon>build</mat-icon>
-                </button>
-                <button mat-mini-fab color="warn" (click)="deleteTask(task)">
-                  <mat-icon>delete_forever</mat-icon>
-                </button>
-              </mat-action-row>
-            </mat-expansion-panel>
+                <mat-action-row *ngIf="event.eventplanner==userId">
+                  <button mat-mini-fab style="background-color:orange;" (click)="updateTask(task,event)">
+                    <mat-icon>build</mat-icon>
+                  </button>
+                  <button mat-mini-fab color="warn" (click)="deleteTask(task)">
+                    <mat-icon>delete_forever</mat-icon>
+                  </button>
+                </mat-action-row>
+              </mat-expansion-panel>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
 
   </div>
@@ -242,7 +256,8 @@
 </div>
 
 <!-----------------------Anzeigen aller Messages -------------------------------->
-<div class="messenger-form-background" *ngIf="event ? event.eventplanner==userId || event.participants.includes(userId) : false">
+<div class="messenger-form-background"
+     *ngIf="event ? event.eventplanner==userId || event.participants.includes(userId) : false">
   <div class="messengerbox" #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <mat-card class="message" *ngFor="let forumentry of forumentries; let i = index">
       <mat-card-content>

@@ -77,7 +77,7 @@ export class EventDetailComponent implements OnInit {
 
     this.userService.retrieveUserOptions().subscribe((result) => {
       this.userOptions = result;
-      console.log(this.userOptions);
+      // console.log(this.userOptions);
     });
   }
 
@@ -108,7 +108,7 @@ export class EventDetailComponent implements OnInit {
 
   filterTasks() {
     this.taskService.getTasks().subscribe((response: any[]) => {
-      console.log(response);
+      // console.log(response);
       this.eventTasks = response.filter(task => this.event.tasks.includes(task.id)
         && task.verified_by_planner && task.verified_by_participant);
       this.eventTasks.forEach(task => {
