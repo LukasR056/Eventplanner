@@ -4,22 +4,13 @@
 </div>
 
 <div class="eventanzeige"
-     *ngIf="event ? event.eventplanner==userId || event.participants.includes(userId) || event.public : false"
-     [ngStyle]="{'float': (event ? event.eventplanner==userId || event.participants.includes(userId) || event.public : false) ? 'none' : null,
-      'margin': (event ? event.eventplanner==userId || event.participants.includes(userId) || event.public : false) ? 'auto' : null}">
+     *ngIf="event ? event.eventplanner==userId || event.participants.includes(userId) || event.public : false">
+
 
   <mat-card class="event-card" *ngIf="event">
 
     <mat-card-header>
       <mat-card-title>{{event.name}}</mat-card-title>
-
-      <button style="width: 20%; background-color: darkorange; color: white" mat-button
-              *ngIf="event.eventplanner==userId" (click)="updateEvent(event.id)">Update
-      </button>
-
-      <button style="width: 20%; background-color: red; color: white" mat-button
-              *ngIf="event.eventplanner==userId" (click)="deleteEvent(event)">Delete
-      </button>
 
       <div *ngIf="event.public">
         <button mat-icon-button shareButton="whatsapp"
@@ -76,6 +67,7 @@
       <button mat-button (click)="participateEvent(event)">I'm in!</button>
     </ng-template>
 
+    <br><br>
 
     <mat-card-content>
 
@@ -112,6 +104,17 @@
           <strong>@{{user.user.username}}</strong></span>
       </span>
       </p>
+
+      <mat-action-row *ngIf="event.eventplanner==userId">
+        <button mat-mini-fab style="background-color:orange;" *ngIf="event.eventplanner==userId"
+                (click)="updateEvent(event.id)">
+          <mat-icon>build</mat-icon>
+        </button>
+
+        <button mat-mini-fab color="warn" *ngIf="event.eventplanner==userId" (click)="deleteEvent(event)">
+          <mat-icon>delete_forever</mat-icon>
+        </button>
+      </mat-action-row>
     </mat-card-content>
   </mat-card>
 
