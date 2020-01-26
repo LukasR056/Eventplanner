@@ -6,6 +6,8 @@
     </button>
   </div>
 
+  <div *ngIf="!(events?.length > 0)"><mat-label>You are not participating in any events.</mat-label></div>
+
 
   <mat-card class="event-card" *ngFor="let event of events">
 
@@ -61,6 +63,10 @@
     <h3>My Tasks</h3>
 
     <button mat-button routerLink="../check-tasks" *ngIf="openTask">You have new tasks!</button>
+
+    <div *ngIf="!(tasks?.length > 0)" >
+      <mat-label> You do not have any tasks open! </mat-label>
+    </div>
 
     <mat-accordion>
       <mat-expansion-panel *ngFor="let task of tasks">

@@ -19,8 +19,7 @@
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
 
-  <button mat-button color="primary" [mat-dialog-close]="data.tag"
-          [disabled]="!newTagForm.valid" (click)="addNewTag()">
+  <button mat-button color="primary" [mat-dialog-close]="" [disabled]="!newTagForm.valid" (click)="addNewTag()">
     Add New Tag
   </button>
 </div>

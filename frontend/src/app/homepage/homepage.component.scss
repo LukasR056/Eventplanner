@@ -28,11 +28,14 @@
   vertical-align: top;
 }
 
+.event-card:hover {
+  background-color: antiquewhite;
+}
+
 .mat-button {
   display: block;
   background-color: antiquewhite;
   margin: 2%;
-
 }
 
 .buttons {
@@ -48,9 +51,13 @@
   float: bottom;
 }
 
-//  allows responsiveness by adapting header height
+//  allows responsiveness of tasks by adapting header height
 .mat-expansion-panel-header {
   height: fit-content !important;
+}
+
+.mat-card-header {
+  cursor: pointer;
 }
 
 .mat-panel-title {

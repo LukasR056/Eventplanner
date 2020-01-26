@@ -37,12 +37,39 @@
         </button>
       </div>
 
-    </mat-card-header>
-    <span *ngFor="let picture of pictures">
+    </mat-card-header><br><br>
 
-      <img src="api/media/{{picture}}" height="100px"><br>
-    </span>
+    <!-- Gallery BEGIN --------------------------------------------------------------------------------->
+
+
+
+    <div *ngFor="let picture of pictures" class="pictures">
+
+          <img src="api/media/{{picture}}" height="50px" (click)="bigPicture(picture)" class="picture-small">
+
+      </div>
+
+    <br><br>
+
+
+        <img src="api/media/{{pictureId}}" height="300px" class="picture" *ngIf="close">
+
+
+    <br><br>
+
+
+    <!-- Gallery END --------------------------------------------------------------------------------->
+
+
+    <div *ngIf="userId == event.eventplanner || event.participants.includes(userId); then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock><div *ngIf="userId == event.eventplanner; then thenBlock2 else elseBlock2"></div></ng-template>
+                      <ng-template #thenBlock2>You are the event planner.</ng-template>
+                      <ng-template #elseBlock2>You are participating in this event.</ng-template>
+    <ng-template #elseBlock><button mat-button (click)="participateEvent(event)" >I'm in!</button></ng-template>
+
+
     <hr>
+
     <mat-card-content>
 
       <p>

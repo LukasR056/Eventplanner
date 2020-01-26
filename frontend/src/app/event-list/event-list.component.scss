@@ -27,6 +27,10 @@
   display: inline-block;
   animation: 750ms ease-out 0s 1 areaSlideInFromBottom;
 }
+
+.event-card:hover {
+  background-color: antiquewhite;
+}
 .new-event-card
 {
   // text-align: center;
@@ -37,6 +41,7 @@
 
 .mat-card-header {
   display: contents;
+  cursor: pointer;
 }
 
 @keyframes areaSlideInFromTop {

@@ -16,6 +16,7 @@ import {log} from 'util';
   styleUrls: ['./event-detail.component.scss'],
   providers: [DatePipe]
 })
+// tslint:disable:triple-equals
 export class EventDetailComponent implements OnInit {
   event: any;
   // Tasks for bottom Board
@@ -33,6 +34,10 @@ export class EventDetailComponent implements OnInit {
   pictures: number[];
   username: any;
   private updatedTask: any;
+
+  // picture specific information
+  pictureId;
+  close = false;
 
   // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
 
@@ -67,6 +72,7 @@ export class EventDetailComponent implements OnInit {
         console.log(this.event);
         this.filterTasks();
         this.pictures = response.pictures;
+        this.pictureId = this.pictures[0];
       });
 
     this.userService.retrieveUserOptions().subscribe((result) => {
@@ -197,6 +203,21 @@ export class EventDetailComponent implements OnInit {
         .subscribe(() => {
           this.router.navigate(['/event-list/']);
         });
+    }
+  }
+
+  participateEvent(event: any) {
+    event.participants.push(this.userId);
+    this.eventService.updateEvent(event).subscribe(() => {
+      this.router.navigate(['/event-detail/' + event.id]);
+    });
+  }
+
+  bigPicture(pictureId) {
+    if (this.pictureId == pictureId) {
+      this.close = !this.close;
+    } else {
+      this.pictureId = pictureId;
     }
   }
 }

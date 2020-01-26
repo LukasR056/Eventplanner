@@ -1,27 +1,31 @@
 <div class="tag-list-form">
 
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input type="text" placeholder="Search for new events!" aria-label="Search for new events!" matInput
-           [formControl]="input" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
-                      (optionSelected)="changeEventPerName($event.option.value)">
-                   <!--   (keydown.enter)="addFriend(-1,true)"> -->
-      <mat-option *ngFor="let event of filteredEventList | async" [value]="event">
-        {{event.name}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-  <button mat-button class="button-delete-input" (click)="input.setValue('')"><mat-icon>clear</mat-icon></button>
-</form>
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <input type="text" placeholder="Search for new events!" aria-label="Search for new events!" matInput
+             [formControl]="input" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                        (optionSelected)="changeEventPerName($event.option.value)">
+        <!--   (keydown.enter)="addFriend(-1,true)"> -->
+        <mat-option *ngFor="let event of filteredEventList | async" [value]="event">
+          {{event.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-button class="button-delete-input" (click)="input.setValue('')">
+      <mat-icon>clear</mat-icon>
+    </button>
+  </form>
 
-<mat-form-field class="chip-list">
-  <mat-chip-list aria-label="Tag selection" [multiple]="true" >
-    <mat-chip *ngFor="let tag of tags" [selectable]="selectable" (click)="changeEventPerTag(tag)" >
-      {{tag.name}}
-    </mat-chip>
-  </mat-chip-list >
-</mat-form-field>
+  <mat-form-field class="chip-list">
+    <mat-chip-list aria-label="Tag selection" [multiple]="true">
+      <div class="tags">
+        <mat-chip *ngFor="let tag of tags" [selectable]="selectable" (click)="changeEventPerTag(tag)">
+          {{tag.name}}
+        </mat-chip>
+      </div>
+    </mat-chip-list>
+  </mat-form-field>
 
 </div>
 
@@ -29,25 +33,31 @@
 
 <div class="event-list">
 
-    <mat-card class="check-object-form event-card" *ngFor="let event of showEvents"  >
+  <<<<<<< HEAD
+  <mat-card class="check-object-form event-card" *ngFor="let event of showEvents">
     <mat-card-header>
-      <mat-card-title (click)="eventDetail(event.id)" >{{event.name}}</mat-card-title>
-    </mat-card-header>
-    <hr>
-    <mat-card-content>
-      <p>
-        Location: {{event.location}}
-      </p>
-      <p>
-        When: {{event.date}} at {{event.time}}
-      </p>
-      <p>
-        For more information, click on the EVENT!
-      </p>
-    </mat-card-content>
-      <mat-card-actions>
-      <button mat-button (click)="participateEvent(event)" >I'm in!</button>
-      </mat-card-actions>
-    </mat-card>
+      <mat-card-title (click)="eventDetail(event.id)">{{event.name}}</mat-card-title>
+      =======
+      <mat-card class="event-card" *ngFor="let event of showEvents">
+        <mat-card-header (click)="eventDetail(event.id)">
+          <mat-card-title>{{event.name}}</mat-card-title>
+          >>>>>>> tasks
+        </mat-card-header>
+        <hr>
+        <mat-card-content>
+          <p>
+            Location: {{event.location}}
+          </p>
+          <p>
+            When: {{event.date}} at {{event.time}}
+          </p>
+          <p>
+            For more information, click on the EVENT!
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="participateEvent(event)">I'm in!</button>
+        </mat-card-actions>
+      </mat-card>
 
 </div>
