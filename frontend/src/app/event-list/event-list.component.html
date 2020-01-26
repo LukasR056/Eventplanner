@@ -27,7 +27,7 @@
         <mat-icon style="vertical-align: middle">navigation</mat-icon> {{event.location}}
       </p>
       <p>
-        <mat-icon style="vertical-align: middle">access_time</mat-icon> {{event.date}} at {{event.time.substring(0, 5)}}
+        <mat-icon style="vertical-align: middle">access_time</mat-icon> {{event.date | date: 'dd MMM yyyy'}} at {{event.time.substring(0, 5)}}
       </p>
 
       This is a

@@ -10,7 +10,7 @@
   <mat-card class="event-card" *ngIf="event">
 
     <mat-card-header>
-      <mat-card-title>{{event.name}}</mat-card-title>
+      <mat-card-title style="margin: 8px 0">{{event.name}}</mat-card-title>
 
       <div *ngIf="event.public">
         <button mat-icon-button shareButton="whatsapp"
@@ -32,7 +32,6 @@
       </div>
 
     </mat-card-header>
-    <br><br>
 
     <!-- Gallery BEGIN --------------------------------------------------------------------------------->
 
@@ -44,13 +43,9 @@
       </div>
     </div>
 
-    <br><br>
-
-
     <img src="api/media/{{pictureId}}" height="300px" class="picture" *ngIf="close">
 
-
-    <br><br>
+    <br>
 
 
     <!-- Gallery END --------------------------------------------------------------------------------->
