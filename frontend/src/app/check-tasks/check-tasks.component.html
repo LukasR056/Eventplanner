@@ -1,7 +1,6 @@
 <div *ngIf="tasks?.length > 0" class="check-object-form">
   <mat-accordion *ngFor="let task of tasks">
-    <mat-expansion-panel (opened)="logtaskfunc(task)"
-                         (closed)="panelOpenState = false">
+    <mat-expansion-panel (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title >
          <strong> {{task.title}} </strong>

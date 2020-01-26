@@ -1,7 +1,7 @@
 <div class="check-object-form event-list">
 
   <div>
-    <h3>My Events <br>MY USERNAME {{username}} WITH ID {{userId}}<br></h3>
+    <h3>My Events</h3>
     <button mat-button routerLink="../check-invitation" *ngIf="openEvents" style="white-space: normal">You have been invited to new events!
     </button>
   </div>
@@ -12,8 +12,8 @@
   <mat-card class="event-card" *ngFor="let event of events">
 
     <mat-card-header style="display: block" (click)="moveToEventDetail(event.id)">
-      <mat-card-title>{{event.name}}
-        <mat-icon class="eventplanner-icons" *ngIf="event.eventplanner == username">star</mat-icon>
+      <mat-card-title>
+        {{event.name}}
       </mat-card-title>
     </mat-card-header>
     <hr>
@@ -28,7 +28,7 @@
       </p>
       <p>
         <mat-icon style="vertical-align: middle">access_time</mat-icon>
-        {{event.date}} at {{event.time.substring(0, 5)}}
+        {{event.date | date: 'dd MMM yyyy'}} at {{event.time.substring(0, 5)}}
       </p>
 
 
@@ -45,9 +45,14 @@
       <p>
         Responsible: <strong>@{{event.eventplanner}}</strong>
       </p>
-      <p *ngIf="event.participants.length!=0">
+      <p *ngIf="event.participants.length!=0" style="margin-bottom: 0">
         Participants: {{event.participants}}
       </p>
+
+      <mat-card-actions style="float: right" >
+        <mat-icon *ngIf="event.eventplanner == username">star</mat-icon>
+      </mat-card-actions>
+
     </mat-card-content>
   </mat-card>
 
