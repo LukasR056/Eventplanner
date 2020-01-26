@@ -9,7 +9,23 @@ This is an Angular/Django Eventplanner Application by students of the FH JOANNEU
 
 # Project
 
-This is an Eventplanner Application which allows you to plan important Events in Advance. 
+The goal of this project is to plan events or even projects within an
+intuitive and clean environment. Setting up an event, the event
+owner can invite his friends. Events can eigther be public or private.
+If it is a public event, other users are free to join. 
+Furthermore tasks can assigned  to other participants, which is usually done by the
+event owner. However guests  can crate tasks for themselves. If a
+guest creates a task, they are automatically assigned to this task
+after the event owner verifies them. The user interface of this web
+application shows three different columns: “To Do”, “In Progress”
+and “Done” – similar to a KANBAN-board. Tasks are arranged in
+these columns, depending on their progress. Every participant can move
+his own tasks from "Open" to “To Do” to “In Progress”. The Eventowner
+can move the tasks of all members. 
+Whenever an event owner creates a new event, the event will be recorded in their calendar. 
+All participants will also see their events when checking their calender. 
+Additionally, user can upload a profile picutre in the settings tab, which is also  
+visivlbe for users their freinds with.
 
 ### Install for Windows
 
