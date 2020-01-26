@@ -1,27 +1,63 @@
-# Frontend
+# Ultimate Event
+This is an Angular/Django Eventplanner Application by students of the FH JOANNEUM. 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.21.
+# Requirements
 
-## Development server
+* Python 3.8
+* IntelliJ or Pycharm as IDE
+* Django Server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+# Project
 
-## Code scaffolding
+The goal of this project is to plan events within an
+intuitive and clean environment. 
+Events can either be public or private.
+If it is a public event, other users are free to join. 
+Furthermore tasks can assigned to other participants. 
+Taks are shown in three different columns: “To Do”, “In Progress”
+and “Done” – similar to a KANBAN-board.
+All events will be recorded in a calendar. 
+Additionally, user can upload a profile picutre in the settings tab, which is also  
+visible for users their friends with.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Django
 
-## Build
+### Install
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Install the following Python packages using pip and requirements.txt  
 
-## Running unit tests
+`venv\Scripts\pip.exe install -r requirements.txt`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Setup
 
-## Running end-to-end tests
+Create and fill database
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+run: `cmd < fixtures/LoadData.txt`
 
-## Further help
+All User share the same Password: `Pa55w.rd`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Usernames: 
+- admin
+- JD
+- Jane
+- Luke
+- Sue
+- Tom
+
+### Run the Application
+
+`python manage.py runserver`
+
+## Angular
+
+ ### Install all required packages using package.json
+
+`npm install`
+
+ ### Run the development server
+
+ `ng serve`
+
+ ### Start the Application
+ 
+ Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

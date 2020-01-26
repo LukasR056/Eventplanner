@@ -13,8 +13,8 @@
             <td><strong>{{ media.original_file_name }}</strong></td>
             <td>{{ media.size/1024/1024 | number }}&nbsp;MB</td>
             <td>
-                <span *ngIf="!media.id">Wird hochgeladen...</span>
-                <span *ngIf="media.id">Hochgeladen</span>
+                <span *ngIf="!media.id">Uploading...</span>
+                <span *ngIf="media.id">Uploaded</span>
             </td>
             <td>
                 <div class="btn-group">
@@ -23,7 +23,7 @@
                     </button>
 
                   <button type="button" class="btn btn-primary" (click)="deleteAll(i, media)">
-                     löschen
+                     Delete
                   </button>
                 </div>
             </td>
@@ -32,5 +32,5 @@
     </table>
 
     <input  type="file" [disabled]= "picIsAlreadyThere || picIsAlreadyUploaded || tooManyPics"   [accept]="accept" ng2FileSelect [uploader]="uploader" [multiple]="false"/>
-<!-- Liste rausholen und dann prüfen ob >=1 [disabled]="media.id == null"-->
+<!-- Button soll disabled werden, wenn Entweder bereits in Bild hochgeladen ist (Profilbildupload), gleich oder mehr als 10 Bilder in der Datenbank eingetragen sind(bei Events) -->
 </div>

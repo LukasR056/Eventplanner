@@ -29,6 +29,7 @@ export interface IMedia {
 export class MediainputComponent implements OnInit, ControlValueAccessor {
   @Input() public parentObj = false;
   @Input() public tooManyPics = false;
+  // Input von EventForm Component, damit Mediainput "weiß", dass sie gerade in der EventForm component verwendet wird. Wichtig, da die Component auch in der User Form Component verwendet wird.
 
   constructor(private userService: UserService, private http: HttpClient, elm: ElementRef,
               private mediaService: MediaService, private router: Router) {
@@ -45,7 +46,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
   uploader: FileUploader;
   picIsAlreadyThere: boolean;
   picIsAlreadyUploaded: boolean;
-  //entryInDB: boolean;
   onChange = (medias: number[]) => {
     // empty default
   };
