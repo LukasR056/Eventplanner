@@ -80,7 +80,6 @@ export class EventFormComponent implements OnInit {
           if (this.eventFormGroup.value.pictures.length >= 10) {
             this.eventPicNumber = true;
           }
-          console.log('Laenge' + this.eventFormGroup.value.pictures.length);
         });
     } else {
       this.time = '00:00';

@@ -59,7 +59,6 @@ export class FriendsListComponent implements OnInit {
     this.userService.getUsers().subscribe((response: any[]) => {
       this.userService.getUserById(this.userId).subscribe(currentUser => {
         this.userFormGroup.patchValue(currentUser);
-        console.log(this.userFormGroup.value);
         this.userList = response.filter(user => !user.friends.includes(this.userId)
           // some um zu überprüfen ob der Wert wenigstens 1x vorhanden ist wenn ja sollte er nicht vorkommen daher ! am Anfang
           && !this.userFormGroup.value.friend_requests.some(request => request.potential_friends.includes(user.id))
@@ -68,20 +67,16 @@ export class FriendsListComponent implements OnInit {
 
       this.friends = response.filter(user => user.friends.includes(this.userId));
 
-      // this.friendRequests = response.filter(user => this.userFormGroup.value.friend_requests.forEach()
-      // user.friends.includes(this.userId));
+
 
       this.friendshipRequestService.getFriendshipRequests().subscribe((friendRequests: any[]) => {
-        //   this.sentFriendRequests = response.filter(request => request.user === this.userId
-        //     && request.request_sent === true);
-        //   console.log(this.sentFriendRequests);
+
 
         this.receivedFriendRequestsRawId = friendRequests.filter(request => request.user == this.userId
           && request.request_sent == false).map(request => request.potential_friends)[0];
 
         this.receivedFriendRequests = response.filter(user => this.receivedFriendRequestsRawId.includes(user.id));
         this.receivedFriendRequestsCount = this.receivedFriendRequests.length;
-        // console.log(this.receivedFriendRequests);
 
       });
 
@@ -108,7 +103,7 @@ export class FriendsListComponent implements OnInit {
   moveToEventDetail(id: any) {
     this.router.navigate(['/event-detail/' + id]);
   }
-  
+
   displayFn(user?: any): string | undefined {
     return user ? (user.first_name || user.last_name ? (user.first_name + ' ' + user.last_name) : ('@' + user.user.username)) : undefined;
   }
@@ -124,7 +119,6 @@ export class FriendsListComponent implements OnInit {
     this.userFormGroup.value.friends = this.userFormGroup.value.friends.filter(friend => friend !== id);
     this.userService.updateUser(this.userFormGroup.value).subscribe(() => {
       this.ngOnInit();
-      // TODO: MIT TOAST ERSETZEN
       alert('Friend removed');
     });
   }
@@ -137,6 +131,7 @@ export class FriendsListComponent implements OnInit {
     if (this.idFriendRequested == undefined && sent == true) {
       return;
     }
+    alert('You successfully sent a friend request. They need to confirm it.');
     this.userFormGroup.value.friend_requests.forEach(request => {
       // RECEIVED --> (request_sent == false)
       if (request.request_sent == false && sent == false) {
@@ -168,10 +163,6 @@ export class FriendsListComponent implements OnInit {
         this.input.setValue('');
       }
     });
-    // User, Own FriendRequest & Counterpart FriendRequest
-    // console.log(this.userFormGroup.value);
-    // console.log(this.friendRequestsFormGroup.value);
-    // console.log(this.friendRequestOfCounterpart);
     this.friendshipRequestService.updateFriendshipRequest(this.friendRequestsFormGroup.value).subscribe(() => {
       this.friendshipRequestService.updateFriendshipRequest(this.friendRequestOfCounterpart).subscribe(() => {
         this.userService.updateUser(this.userFormGroup.value).subscribe(() => {
@@ -196,10 +187,6 @@ export class FriendsListComponent implements OnInit {
           .filter(potentialFriend => potentialFriend != this.userId);
       }
     });
-    // User, Own FriendRequest & Counterpart FriendRequest
-    // console.log(this.userFormGroup.value);
-    // console.log(this.friendRequestsFormGroup.value);
-    // console.log(this.friendRequestOfCounterpart);
     this.friendshipRequestService.updateFriendshipRequest(this.friendRequestsFormGroup.value).subscribe(() => {
       this.friendshipRequestService.updateFriendshipRequest(this.friendRequestOfCounterpart).subscribe(() => {
         this.ngOnInit();

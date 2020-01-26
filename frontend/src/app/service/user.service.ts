@@ -33,7 +33,6 @@ export class UserService {
       this.router.navigate(['homepage']);
     }, () => {
       alert('wrong username or password');
-      // HIER Z.B. TOAST EINFÜGEN
     });
   }
 

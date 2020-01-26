@@ -75,11 +75,9 @@ export class TaskFormComponent implements OnInit {
   createTask() {
     const task = this.taskFormGroup.value;
     if (task.id) {
-      console.log(task);
       // falls der responsible sich geändert hat so muss eine Bestätigng eingeholt werden
       if (task.responsible != this.oldTask.responsible && task.responsible != this.userId) {
         task.responsible = this.oldTask.responsible;
-        console.log('res wurde geändert');
         task.verified_by_participant = false;
       }
       this.taskService.updateTask(task).subscribe((response: any) => {
@@ -112,7 +110,7 @@ export class TaskFormComponent implements OnInit {
     }
 
 
-    alert('Your task was created successfully. Now the event planner just needs to verify your task.')
+    alert('Your task was created successfully.');
 
   }
 }

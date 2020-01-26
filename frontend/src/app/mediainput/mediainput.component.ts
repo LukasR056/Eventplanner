@@ -72,7 +72,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
       } else {
         this.picIsAlreadyUploaded = true;
       }
-      console.log('ispicuploaded? ' + this.picIsAlreadyUploaded);
       this.medias.find(media => !media.id && media.original_file_name === uploadedMedia.original_file_name).id = uploadedMedia.id;
     };
     this.uploader.onCompleteAll = () => {
@@ -91,8 +90,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
         this.pictures = response.pictures;
         if (this.pictures.length >= 1 && this.parentObj == false) {
           this.picIsAlreadyThere = true;
-          console.log('picture länge: ' + this.pictures.length);
-          console.log('parentObj ' + this.parentObj);
         }
 
       });
@@ -106,7 +103,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
       return m.id;
     }));
     this.picIsAlreadyUploaded = false;
-    console.log('uploaded?' + this.picIsAlreadyUploaded);
     this.mediaService.deleteMedia(media)
       .subscribe(() => {
         // window.location.reload();
@@ -133,7 +129,6 @@ export class MediainputComponent implements OnInit, ControlValueAccessor {
   }
 
   registerOnTouched(fn: any): void {
-    // not implemented
   }
 
   writeValue(mediaIds: any): void {

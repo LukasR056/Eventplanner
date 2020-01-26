@@ -43,7 +43,6 @@ export class CheckInvitationComponent implements OnInit {
     // tslint:disable-next-line:triple-equals
     updateEvent.invited = updateEvent.invited.filter(user => user != this.userId);
     updateEvent.participants.push(Number(this.userId));
-    console.log(updateEvent);
     this.eventService.updateEvent(updateEvent).subscribe(() => {
       this.router.navigate(['/event-detail/' + updateEvent.id]);
     });

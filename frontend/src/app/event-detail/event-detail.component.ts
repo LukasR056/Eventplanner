@@ -39,8 +39,6 @@ export class EventDetailComponent implements OnInit {
   pictureId;
   close = false;
 
-  // displayedColumns = ['id', 'name', 'datetime', 'description', 'location', 'public', 'eventplanner', 'invited' ];
-
 
   // tslint:disable-next-line:max-line-length
   constructor(private fb: FormBuilder, private http: HttpClient, private eventService: EventService, private route: ActivatedRoute,
@@ -63,7 +61,6 @@ export class EventDetailComponent implements OnInit {
     this.tasksDone = [];
 
 
-
     this.loadForumEntries(id);
 
     this.eventService.getEventWithId(id)
@@ -76,7 +73,7 @@ export class EventDetailComponent implements OnInit {
 
     this.userService.retrieveUserOptions().subscribe((result) => {
       this.userOptions = result;
-      // console.log(this.userOptions);
+
     });
   }
 
@@ -84,7 +81,7 @@ export class EventDetailComponent implements OnInit {
     this.forumentryService.getForumentryWithEventId(id)
       .subscribe((response: any) => {
         this.forumentries = response;
-        // console.log(this.forumentries);
+
       });
   }
 
@@ -107,7 +104,6 @@ export class EventDetailComponent implements OnInit {
 
   filterTasks() {
     this.taskService.getTasks().subscribe((response: any[]) => {
-      // console.log(response);
       this.eventTasks = response.filter(task => this.event.tasks.includes(task.id)
         && task.verified_by_planner && task.verified_by_participant);
       this.eventTasks.forEach(task => {
@@ -149,7 +145,7 @@ export class EventDetailComponent implements OnInit {
     }
     this.updatedTask = event.item.data;
     this.updatedTask.event = this.event.id;
-    console.log(this.updatedTask);
+
     this.taskService.updateTask(this.updatedTask).subscribe(() => {
     });
   }
@@ -191,7 +187,6 @@ export class EventDetailComponent implements OnInit {
         this.taskService.deleteTask(task).subscribe();
         break;
     }
-
 
 
   }
