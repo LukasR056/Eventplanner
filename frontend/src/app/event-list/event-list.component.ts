@@ -52,12 +52,14 @@ export class EventListComponent implements OnInit {
 
   cancelEvent(id: any) {
     if (confirm('Are you sure you want to cancel?')) {
-      const updateEvent = this.events.filter(event => event.id === id);
+      const updateEvent = this.events.find(event => event.id === id);
 
       // tslint:disable-next-line:triple-equals
-      updateEvent[0].participants = updateEvent[0].participants.filter(user => user != this.userId);
-      this.eventService.updateEvent(updateEvent[0]).subscribe();
-      this.ngOnInit();
+      updateEvent.participants = updateEvent.participants.filter(user => user != this.userId);
+      this.eventService.updateEvent(updateEvent).subscribe( () =>{
+      const indexOfcanceledEvnet = this.events.indexOf(updateEvent);
+      this.events.splice(indexOfcanceledEvnet, 1);}
+      );
     }
   }
 

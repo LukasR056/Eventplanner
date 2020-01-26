@@ -3,8 +3,8 @@
         <thead>
         <tr>
             <th>Name</th>
-            <th>Größe</th>
-            <th>Status</th>
+            <th>Size</th>
+            <th>Process</th>
             <th></th>
         </tr>
         </thead>
@@ -18,11 +18,11 @@
             </td>
             <td>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary" (click)="downloadMedia(media)">
+                    <button mat-raised-button class="btn btn-primary" (click)="downloadMedia(media)">
                         Download
                     </button>
 
-                  <button type="button" class="btn btn-primary" (click)="deleteAll(i, media)">
+                  <button mat-raised-button class="btn btn-primary" (click)="deleteAll(i, media)">
                      Delete
                   </button>
                 </div>
@@ -31,6 +31,6 @@
         </tbody>
     </table>
 
-    <input  type="file" [disabled]= "picIsAlreadyThere || picIsAlreadyUploaded || tooManyPics"   [accept]="accept" ng2FileSelect [uploader]="uploader" [multiple]="false"/>
-<!-- Button soll disabled werden, wenn Entweder bereits in Bild hochgeladen ist (Profilbildupload), gleich oder mehr als 10 Bilder in der Datenbank eingetragen sind(bei Events) -->
+    <input  type="file" [disabled]= "picIsAlreadyThere || picIsAlreadyUploaded || tooManyPics"   [accept]="accept"
+            ng2FileSelect [uploader]="uploader" [multiple]="false" accept="image/*"/>
 </div>
