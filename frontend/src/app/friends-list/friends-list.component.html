@@ -29,11 +29,13 @@
         <mat-icon>clear</mat-icon>
       </button>
       <mat-card-header>
-        <!-- TODO: ÜBERPRÜFEN -->
-        <span *ngIf="friend.pictures.length != 0">
-          <img src="api/media/{{friend.pictures}}" width="100px"><br>
-        </span>
-        <mat-card-title class="event-card-title">{{friend.first_name}} {{friend.last_name}}</mat-card-title>
+        <mat-card-title class="event-card-title">
+
+          <span *ngIf="friend.pictures.length != 0">
+            <img src="api/media/{{friend.pictures}}" width="100px">
+          </span> <br>
+
+          {{friend.first_name}} {{friend.last_name}}</mat-card-title>
       </mat-card-header>
       <hr>
       <mat-card-content>
@@ -45,13 +47,12 @@
         </p>
 
         <p>
-          {{friend.first_name}} also goes to
           <span *ngFor="let event of events">
-                <div *ngIf="event.participants.includes(friend.id) || event.eventplanner==friend.id
-                            && event.public == true"
-                     (click)="moveToEventDetail(event.id)">
-                     {{event.name}}
-              </div>
+            <div *ngIf="event.participants.includes(friend.id) || event.eventplanner==friend.id
+              && event.public == true" (click)="moveToEventDetail(event.id)">
+                {{friend.first_name}} also goes to <br>
+                <span class="event">{{event.name}}</span>
+            </div>
           </span>
         </p>
 
