@@ -194,4 +194,11 @@ export class FriendsListComponent implements OnInit {
     });
   }
 
+  checkPublicEvent(friend: any) {
+    if (this.events != undefined) {
+      return this.events.some(event => event.participants.includes(friend.id) || event.eventplanner == friend.id
+        && event.public == true);
+    }
+  }
+
 }
