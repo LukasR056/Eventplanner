@@ -257,7 +257,7 @@
 <!-----------------------Anzeigen aller Messages -------------------------------->
 <div class="messenger-form-background"
      *ngIf="event ? event.eventplanner==userId || event.participants.includes(userId) : false">
-  <div class="messengerbox" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+  <div class="messengerbox" id="scrollMe">
     <mat-card class="message" *ngFor="let forumentry of forumentries; let i = index">
       <mat-card-content>
         <div class="current-date" *ngIf="showDateInbetweenForumentries(i)">
@@ -303,7 +303,7 @@
       <div style="width: 100%">New Message</div>
       <form [formGroup]="forumentryFormGroup" class="new-message-content">
         <mat-form-field style="display: block">
-          <textarea matInput type="text" placeholder="Content" formControlName="content"></textarea>
+          <textarea matInput type="text" placeholder="Content" formControlName="content" (keydown.enter)="createForumentry()"></textarea>
         </mat-form-field>
       </form>
       <button mat-icon-button [disableRipple]="true" (click)="createForumentry()" class="new-message-button">
