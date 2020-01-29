@@ -46,11 +46,12 @@
           Birthday: {{friend.birthday}}
         </p>
 
-        <p>
+        <p *ngIf="checkPublicEvent(friend)">
+          {{friend.first_name}} also goes to <br>
           <span *ngFor="let event of events">
             <div *ngIf="event.participants.includes(friend.id) || event.eventplanner==friend.id
               && event.public == true" (click)="moveToEventDetail(event.id)">
-                {{friend.first_name}} also goes to <br>
+
                 <span class="event">{{event.name}}</span>
             </div>
           </span>
