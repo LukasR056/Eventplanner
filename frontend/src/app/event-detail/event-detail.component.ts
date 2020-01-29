@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {EventService} from '../service/event.service';
 import {ForumentryService} from '../service/forumentry.service';
@@ -8,7 +8,7 @@ import {FormBuilder} from '@angular/forms';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {TaskService} from '../service/task.service';
 import {DatePipe} from '@angular/common';
-import {log} from 'util';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-event-detail',
@@ -18,6 +18,9 @@ import {log} from 'util';
 })
 // tslint:disable:triple-equals
 export class EventDetailComponent implements OnInit {
+  // @ts-ignore
+  @ViewChild('scrollMe') scrollMe: ElementRef;
+
   event: any;
   // Tasks for bottom Board
   eventTasks: any[];
@@ -38,6 +41,8 @@ export class EventDetailComponent implements OnInit {
   // picture specific information
   pictureId;
   close = false;
+
+  sub: Subscription;
 
 
   // tslint:disable-next-line:max-line-length
@@ -60,8 +65,9 @@ export class EventDetailComponent implements OnInit {
     this.tasksInProgress = [];
     this.tasksDone = [];
 
-
     this.loadForumEntries(id);
+    const source = interval(10000);
+    source.subscribe(val => this.loadForumEntries(id));
 
     this.eventService.getEventWithId(id)
       .subscribe((response: any) => {
@@ -78,20 +84,31 @@ export class EventDetailComponent implements OnInit {
   }
 
   private loadForumEntries(id) {
+    // @ts-ignore
     this.forumentryService.getForumentryWithEventId(id)
-      .subscribe((response: any) => {
-        this.forumentries = response;
+      .subscribe(async (response: any) => {
+        if ( (this.forumentries ? this.forumentries.length : -1) != response.length) {
+          this.forumentries = response;
 
+          // sonst ist scrollHeight nicht die tatsächliche Höhe nach der Änderung
+          await new Promise( resolve => setTimeout(resolve, 100) );
+
+          const scrollMe = document.getElementById('scrollMe');
+          scrollMe.scrollTop = scrollMe.scrollHeight;
+        }
       });
   }
 
   createForumentry() {
     const id = this.route.snapshot.paramMap.get('id');
     const forumentry = this.forumentryFormGroup.value;
-    this.forumentryService.createForumentry(forumentry)
-      .subscribe((response: any) => {
-        this.loadForumEntries(id);
-      });
+    if (forumentry.content && forumentry.content.trim()) {
+      this.forumentryService.createForumentry(forumentry)
+        .subscribe((response: any) => {
+          this.loadForumEntries(id);
+        });
+      this.forumentryFormGroup.patchValue({content: ''});
+    }
   }
 
   showDateInbetweenForumentries(index: number): boolean {
