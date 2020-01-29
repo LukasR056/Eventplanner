@@ -77,9 +77,6 @@ export class UserService {
     return this.http.put('/api/user/' + user.id + '/update', user);
   }
 
-  deleteUser(user: any) {
-    return this.http.delete('/api/user/' + user.id + '/delete');
-  }
 
 
 }

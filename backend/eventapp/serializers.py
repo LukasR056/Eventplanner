@@ -131,6 +131,15 @@ class EventFormSerializer(serializers.ModelSerializer):
         fields.append('pictures')
 
 
+class EventCheckSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Event
+        fields = ['id','eventplanner']
+
+
+
+
 class ForumentryListSerializer(serializers.ModelSerializer):
     event = serializers.SerializerMethodField()
     user = serializers.SerializerMethodField()

@@ -44,6 +44,8 @@ export class EventFormComponent implements OnInit {
   public parentProp = true;
   public eventPicNumber = false;
   isEventplanner = true;
+  updatedEventId: any;
+
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,
               private router: Router, private eventService: EventService, private userService: UserService,
@@ -79,18 +81,31 @@ export class EventFormComponent implements OnInit {
 
 
     const id = this.route.snapshot.paramMap.get('id');
+
+    this.updatedEventId = id;
+    console.log(this.updatedEventId);
+
     if (id) {
-      this.eventService.getEventWithId(id)
-        .subscribe((response) => {
-          this.eventFormGroup.patchValue(response);
-          this.time = this.eventFormGroup.value.time;
-          this.time = this.time.substring(0, 5);
-          if (Number(this.userId) != this.eventFormGroup.value.eventplanner) {
+      this.eventService.getEventonlyEventplanner(id, Number(this.userId))
+        .subscribe((response: any) => {
+          console.log(response);
+
+          if (response[0].eventplanner == Number(this.userId)) {
+            this.eventService.getEventWithId(id).subscribe((responseEvent) => {
+              this.eventFormGroup.patchValue(responseEvent);
+              this.time = this.eventFormGroup.value.time;
+              this.time = this.time.substring(0, 5);
+              this.isEventplanner = true;
+              if (this.eventFormGroup.value.pictures.length >= 10) {
+                this.eventPicNumber = true;
+              }
+            });
+          } else {
             this.isEventplanner = false;
           }
-          if (this.eventFormGroup.value.pictures.length >= 10) {
-            this.eventPicNumber = true;
-          }
+        }, error => {
+          console.log('haben wir recht?', error);
+          this.isEventplanner = false;
         });
     } else {
       this.time = '00:00';
