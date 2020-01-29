@@ -71,6 +71,7 @@ urlpatterns = [
     path('event/options', views.event_list),
     path('event/create', views.event_form_create),
     path('event/<int:pk>/get', views.event_form_get),
+    path('event/<int:pk>/<int:pk2>/get', views.event_form_update_check_eventplanner),
     path('event/<int:pk>/update', views.event_form_update),
     path('event/<int:pk>/delete', views.event_delete),
     path('event/user/<int:pk>/get', views.event_form_get_userId),

@@ -1,5 +1,6 @@
 <div class="task-form-background">
 
+  <div *ngIf="isHisTask">
   <form [formGroup]="taskFormGroup" class="task-form">
     <mat-form-field>
       <input matInput type="text" placeholder="Name" formControlName="title">
@@ -63,5 +64,10 @@
       </button>
     </mat-card-actions>
   </form>
+</div>
+
+  <h2 *ngIf="!isHisTask" > Task could not be found!
+
+  </h2>
 
 </div>

@@ -12,8 +12,8 @@ from rest_framework.response import Response
 from .models import Task, Event, Forumentry, Tag, Profile, Media, FriendshipRequest
 from .serializers import TaskListSerializer, TaskFormSerializer, UserList, UserForm, TagFormSerializer, \
     EventListSerializer, EventFormSerializer, ForumentryFormSerializer, ForumentryListSerializer, AbstractUserForm, \
-    MediaSerializer, UserCreateForm, AbstractUserCreateForm, FriendshipRequestList, FriendshipRequestForm, \
-    UserFormUpdate, UserEventTaskSerializers, UserListName
+    MediaSerializer, AbstractUserCreateForm, FriendshipRequestList, FriendshipRequestForm, \
+    UserFormUpdate, UserEventTaskSerializers, UserListName, EventCheckSerializer
 
 
 @api_view(['GET'])
@@ -290,6 +290,18 @@ def event_form_update(request, pk):
         serializer.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=400)
+
+
+@api_view(['GET'])
+def event_form_update_check_eventplanner(request, pk, pk2):
+    try:
+        event = Event.objects.filter(pk=pk)
+        if event[0].eventplanner.id != pk2:
+            return Response({'error', 'You are not the eventplanner'}, status=404)
+    except Event.DoesNotExist:
+        return Response({'error', 'Event does not exist'}, status=404)
+    serializer = EventCheckSerializer(event, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['DELETE'])

@@ -21,10 +21,13 @@ export class TaskFormComponent implements OnInit {
   isLoggedUserEventplanner = true;
   loggedUser: any;
   oldTask: any;
+  isHisTask = true;
 
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private eventService: EventService,
-              private http: HttpClient, private route: ActivatedRoute, private taskService: TaskService) {
+
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService,
+              private eventService: EventService, private http: HttpClient, private route: ActivatedRoute,
+              private taskService: TaskService) {
   }
 
   ngOnInit() {
@@ -35,15 +38,20 @@ export class TaskFormComponent implements OnInit {
       this.loggedUser = response;
     });
 
-    if (this.taskService.currentEvent.eventplanner != this.userId) {
+    if (this.taskService.currentEvent == undefined) {
+      this.isHisTask = false;
+    }
+    if ((this.taskService.currentEvent ? this.taskService.currentEvent.eventplanner : -1) != this.userId) {
       this.isLoggedUserEventplanner = false;
     }
 
-    this.userService.retrieveUserOptions().subscribe((result: any[]) => {
-      this.userOptions = result.filter(user =>
-        (this.taskService.currentEvent.participants ? this.taskService.currentEvent.participants.includes(user.id) : false)
-        || user.id == this.taskService.currentEvent.eventplanner);
-    });
+
+    if (this.taskService.currentEvent != undefined) {
+      this.userService.retrieveUserOptions().subscribe((result: any[]) => {
+        this.userOptions = result.filter(user =>
+          (this.taskService.currentEvent.participants ? this.taskService.currentEvent.participants.includes(user.id) : false) || user.id == this.taskService.currentEvent.eventplanner);
+      });
+    }
 
 
     this.deadline_time = '00:00';
@@ -80,6 +88,7 @@ export class TaskFormComponent implements OnInit {
     const task = this.taskFormGroup.value;
     if (task.id) {
       // falls der responsible sich geändert hat so muss eine Bestätigng eingeholt werden
+
       if (task.responsible != this.oldTask.responsible && task.responsible != this.userId) {
         task.responsible = this.oldTask.responsible;
         task.verified_by_participant = false;

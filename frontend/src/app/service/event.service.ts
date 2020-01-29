@@ -30,7 +30,9 @@ export class EventService {
   updateEvent(event: any) {
     return this.http.put('/api/event/' + event.id + '/update', event);
   }
-
+  getEventonlyEventplanner(event: any, userId: any) {
+    return this.http.get('/api/event/' + event + '/' + userId + '/get', event);
+  }
   deleteEvent(event: any) {
     return this.http.delete('/api/event/' + event.id + '/delete');
   }
