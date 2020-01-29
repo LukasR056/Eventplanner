@@ -1,5 +1,6 @@
 <div class="standard-form-background">
 
+  <div *ngIf="isEventplanner">
   <form [formGroup]="eventFormGroup" class="event-form">
     <mat-form-field>
       <input matInput type="text" placeholder="Name" formControlName="name">
@@ -82,5 +83,8 @@
       </button>
     </mat-card-actions>
   </form>
+  </div>
+  <h2 *ngIf="!isEventplanner" > You are not the eventplanner of his event!
 
+  </h2>
 </div>

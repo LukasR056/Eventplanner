@@ -2,7 +2,14 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {EventService} from '../service/event.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
-import {AbstractControl, AsyncValidatorFn, FormBuilder, ValidationErrors, Validators, ValidatorFn} from '@angular/forms';
+import {
+  AbstractControl,
+  AsyncValidatorFn,
+  FormBuilder,
+  ValidationErrors,
+  Validators,
+  ValidatorFn
+} from '@angular/forms';
 import {UserService} from '../service/user.service';
 import {NgxMaterialTimepickerComponent} from 'ngx-material-timepicker';
 import {TagsService} from '../service/tags.service';
@@ -36,6 +43,7 @@ export class EventFormComponent implements OnInit {
   name: string;
   public parentProp = true;
   public eventPicNumber = false;
+  isEventplanner = true;
 
   constructor(private fb: FormBuilder, private http: HttpClient, private route: ActivatedRoute,
               private router: Router, private eventService: EventService, private userService: UserService,
@@ -77,6 +85,9 @@ export class EventFormComponent implements OnInit {
           this.eventFormGroup.patchValue(response);
           this.time = this.eventFormGroup.value.time;
           this.time = this.time.substring(0, 5);
+          if (Number(this.userId) != this.eventFormGroup.value.eventplanner) {
+            this.isEventplanner = false;
+          }
           if (this.eventFormGroup.value.pictures.length >= 10) {
             this.eventPicNumber = true;
           }
