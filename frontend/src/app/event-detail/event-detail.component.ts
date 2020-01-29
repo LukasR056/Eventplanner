@@ -90,7 +90,7 @@ export class EventDetailComponent implements OnInit {
         if ( (this.forumentries ? this.forumentries.length : -1) != response.length) {
           this.forumentries = response;
 
-          // sonst ist scrollHeight nicht die tatsächliche Höhe nach der Änderung 
+          // sonst ist scrollHeight nicht die tatsächliche Höhe nach der Änderung
           await new Promise( resolve => setTimeout(resolve, 100) );
 
           const scrollMe = document.getElementById('scrollMe');

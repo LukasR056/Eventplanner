@@ -116,11 +116,13 @@ export class FriendsListComponent implements OnInit {
   }
 
   removeFriend(id: any) {
-    this.userFormGroup.value.friends = this.userFormGroup.value.friends.filter(friend => friend !== id);
-    this.userService.updateUser(this.userFormGroup.value).subscribe(() => {
-      this.ngOnInit();
-      alert('Friend removed');
-    });
+
+    if (confirm('Are you sure you want to remove your friend?')) {
+      this.userFormGroup.value.friends = this.userFormGroup.value.friends.filter(friend => friend !== id);
+      this.userService.updateUser(this.userFormGroup.value).subscribe(() => {
+        this.ngOnInit();
+      });
+    }
   }
 
   getFriendForRequest(data) {
@@ -131,7 +133,7 @@ export class FriendsListComponent implements OnInit {
     if (this.idFriendRequested == undefined && sent == true) {
       return;
     }
-    alert('You successfully sent a friend request. They need to confirm it.');
+
     this.userFormGroup.value.friend_requests.forEach(request => {
       // RECEIVED --> (request_sent == false)
       if (request.request_sent == false && sent == false) {
@@ -148,6 +150,7 @@ export class FriendsListComponent implements OnInit {
       }
       // REQUESTED --> (request_sent == true)
       if (request.request_sent == true && sent == true) {
+        alert('You successfully sent a friend request. They need to confirm it.');
         id = this.idFriendRequested;
         this.friendRequestsFormGroup.value.id = request.id;
         this.friendRequestsFormGroup.value.request_sent = true;
