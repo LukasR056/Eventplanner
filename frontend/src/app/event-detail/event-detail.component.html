@@ -77,7 +77,7 @@
       </p>
       <p>
         <mat-icon style="vertical-align: middle">access_time</mat-icon>
-        {{event.date}} at {{event.time.substring(0, 5)}}
+        {{event.date | date:'dd MMM yyyy'}} at {{event.time.substring(0, 5)}}
       </p>
       This is a
 
@@ -148,7 +148,7 @@
                   {{task.description}}
                 </p>
                 <p>
-                  Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
+                  Deadline: {{task.deadline_date | date:'dd MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
                 </p>
                 <p *ngFor="let user of userOptions">
                   <span *ngIf="user.id==task.responsible">Responsible: <strong>@{{user.user.username}}</strong></span>
@@ -188,7 +188,7 @@
                   {{task.description}}
                 </p>
                 <p>
-                  Deadline: {{task.deadline_date | date:'dd. MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
+                  Deadline: {{task.deadline_date | date:'dd MMM yyyy'}} at {{task.deadline_time.substring(0, 5)}}
                 </p>
                 <p *ngFor="let user of userOptions">
                   <span *ngIf="user.id==task.responsible">Responsible: <strong>@{{user.user.username}}</strong></span>
