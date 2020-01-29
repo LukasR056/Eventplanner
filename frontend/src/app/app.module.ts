@@ -51,7 +51,7 @@ import {LogoutComponent} from './logout/logout.component';
 import {CalendarModule, DateAdapter} from 'angular-calendar';
 import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
-import {CalenderComponent} from './calender/calender.component';
+import {CalendarComponent} from './calendar/calendar.component';
 import {MediainputComponent} from './mediainput/mediainput.component';
 import {FileUploadModule} from 'ng2-file-upload';
 import {RegistrationComponent} from './registration/registration.component';
@@ -88,7 +88,7 @@ export function tokenGetter() {
     LogoutComponent,
     RegistrationComponent,
     CheckInvitationComponent,
-    CalenderComponent,
+    CalendarComponent,
     MediainputComponent,
     DialogOverviewExampleDialog,
     CheckTasksComponent,

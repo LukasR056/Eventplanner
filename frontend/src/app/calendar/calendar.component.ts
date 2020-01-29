@@ -20,11 +20,11 @@ interface eventInterface {
 }
 
 @Component({
-  selector: 'app-calender',
-  templateUrl: './calender.component.html',
-  styleUrls: ['./calender.component.scss']
+  selector: 'app-calendar',
+  templateUrl: './calendar.component.html',
+  styleUrls: ['./calendar.component.scss']
 })
-export class CalenderComponent implements AfterContentChecked {
+export class CalendarComponent implements AfterContentChecked {
     username: string;
     userId: number;
 

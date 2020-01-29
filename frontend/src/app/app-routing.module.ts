@@ -13,7 +13,7 @@ import {EventDetailComponent} from './event-detail/event-detail.component';
 import {FriendsListComponent} from './friends-list/friends-list.component';
 import {HomepageComponent} from './homepage/homepage.component';
 import {LoginComponent} from './login/login.component';
-import {CalenderComponent} from './calender/calender.component';
+import {CalendarComponent} from './calendar/calendar.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {AuthenticationGuard} from './guard/authentication.guard';
 import {CheckInvitationComponent} from './check-invitation/check-invitation.component';
@@ -38,7 +38,7 @@ const routes: Routes = [
   { path: 'friends-list', component: FriendsListComponent, canActivate: [AuthenticationGuard] },
   { path: 'homepage', component: HomepageComponent, canActivate: [AuthenticationGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'calender', component: CalenderComponent },
+  { path: 'calendar', component: CalendarComponent, canActivate: [AuthenticationGuard] },
   { path: 'tag-list', component: TagListComponent, canActivate: [AuthenticationGuard] },
   { path: 'registration', component: RegistrationComponent },
   { path: 'check-invitation', component: CheckInvitationComponent, canActivate: [AuthenticationGuard] },

@@ -11,6 +11,7 @@ import {EventService} from '../service/event.service';
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.scss']
 })
+// tslint:disable:triple-equals
 export class TaskFormComponent implements OnInit {
   taskFormGroup;
   userOptions: any[];
@@ -22,7 +23,8 @@ export class TaskFormComponent implements OnInit {
   oldTask: any;
 
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private eventService: EventService, private http: HttpClient, private route: ActivatedRoute, private taskService: TaskService) {
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService, private eventService: EventService,
+              private http: HttpClient, private route: ActivatedRoute, private taskService: TaskService) {
   }
 
   ngOnInit() {
@@ -38,7 +40,9 @@ export class TaskFormComponent implements OnInit {
     }
 
     this.userService.retrieveUserOptions().subscribe((result: any[]) => {
-      this.userOptions = result.filter(user => (this.taskService.currentEvent.participants ? this.taskService.currentEvent.participants.includes(user.id) : false) || user.id == this.taskService.currentEvent.eventplanner);
+      this.userOptions = result.filter(user =>
+        (this.taskService.currentEvent.participants ? this.taskService.currentEvent.participants.includes(user.id) : false)
+        || user.id == this.taskService.currentEvent.eventplanner);
     });
 
 
@@ -50,7 +54,7 @@ export class TaskFormComponent implements OnInit {
       verified_by_planner: [null],
       verified_by_participant: [null],
       status: ['', [Validators.required]],
-      deadline_date: ['', [Validators.required],],
+      deadline_date: ['', [Validators.required]],
       deadline_time: ['00:00', [Validators.required]],
       responsible: [this.userId, [Validators.required]],
       event: [null],
