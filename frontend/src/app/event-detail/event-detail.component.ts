@@ -88,7 +88,6 @@ export class EventDetailComponent implements OnInit {
     this.forumentryService.getForumentryWithEventId(id)
       .subscribe(async (response: any) => {
         if ( (this.forumentries ? this.forumentries.length : -1) != response.length) {
-          console.log(response.length);
           this.forumentries = response;
 
           // sonst ist scrollHeight nicht die tatsächliche Höhe nach der Änderung
